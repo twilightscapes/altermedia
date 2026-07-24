@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-theme-bg: var(--ps-bg);
+  --color-theme-surface: var(--ps-surface);
+  --color-theme-surface-border: var(--ps-surface-border);
+  --color-theme-surface-hover: var(--ps-surface-hover);
+  --color-theme-text: var(--ps-text);
+  --color-theme-muted: var(--ps-text-muted);
+  --color-theme-faint: var(--ps-text-faint);
+  --color-theme-primary: var(--ps-primary);
+  --color-theme-primary-hover: var(--ps-primary-hover);
+  --color-theme-accent: var(--ps-accent);
+  --color-theme-border: var(--ps-border);
+  --color-theme-input-bg: var(--ps-input-bg);
+  --color-theme-input-border: var(--ps-input-border);
+  --color-theme-tag: var(--ps-tag);
+  --color-theme-tag-text: var(--ps-tag-text);
+  --color-theme-card: var(--ps-card-bg);
+  --color-theme-card-border: var(--ps-card-border);
+  --color-theme-card-hover: var(--ps-card-hover);
+  --color-theme-header: var(--ps-header-bg);
+  --color-theme-footer: var(--ps-footer-bg);
+
+  --font-heading: var(--ps-font-heading);
+  --font-body: var(--ps-font-body);
+  --font-mono: var(--ps-font-mono);
+
+  --font-size-heading-scale: calc(1em * var(--ps-heading-scale, 1));
+  --font-size-body-scale: calc(1em * var(--ps-body-scale, 1));
+}
+
+html {
+  scrollbar-gutter: stable;
+}
+
+/* GLightbox captions: the default skin uses a white description panel and
+   inherits the page text color, which turns white-on-white in dark theme.
+   A lightbox sits on a near-black backdrop, so keep its chrome dark in
+   both themes. (!important: the CDN skin stylesheet loads after this.) */
+.glightbox-clean .gslide-description {
+  background: rgba(9, 8, 10, 0.95) !important;
+}
+.glightbox-clean .gslide-title {
+  color: #f4f4f5 !important;
+}
+.glightbox-clean .gslide-desc {
+  color: #d4d4d8 !important;
+}
+
+/* GLightbox on phones: the stock skin parks prev/next off-screen
+   (top:-100%) below 769px, puts the 35px close button at top:15px —
+   under the notch/status bar in standalone PWAs, leaving no visible way
+   to close — and lets long captions cover the whole photo. */
+.glightbox-clean .gclose {
+  top: calc(env(safe-area-inset-top, 0px) + 12px) !important;
+  right: calc(env(safe-area-inset-right, 0px) + 12px) !important;
+  width: 44px !important;
+  height: 44px !important;
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.55) !important;
+  border-radius: 50% !important;
+}
+.glightbox-clean .gprev,
+.glightbox-clean .gnext {
+  top: 45% !important;
+}
+.glightbox-mobile .glightbox-container .gslide-description {
+  max-height: 35vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: rgba(9, 8, 10, 0.85) !important;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+}

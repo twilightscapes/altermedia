@@ -1,0 +1,31 @@
+{
+  "github": "your-username",
+  "camera": "",
+  "bio": "I take photos of things.",
+  "showDates": true,
+  "mastodon": "",
+  "author": "Photographer",
+  "logo": {
+    "type": "text",
+    "image": "",
+    "text": ""
+  },
+  "enableSocial": true,
+  "navStyle": "float",
+  "instagram": "",
+  "location": "",
+  "title": "My Photo Site",
+  "avatar": "",
+  "description": "A photography site on the Pirate Social network",
+  "cloudinary": {
+    "enabled": false,
+    "cloudName": "",
+    "apiKey": ""
+  },
+  "giphyKey": "",
+  "atproto": {
+    "handle": "",
+    "did": "",
+    "comments": true
+  }
+}

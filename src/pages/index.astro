@@ -1,0 +1,781 @@
+---
+import AlterBase from '../layouts/AlterBase.astro';
+import alterData from '../content/alter/sections.json';
+import page from '../content/alter/page.json';
+
+const sections = alterData.sections;
+
+// Flip to true to see briefs for shots that haven't been captured yet.
+const SHOW_SHOT_PLACEHOLDERS = false;
+
+/**
+ * Inline shots are capped by *height*, not width, so a portrait 3/4 close-up
+ * doesn't render a metre tall next to a landscape one.
+ */
+const INLINE_SHOT_CAP = 430;
+function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
+  const [w, h] = ratio.split('/').map((n) => Number(n.trim()));
+  const maxW = Number.isFinite(w) && Number.isFinite(h) && h > 0
+    ? Math.round(cap * (w / h))
+    : 0;
+  return `--ratio: ${ratio};` + (maxW ? ` max-width: min(100%, ${maxW}px);` : '');
+}
+---
+
+<AlterBase
+  title={page.title}
+  description={page.description}
+  image="/og-alter.webp"
+  imageAlt="The ALTer app on macOS. A purple-sky photo of the Moulton barn below the Tetons fills the viewer, with the Adjust panel open on the right showing a live RGB histogram and Light, Color, and Detail sliders. The library sidebar lists All Media, No ALT Text, Flagged, Videos, and Animated, and the filmstrip below marks thumbnails with green ALT badges. The ALTer app icon — the word ALTer on a blue-to-purple gradient — sits in the lower right corner."
+>
+  <div class="as">
+    <!-- ── Hero ──────────────────────────────────────────────────────── -->
+    <header class="as-hero reveal">
+      <img
+        class="as-appicon"
+        src="/images/alter-icon.png"
+        alt="ALTer app icon — the word ALTer on a blue-to-purple gradient"
+        width="112"
+        height="112"
+      />
+      <h1>ALTer</h1>
+      <p class="as-tagline">{page.tagline}</p>
+      <p class="as-lede">
+        Your photos and videos stay exactly where they live. ALTer references
+        them, never absorbs them, and gives you everything on top — adjustments
+        with a live histogram, a full-resolution loupe, brushed edits and
+        before/after compare, a real timeline editor, live web capture,
+        descriptions for photos <em>and</em> video, accessible galleries you
+        host yourself, and Bluesky posting where every image carries its ALT
+        text automatically.
+      </p>
+      <p class="as-cta">
+        <a class="as-btn" href={page.downloadUrl}>Download ALTer</a>
+        <a class="as-btn as-btn-quiet" href="#beta">Read about the beta</a>
+      </p>
+      <p class="as-fine">
+        macOS 13 or later · Apple Silicon &amp; Intel · everything bundled,
+        nothing to install
+      </p>
+
+      <img
+        class="as-shot-img as-shot-hero"
+        src="/images/alter/hero-split-adjust.webp"
+        alt="ALTer in Split View: a floodlit sandstone rock formation under a night sky fills the viewer, a filmstrip of rated landscape thumbnails runs below it, and the Adjust panel on the right shows a live RGB histogram over the Exposure, Contrast, Saturation, Vibrance, Warmth, Tint, and Sharpen sliders. The tray under the photo offers Grid, Playground, Crop, and Retouch."
+        width="1200"
+        height="770"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </header>
+
+    <!-- ── Section nav ───────────────────────────────────────────────── -->
+    <nav class="as-jump reveal" aria-label="Jump to a section">
+      {sections.map((s) => <a href={`#${s.id}`}>{s.eyebrow}</a>)}
+      <a href="#beta">Beta</a>
+    </nav>
+
+    <!-- ── Vignettes ─────────────────────────────────────────────────── -->
+    {
+      sections.map((section) => (
+        <section class="as-section" id={section.id}>
+          <div class="as-intro reveal">
+            <p class="as-eyebrow">{section.eyebrow}</p>
+            <h2>{section.title}</h2>
+            <p class="as-lede" set:html={section.lede} />
+          </div>
+
+          {section.hero.src ? (
+            <img
+              class="as-shot-img reveal"
+              src={section.hero.src}
+              alt={section.hero.alt}
+              width={Math.round((section.hero.w ?? 0) / 2)}
+              height={Math.round((section.hero.h ?? 0) / 2)}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : SHOW_SHOT_PLACEHOLDERS ? (
+            <div class="as-shot reveal" style={`--ratio: ${section.hero.ratio ?? '16 / 10'}`}>
+              <span class="as-shot-tag">Shot needed</span>
+              <p>{section.hero.brief}</p>
+            </div>
+          ) : null}
+
+          <div class="as-chapters">
+            {section.chapters.map((ch, i) => (
+              <details class="as-chapter reveal" open={i === 0}>
+                <summary>
+                  <span class="as-chapter-title">{ch.title}</span>
+                  <span class="as-chevron" aria-hidden="true" />
+                </summary>
+                <div class="as-chapter-body">
+                  {ch.body.map((p) => (
+                    <p set:html={p} />
+                  ))}
+
+                  {ch.specs && (
+                    <dl class="as-specs">
+                      {ch.specs.map((s) => (
+                        <div class="as-spec">
+                          <dt>{s.label}</dt>
+                          <dd>{s.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  )}
+
+                  {ch.shots?.map((shot) =>
+                    shot.src ? (
+                      <img
+                        class="as-shot-img as-shot-img-inline"
+                        src={shot.src}
+                        alt={shot.alt}
+                        width={Math.round((shot.w ?? 0) / 2)}
+                        height={Math.round((shot.h ?? 0) / 2)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : SHOW_SHOT_PLACEHOLDERS ? (
+                      <div class="as-shot as-shot-inline" style={shotStyle(shot.ratio ?? '16 / 9')}>
+                        <span class="as-shot-tag">Shot needed</span>
+                        <p>{shot.brief}</p>
+                      </div>
+                    ) : null
+                  )}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+
+    <!-- ── Beta ──────────────────────────────────────────────────────── -->
+    <section class="as-section as-beta reveal" id="beta">
+      <div class="as-intro">
+        <p class="as-eyebrow">The beta</p>
+        <h2>ALTer <span class="as-badge">beta</span></h2>
+        <p class="as-lede">
+          ALTer is in free public beta. Everything on this page is in the build
+          you can download right now — including the parts that are normally
+          paid, which are unlocked for everyone while the beta runs.
+        </p>
+      </div>
+
+      <p class="as-cta">
+        <a class="as-btn" href={page.downloadUrl}>Download ALTer beta for Mac</a>
+      </p>
+      <p class="as-fine">
+        {page.betaLine}
+      </p>
+
+      <div class="as-chapters">
+        <details class="as-chapter" open>
+          <summary>
+            <span class="as-chapter-title">What's inside</span>
+            <span class="as-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="as-chapter-body">
+            <ul class="as-list">
+              <li>
+                <strong>A real library</strong> — referenced originals, folders,
+                albums, ratings, flags, filters, fast sorting, and search across
+                every metadata field. Videos are first-class citizens.
+              </li>
+              <li>
+                <strong>Pro editing</strong> — light, white balance, color, and
+                detail with a live RGB histogram; a full-resolution Loupe;
+                brushed adjustments you paint exactly where you want them; a
+                white-balance eyedropper; crop, straighten, rotate, and
+                click-to-heal retouch; before/after compare — all
+                non-destructive recipes that never touch your files.
+              </li>
+              <li>
+                <strong>The timeline editor</strong> — cut clips from <em>any number of videos</em> into one sequence; layer styled
+                text, images, other videos, and audio; keyframe with easing; type
+                text right on the canvas. Animated GIFs join the timeline as
+                clips. What you preview is exactly what exports.
+              </li>
+              <li>
+                <strong>Web layers</strong> — load any web page live inside ALTer
+                and capture it as a layer: a snapshot for stills, or a timed
+                recording that drops in as video you can trim, keyframe, and
+                animate like anything else.
+              </li>
+              <li>
+                <strong>Grade &amp; track</strong> — color-grade any clip or the
+                whole edit right in the timeline tray, and one click writes
+                keyframes that pin a sticker to a face as it moves through your
+                footage.
+              </li>
+              <li>
+                <strong>AI descriptions</strong> — one click describes photos and
+                videos: titles, captions, and embedded accessibility text, with
+                video speech transcribed privately on your Mac and woven into the
+                description.
+              </li>
+              <li>
+                <strong>Publish anywhere</strong> — accessible web galleries to
+                your own GitHub Pages, Apple&nbsp;TV via the Twilightscapes app,
+                Bluesky posts with scheduling and engagement stats, and a
+                one-click hand-off to the X composer.
+              </li>
+              <li>
+                <strong>VoiceOver throughout</strong> — generated ALT text is read
+                aloud, the grid announces which photos still need descriptions,
+                and the timeline editor is labelled end to end.
+              </li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="as-chapter">
+          <summary>
+            <span class="as-chapter-title">Beta notes</span>
+            <span class="as-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="as-chapter-body">
+            <ul class="as-list">
+              <li>
+                It's a beta — keep backups like a pro. Your pixels are never
+                modified: adjustments render into exports and galleries only.
+                Metadata (ALT&nbsp;text, titles, captions, keywords) is written
+                into your files — automatically by default, or only on
+                Save&nbsp;Metadata&nbsp;to&nbsp;Files&nbsp;(⌘S) if you turn
+                autosave off in Settings.
+              </li>
+              <li>
+                Found something broken or missing? Tell us with the form below —
+                it comes straight to us.
+              </li>
+            </ul>
+
+            <form
+              class="beta-form"
+              name="alter-beta"
+              method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              action="/alter-sent/"
+            >
+              <input type="hidden" name="form-name" value="alter-beta" />
+              <p class="hp" hidden aria-hidden="true">
+                <label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+              </p>
+
+              <div class="beta-field">
+                <label for="beta-email">Email <span class="beta-opt">(optional, so we can reply)</span></label>
+                <input id="beta-email" name="email" type="email" autocomplete="email" />
+              </div>
+
+              <div class="beta-field">
+                <label for="beta-version">ALTer version <span class="beta-opt">(optional — it's in Settings, bottom line)</span></label>
+                <input id="beta-version" name="version" type="text" placeholder="e.g. 0.9.10" />
+              </div>
+
+              <div class="beta-field">
+                <label for="beta-message">What happened? <span class="beta-req">(required)</span></label>
+                <textarea id="beta-message" name="message" required aria-required="true"
+                  placeholder="What broke, what's missing, or what surprised you?"></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary">Send bug report</button>
+            </form>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ── Close ─────────────────────────────────────────────────────── -->
+    <section class="as-close reveal">
+      <h2>Everything described. Nothing locked in.</h2>
+      <p class="as-lede">
+        Your originals stay yours, in place, in their own folders. Your galleries
+        publish to your own domain. Your library is a catalog you can walk away
+        from. ALTer earns its place by being useful, not by holding your work
+        hostage.
+      </p>
+      <p class="as-cta">
+        <a class="as-btn" href={page.downloadUrl}>Download ALTer for Mac</a>
+      </p>
+      <p class="as-fine">Free during the beta · macOS 13 or later</p>
+    </section>
+  </div>
+</AlterBase>
+
+<!--
+  Dark-only. global.css repaints its tokens under prefers-color-scheme: light,
+  which would flip this page (and the shared nav/footer) to a light theme on a
+  Mac set to Light. Re-pin the tokens here so the whole page stays dark
+  regardless of system setting. Page-scoped: no other route imports this.
+-->
+<style is:global>
+  html:root,
+  html:root body {
+    --bg: #08090c;
+    --surface: #101318;
+    --surface-2: #171b22;
+    --border: #262c36;
+    --text: #edf1f6;
+    --muted: #98a2b1;
+    --accent: #6f9bff;
+    --accent-strong: #4f7ce8;
+    color-scheme: dark;
+  }
+</style>
+
+<style>
+  /* ── Page tokens ───────────────────────────────────────────────────── */
+  .as {
+    --as-max: 1080px;
+    --as-text: #edf1f6;
+    --as-muted: #98a2b1;
+    --as-dim: #6f7987;
+    --as-accent: #6f9bff;
+    --as-violet: #a77dff;
+    --as-line: #262c36;
+    --as-panel: #101318;
+    --as-panel-2: #161a21;
+
+    max-width: var(--as-max);
+    margin: 0 auto;
+    padding: 0 24px 120px;
+    color: var(--as-text);
+  }
+
+  .as :is(h1, h2, h3) {
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .as-lede {
+    color: var(--as-muted);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 62ch;
+    text-wrap: pretty;
+  }
+  .as-lede em { color: var(--as-text); font-style: italic; }
+
+  .as-fine {
+    color: var(--as-dim);
+    font-size: 0.85rem;
+    margin-top: 14px;
+  }
+
+  /* ── Hero ──────────────────────────────────────────────────────────── */
+  .as-hero {
+    text-align: center;
+    padding: 64px 0 40px;
+  }
+  .as-appicon {
+    border-radius: 26px;
+    box-shadow: 0 18px 60px rgba(110, 90, 240, 0.35);
+  }
+  .as-hero h1 {
+    font-size: clamp(3.2rem, 11vw, 6.5rem);
+    font-weight: 800;
+    margin: 18px 0 0;
+    background: linear-gradient(135deg, #ffffff 20%, var(--as-accent) 65%, var(--as-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .as-tagline {
+    font-size: clamp(1.3rem, 3.4vw, 1.9rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 6px 0 22px;
+  }
+  .as-hero .as-lede { margin: 0 auto; }
+
+  .as-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin: 30px 0 0;
+  }
+  .as-btn {
+    display: inline-block;
+    background: var(--as-accent);
+    color: #06080d;
+    font-weight: 650;
+    text-decoration: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+  .as-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(111, 155, 255, 0.3);
+  }
+  .as-btn-quiet {
+    background: transparent;
+    color: var(--as-text);
+    border-color: var(--as-line);
+  }
+  .as-btn-quiet:hover { border-color: var(--as-accent); box-shadow: none; }
+
+  /* ── Jump nav ──────────────────────────────────────────────────────── */
+  .as-jump {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 12px 0;
+    margin: 40px 0 8px;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(180%) blur(16px);
+    -webkit-backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid var(--as-line);
+  }
+  .as-jump::-webkit-scrollbar { display: none; }
+  .as-jump a {
+    flex: 0 0 auto;
+    color: var(--as-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 550;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+  .as-jump a:hover {
+    color: var(--as-text);
+    background: var(--as-panel-2);
+    border-color: var(--as-line);
+  }
+
+  /* ── Sections ──────────────────────────────────────────────────────── */
+  .as-section {
+    padding: 96px 0 24px;
+    scroll-margin-top: 72px;
+  }
+  .as-intro { max-width: 66ch; margin-bottom: 34px; }
+  .as-eyebrow {
+    color: var(--as-accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 12px;
+  }
+  .as-section h2 {
+    font-size: clamp(2.1rem, 5.6vw, 3.6rem);
+    font-weight: 750;
+    margin-bottom: 18px;
+  }
+
+  /* ── Shot placeholders ─────────────────────────────────────────────── */
+  .as-shot {
+    aspect-ratio: var(--ratio, 16 / 9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+    padding: 28px;
+    border: 1px dashed var(--as-line);
+    border-radius: 18px;
+    background:
+      radial-gradient(120% 120% at 50% 0%, rgba(111, 155, 255, 0.07), transparent 62%),
+      var(--as-panel);
+    margin: 0 0 8px;
+  }
+  .as-shot p {
+    color: var(--as-dim);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    max-width: 56ch;
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .as-shot-tag {
+    color: var(--as-accent);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: 1px solid color-mix(in srgb, var(--as-accent) 40%, transparent);
+    border-radius: 999px;
+    padding: 3px 10px;
+  }
+  /* Captured shots: rendered at half native pixels (retina-sharp), capped
+     by the column. Same silhouette as the placeholder boxes they replace. */
+  .as-shot-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 18px;
+    border: 1px solid var(--as-line);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+    margin: 0 auto 8px;
+  }
+  .as-shot-img-inline { margin-top: 24px; }
+
+  .as-shot-hero { margin-top: 56px; }
+  .as-shot-inline {
+    margin-top: 24px;
+    /* max-width comes from shotStyle() — height-capped per aspect ratio. */
+    margin-inline: auto;
+  }
+
+  /* ── Chapters (collapsibles) ───────────────────────────────────────── */
+  .as-chapters {
+    margin-top: 34px;
+    border-top: 1px solid var(--as-line);
+  }
+  .as-chapter { border-bottom: 1px solid var(--as-line); }
+  .as-chapter summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    cursor: pointer;
+    padding: 22px 4px;
+    list-style: none;
+    user-select: none;
+  }
+  .as-chapter summary::-webkit-details-marker { display: none; }
+  .as-chapter summary:focus-visible {
+    outline: 2px solid var(--as-accent);
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+  .as-chapter-title {
+    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+  .as-chapter summary:hover .as-chapter-title { color: var(--as-accent); }
+
+  .as-chevron {
+    flex: 0 0 auto;
+    width: 11px;
+    height: 11px;
+    border-right: 2px solid var(--as-muted);
+    border-bottom: 2px solid var(--as-muted);
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+  .as-chapter[open] .as-chevron {
+    transform: rotate(-135deg) translate(-2px, -2px);
+    border-color: var(--as-accent);
+  }
+
+  .as-chapter-body {
+    padding: 0 4px 30px;
+    max-width: 68ch;
+  }
+  .as-chapter-body p {
+    color: var(--as-muted);
+    line-height: 1.68;
+    margin: 0 0 14px;
+    text-wrap: pretty;
+  }
+  .as-chapter-body strong { color: var(--as-text); font-weight: 650; }
+  .as-chapter-body em { color: var(--as-text); font-style: italic; }
+
+  .as-chapter-body :is(kbd, code) {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.84em;
+    color: var(--as-text);
+    background: var(--as-panel-2);
+    border: 1px solid var(--as-line);
+    border-radius: 6px;
+    padding: 1px 6px;
+    white-space: nowrap;
+  }
+
+  .as-chapter-body .as-shot { max-width: none; }
+
+  /* Chapter bodies animate open where the browser can interpolate it. */
+  @supports (interpolate-size: allow-keywords) {
+    :root { interpolate-size: allow-keywords; }
+    .as-chapter::details-content {
+      block-size: 0;
+      overflow: clip;
+      opacity: 0;
+      transition: block-size 0.32s ease, opacity 0.32s ease, content-visibility 0.32s allow-discrete;
+    }
+    .as-chapter[open]::details-content { block-size: auto; opacity: 1; }
+  }
+
+  /* ── Spec grid ─────────────────────────────────────────────────────── */
+  .as-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1px;
+    background: var(--as-line);
+    border: 1px solid var(--as-line);
+    border-radius: 14px;
+    overflow: hidden;
+    margin: 20px 0 4px;
+  }
+  .as-spec { background: var(--as-panel); padding: 14px 16px; }
+  .as-specs dt {
+    color: var(--as-dim);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .as-specs dd {
+    color: var(--as-text);
+    font-size: 0.93rem;
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  /* ── Beta + close ──────────────────────────────────────────────────── */
+  .as-beta {
+    border: 1px solid var(--as-line);
+    border-radius: 24px;
+    padding: 56px 34px 34px;
+    margin-top: 96px;
+    background:
+      radial-gradient(100% 120% at 50% 0%, rgba(167, 125, 255, 0.09), transparent 60%),
+      var(--as-panel);
+  }
+  .as-beta .as-cta { justify-content: flex-start; }
+  .as-badge {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.34em;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--as-accent), var(--as-violet));
+    color: #06080d;
+    border-radius: 8px;
+    padding: 5px 10px;
+    margin-left: 10px;
+  }
+  .as-list { margin: 0; padding-left: 1.15rem; }
+  .as-list li {
+    color: var(--as-muted);
+    line-height: 1.68;
+    margin-bottom: 12px;
+  }
+  .as-list strong { color: var(--as-text); font-weight: 650; }
+
+  /* Beta bug-report form (Netlify) */
+  .beta-form {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.1rem;
+    max-width: 34rem;
+  }
+  .beta-field { display: grid; gap: 0.3rem; }
+  .beta-field label { color: var(--as-text); font-weight: 600; font-size: 0.92rem; }
+  .beta-opt { color: var(--as-muted); font-weight: 400; font-size: 0.85rem; }
+  .beta-req { color: var(--as-accent, var(--accent)); font-weight: 400; font-size: 0.85rem; }
+  .beta-field input,
+  .beta-field textarea {
+    width: 100%;
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 0.75rem;
+    font-family: var(--font);
+    font-size: 0.95rem;
+  }
+  .beta-field textarea { min-height: 120px; resize: vertical; }
+  .beta-field input:focus-visible,
+  .beta-field textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .beta-form .btn-primary { justify-self: start; }
+
+  .as-close {
+    text-align: center;
+    padding: 120px 0 40px;
+  }
+  .as-close h2 {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    font-weight: 750;
+    margin-bottom: 20px;
+  }
+  .as-close .as-lede { margin: 0 auto; }
+
+  /* ── Scroll reveal ─────────────────────────────────────────────────── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.is-in { opacity: 1; transform: none; }
+
+  /* The sticky nav must never be translated out from under the header. */
+  .as-jump.reveal { transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .as-chapter::details-content { transition: none; }
+    .as-btn { transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    .as { padding: 0 18px 80px; }
+    .as-section { padding-top: 68px; }
+    .as-beta { padding: 40px 20px 24px; border-radius: 18px; }
+    .as-shot { padding: 20px; border-radius: 14px; }
+    .as-cta { justify-content: stretch; }
+    .as-btn { flex: 1 1 auto; text-align: center; }
+  }
+</style>
+
+<script>
+  // Reveal-on-scroll. CSS handles the animation; this only flips the class.
+  // Anything already on screen at load reveals immediately, so the hero never
+  // sits blank waiting for a scroll that may not come.
+  const targets = document.querySelectorAll<HTMLElement>('.reveal');
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      },
+      // threshold 0: fire the moment any sliver crosses the line. A ratio-based
+      // threshold is wrong here — a 2800px section can only ever reach ~25%
+      // visibility in a 720px viewport, so anything above a few percent leaves
+      // tall sections invisible long after they should have appeared.
+      { rootMargin: '0px 0px -8% 0px', threshold: 0 }
+    );
+    targets.forEach((el) => io.observe(el));
+  } else {
+    targets.forEach((el) => el.classList.add('is-in'));
+  }
+
+  // Opening a collapsed chapter should bring its heading to a comfortable
+  // reading position rather than leaving it pinned under the sticky nav.
+  document.querySelectorAll<HTMLDetailsElement>('.as-chapter').forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (!d.open) return;
+      const top = d.getBoundingClientRect().top;
+      if (top < 80 || top > window.innerHeight * 0.72) {
+        d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+</script>

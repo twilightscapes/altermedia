@@ -1,0 +1,1053 @@
+{
+  "sections": [
+    {
+      "id": "library",
+      "eyebrow": "The library",
+      "title": "Your photos never move.",
+      "lede": "ALTer references your originals exactly where they already live — on the internal drive, the big external, the NAS. It builds a catalog around them and leaves the files alone. Nothing is absorbed, nothing is duplicated, nothing is rewritten behind your back.",
+      "hero": {
+        "ratio": "16 / 10",
+        "brief": "Full app window, Browser view, dark UI. A dense grid of mixed photos and video thumbnails at ~180px, sidebar open on the left showing All Media / No ALT Text / Flagged / Videos / Animated / Recently Added plus a few folders and albums, inspector open on the right. Several cells should show badges: a green ALT pill, a star row, an orange flag, a play badge.",
+        "src": "/images/alter/library-browser.webp",
+        "alt": "ALTer’s Browser view: a grid of landscape photos wearing star ratings, orange flags, and green ALT badges. The sidebar lists All Media (77), No ALT Text (12), Flagged, Videos, Animated, and Recently Added plus folders and an album. The inspector shows a photo titled Moulton Barn Sunset with its full caption and on-device suggested keywords like outdoor, sky, and barn.",
+        "w": 2400,
+        "h": 1540
+      },
+      "chapters": [
+        {
+          "title": "A catalog, not a container",
+          "body": [
+            "A library is a single <strong>.alterlib</strong> bundle holding a SQLite catalog of absolute paths. Move ALTer to another Mac and point it back at your drives and everything reconnects. There is no proprietary vault to escape from later.",
+            "The one and only operation that touches an original is <strong>Move File to Trash</strong>, and it asks first. <em>Remove from Library</em> just un-indexes. If a drive comes back on a different mount point, <strong>Locate / Relink Folder</strong> rewrites the path prefix for every photo underneath it in one pass."
+          ],
+          "specs": [
+            {
+              "label": "Library format",
+              "value": ".alterlib bundle · versioned SQLite catalog"
+            },
+            {
+              "label": "Images",
+              "value": "JPG · PNG · WebP · TIFF · HEIC · HEIF · GIF · BMP"
+            },
+            {
+              "label": "Camera RAW",
+              "value": "CR2 · CR3 · NEF · ARW · DNG · RAF · ORF · RW2 & more"
+            },
+            {
+              "label": "Video",
+              "value": "MOV · MP4 · M4V · AVI · MPG · MPEG"
+            },
+            {
+              "label": "Originals modified",
+              "value": "Never, except explicit Move to Trash"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "Close-up of the sidebar alone, showing the source list with the count badges on All Media and No ALT Text.",
+              "src": "/images/alter/library-sidebar.webp",
+              "alt": "The sidebar source list: All Media with a count of 77, No ALT Text with 12, Flagged, Videos, Animated, and Recently Added under Library; Posts under Publish; two folders; and an album.",
+              "w": 480,
+              "h": 1700
+            },
+            {
+              "ratio": "3 / 2",
+              "brief": "A grid cell in the \"Original missing\" placeholder state, with the relink tooltip visible."
+            }
+          ]
+        },
+        {
+          "title": "Getting media in",
+          "body": [
+            "Import files or whole folders with <kbd>⌘I</kbd>, drag them onto the window, or pull straight from your Photos library with <kbd>⇧⌘I</kbd>. Folder imports recurse and skip hidden files. Everything you just brought in arrives selected, and the grid scrolls to reveal it.",
+            "The Photos import runs through the system picker, so ALTer never asks for blanket access to your Photos library. You choose the photos, ALTer asks where to put them, and from that moment they are referenced like anything else.",
+            "Originals parked in iCloud come down automatically. ALTer detects a dataless placeholder and materializes it before it builds a thumbnail, describes it, exports it, or renders it into a gallery — you never get a mystery failure on an evicted file."
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 2",
+              "brief": "The import progress state in the status bar during a large folder import."
+            }
+          ]
+        },
+        {
+          "title": "Rate, flag, filter, search",
+          "body": [
+            "Stars <kbd>⌥⌘0</kbd>–<kbd>⌥⌘5</kbd>, flags <kbd>⌘'</kbd>, applied across a whole selection. Ratings and flags live in the catalog, so a fast pass over a shoot never rewrites a single file.",
+            "Filter the grid to <strong>Starred</strong> at any threshold, <strong>Flagged</strong>, <strong>Videos</strong>, <strong>Animated</strong>, <strong>Adjusted</strong>, <strong>Has Location</strong> or <strong>No Location</strong> — and, because this is ALTer, <strong>Has ALT Text</strong> and <strong>Missing ALT Text</strong>. That last one is the whole workflow in a single click.",
+            "And search. <kbd>⌘F</kbd> jumps to the search field, and it reads everything a person might remember about a photo: filename, title, caption, keywords, ALT text, creator. Type two words and both must match. Search composes with the filters — <em>Missing ALT Text</em> plus a search term is exactly the triage view you want.",
+            "Sort by Name, Date Imported, File Date, or Rating, ascending or descending. Your choice persists, along with window size, column widths, filmstrip height, and thumbnail size."
+          ],
+          "specs": [
+            {
+              "label": "Selection",
+              "value": "Click · ⌘-click · ⇧-click range · ⌘A · marquee drag"
+            },
+            {
+              "label": "Search",
+              "value": "⌘F · filename, title, caption, keywords, ALT text, creator"
+            },
+            {
+              "label": "Views",
+              "value": "Browser ⌘1 · Split ⌘2 · Viewer ⌘3"
+            },
+            {
+              "label": "Thumbnails",
+              "value": "110–260 px, live slider"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "The filter menu open in the browser bar, showing the full filter list with the Starred submenu expanded.",
+              "src": "/images/alter/library-filter-menu.webp",
+              "alt": "The filter menu open over the photo grid: All checked, then Flagged, Videos, Animated, Has Location, No Location, Has ALT Text, Missing ALT Text, Adjusted, and Playground, with the Starred submenu expanded to show one-star-and-up through five-star thresholds.",
+              "w": 2000,
+              "h": 1499
+            },
+            {
+              "ratio": "21 / 9",
+              "brief": "The browser bar with a search term typed in the search field (accent-ringed, focused) and the grid narrowed to a handful of matching results.",
+              "src": "/images/alter/library-search.webp",
+              "alt": "The browser bar with “canyon” typed into the search field and the grid narrowed to two canyon photographs; the status bar reads 2 shown.",
+              "w": 2000,
+              "h": 857
+            },
+            {
+              "ratio": "16 / 9",
+              "brief": "Split View: viewer on top with a photo, resizable filmstrip below, one cell mid-marquee-selection."
+            }
+          ]
+        },
+        {
+          "title": "Metadata that lands in the file",
+          "body": [
+            "Six fields — ALT text, Title, Caption, Keywords, Creator, Copyright — written to the standards that actually get read. ALT text goes to <strong>XMP-iptcCore:AltTextAccessibility</strong>. Title writes both XMP-dc:Title and IPTC:ObjectName. Caption writes XMP-dc:Description and IPTC:Caption-Abstract. UTF-8 throughout.",
+            "Edits cache to the catalog the instant you make them and write to disk 2.5 seconds after you stop typing. Prefer to control it yourself? Switch to manual in Settings and <kbd>⌘S</kbd> flushes every pending change library-wide. An orange dot on a cell means \"not written yet.\"",
+            "Select many photos and set Creator, Copyright, or Keywords across all of them at once — with an <em>add to existing keywords</em> toggle so a batch pass builds up instead of flattening what is already there."
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 4",
+              "brief": "The Info tab of the inspector, close, showing the six metadata fields filled in, with the EXIF readout below (camera, lens, exposure, aperture, ISO, focal length) and the mini-map."
+            },
+            {
+              "ratio": "16 / 9",
+              "brief": "Multi-selection inspector in batch mode, with the \"Add to existing keywords\" toggle visible.",
+              "src": "/images/alter/library-batch-inspector.webp",
+              "alt": "Nine night landscapes selected in the grid, each outlined and badged ALT. The inspector reads “9 photos selected” above Generate ALT Text for 9 and Apply Snippet to 9, then an Apply to All Selected section with Creator, Copyright, and Keywords fields and a checked “Add to existing keywords (instead of replacing)” toggle.",
+              "w": 2400,
+              "h": 1540
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "adjust",
+      "eyebrow": "Adjust",
+      "title": "Seven sliders. No black boxes.",
+      "lede": "Every adjustment is a recipe stored beside the photo, never baked into it. The grid, the filmstrip, the viewer, and the histogram all repaint live as you drag. Your original file is byte-for-byte untouched at the end of it.",
+      "hero": {
+        "ratio": "16 / 10",
+        "brief": "Split View with the Adjust panel open on the right. A rich, colorful photo in the viewer. The three slider groups (LIGHT / COLOR / DETAIL) visible with a couple of sliders pushed off-neutral showing their accent-colored delta values, and the RGB histogram at the top of the panel.",
+        "src": "/images/alter/adjust-hero.webp",
+        "alt": "Split View while editing: a weathered barn stands before the Teton range under a vivid purple and pink sunset. The Adjust panel on the right shows a live RGB histogram above the LIGHT, COLOR, and DETAIL groups, with Exposure, Contrast, Vibrance, and Warmth showing accent-coloured values where they have been moved. A note underneath reads “Originals are never changed — adjustments render into exports and galleries.”",
+        "w": 2400,
+        "h": 1540
+      },
+      "chapters": [
+        {
+          "title": "Light, White Balance, Color, Detail",
+          "body": [
+            "Exposure, Contrast, Highlights, and Shadows under <strong>LIGHT</strong>. Warmth and Tint stand on their own under <strong>WHITE BALANCE</strong>. Saturation and Vibrance under <strong>COLOR</strong>. Sharpen under <strong>DETAIL</strong>. Each slider runs over a gradient track that shows you what it does — Warmth fades blue through white to amber, Tint green through white to magenta.",
+            "Highlights pulls blown skies back down; Shadows lifts what is buried or crushes it further. Every row carries a monospaced signed value that turns accent-colored the moment it leaves neutral, so you can see at a glance what you touched. Double-click any value to snap it back."
+          ],
+          "specs": [
+            {
+              "label": "Exposure",
+              "value": "−2 … +2 EV"
+            },
+            {
+              "label": "Contrast",
+              "value": "0.5 … 1.5"
+            },
+            {
+              "label": "Highlights",
+              "value": "0 … 1 · recover blown detail"
+            },
+            {
+              "label": "Shadows",
+              "value": "−1 … +1 · crush or open"
+            },
+            {
+              "label": "Warmth / Tint",
+              "value": "−100 … +100 each"
+            },
+            {
+              "label": "Saturation / Vibrance",
+              "value": "0 … 2 · −1 … +1"
+            },
+            {
+              "label": "Sharpen",
+              "value": "0 … 1"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 4",
+              "brief": "Tight crop of the adjustments panel — all seven sliders, gradient tracks clearly visible, two or three showing off-neutral accent-colored deltas.",
+              "src": "/images/alter/adjust-panel.webp",
+              "alt": "The adjustments panel: a live RGB histogram above three groups — LIGHT with Exposure and Contrast, COLOR with Saturation, Vibrance, Warmth and Tint, DETAIL with Sharpen. Each slider sits over a gradient track showing what it does, and Exposure, Vibrance, Warmth and Sharpen display accent-colored values because they have been moved off neutral.",
+              "w": 941,
+              "h": 1200
+            }
+          ]
+        },
+        {
+          "title": "A histogram you can actually read",
+          "body": [
+            "Sixty-four bins per channel, red green and blue screen-blended over a faint luminance base. Counts are square-rooted so a single blown spike does not flatten everything else into a flat line — the shape of your midtones stays legible.",
+            "It reads the <em>adjusted</em> image, not the original, and recomputes on every slider move."
+          ],
+          "shots": [
+            {
+              "ratio": "2 / 1",
+              "brief": "Extreme close-up of the histogram alone, on an image with strong color separation so the R/G/B curves are clearly distinct.",
+              "src": "/images/alter/adjust-histogram.webp",
+              "alt": "Close-up of the RGB histogram: red, green and blue curves screen-blended over a faint luminance base, with distinct peaks in the shadows and a long tail of red running out into the highlights.",
+              "w": 1200,
+              "h": 335
+            }
+          ]
+        },
+        {
+          "title": "Crop, straighten, rotate",
+          "body": [
+            "Hit <strong>Crop</strong> in the viewer and the frame becomes the control: drag anywhere to draw a crop, pull the corners to resize it, drag inside to move it, all over a thirds grid. Lock it to an aspect — Original, Square, 3:2, 4:3, 16:9 — or leave it freeform.",
+            "Straighten runs to ±15° and <strong>scales the frame to cover as it turns</strong>, so a leveled horizon never buys you blank corners. Rotate in 90° steps, and the crop turns with the pixels — frame something in portrait, rotate the shot, and your framing is still on the subject.",
+            "It is all recipe, like everything else. The crop shows up in exports, galleries, and Bluesky renditions; the original file keeps every pixel you cropped away, and one Reset gets them back."
+          ],
+          "specs": [
+            {
+              "label": "Aspects",
+              "value": "Freeform · Original · Square · 3:2 · 4:3 · 16:9"
+            },
+            {
+              "label": "Straighten",
+              "value": "±15° · cover-scaled, no blank corners"
+            },
+            {
+              "label": "Rotate",
+              "value": "90° steps · the crop travels with the pixels"
+            },
+            {
+              "label": "Destructive",
+              "value": "Never — Reset restores the full frame"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 2",
+              "brief": "Crop mode in the viewer: a landscape with a slightly tilted horizon, crop rect drawn with corner handles and thirds grid, dimmed surround, and the tray showing the aspect picker, straighten slider at a non-zero angle, and rotate buttons.",
+              "src": "/images/alter/adjust-crop.webp",
+              "alt": "Crop mode over a moonlit sandstone formation: a crop rectangle with round corner handles and a thirds grid, the area outside it dimmed. The tray below shows an Aspect menu set to Freeform, a Straighten slider reading plus 4.6 degrees, rotate-left and rotate-right buttons, Reset, and Done. The straightened frame has scaled to cover, so no blank corners appear.",
+              "w": 2000,
+              "h": 1655
+            }
+          ]
+        },
+        {
+          "title": "Retouch",
+          "body": [
+            "Click a blemish to drop a spot. ALTer picks a clean source beside it, flipping away from the nearer edge of the frame, and blends the patch through a soft-edged circular mask. Size the spot from a hair to a broad patch, undo the last one, or clear them all.",
+            "Spots are part of the recipe like everything else. They render into exports, galleries, and Bluesky renditions, and they come off again whenever you want."
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 2",
+              "brief": "Viewer in Retouch mode: a portrait with three or four accent-colored ring markers placed on the skin, the spot-size slider and Undo Spot / Clear All / Done buttons visible in the tray.",
+              "src": "/images/alter/adjust-retouch.webp",
+              "alt": "Retouch mode over the sandstone formation: four accent-colored ring markers sit on the rock where spots have been placed. The tray reads “Click a spot to heal it” beside a spot-size slider, with Undo Spot, Clear All, and Done.",
+              "w": 2000,
+              "h": 1655
+            }
+          ]
+        },
+        {
+          "title": "Brush it in",
+          "body": [
+            "Not every adjustment belongs to the whole frame. Hit <strong>Brush</strong> and paint an adjustment exactly where it is wanted — dodge a face, cool a sky, sharpen just the eyes. The Adjust panel turns orange and its sliders now shape <em>only where you brushed</em>.",
+            "Size and feather the brush, hold to paint or switch to <strong>Erase</strong> to carve the mask back out. A photo can carry several brushes at once, each with its own recipe — one warming the foreground, another draining the color from a billboard — and every one stays editable forever. It is all recipe: the mask and its adjustments render into exports and galleries, and the original keeps every pixel."
+          ],
+          "specs": [
+            {
+              "label": "Paint / Erase",
+              "value": "Toggle in the tray"
+            },
+            {
+              "label": "Size · Feather",
+              "value": "Both continuous"
+            },
+            {
+              "label": "Brushes per photo",
+              "value": "As many as you like — each its own look"
+            },
+            {
+              "label": "Destructive",
+              "value": "Never — strokes live in the recipe"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 2",
+              "brief": "Viewer in Brush mode mid-dodge: the brush cursor (outer solid ring, dashed inner feather ring) over a face or foreground, the Adjust panel on the right glowing orange with an Exposure slider pushed up, and the brush tray showing Paint/Erase, Size, Feather.",
+              "alt": "Brush mode: a soft round brush cursor sits over the shadowed foreground of a landscape, its outer ring showing reach and a dashed inner ring the feathered core. The Adjust panel on the right carries an orange “Brushing — sliders shape the brushed area” banner with Exposure raised, and the tray below offers a Paint/Erase toggle, Size, and Feather sliders."
+            }
+          ]
+        },
+        {
+          "title": "The Loupe",
+          "body": [
+            "Press <kbd>L</kbd> and a magnifier floats over the photo showing its <strong>full-resolution pixels</strong> — the real ones, with your recipe applied — without ever leaving the fitted view. It is how you check critical focus and judge grain without zooming the whole image in and out.",
+            "Scroll to zoom it from 50% right up to 800%. Size the glass to taste, and let it float offset on a handle — a stem running back to a crosshair on the exact point being examined — or sit it dead-centered on the cursor. It remembers how you left it, shot to shot and launch to launch."
+          ],
+          "specs": [
+            {
+              "label": "Toggle",
+              "value": "L · or the Loupe button"
+            },
+            {
+              "label": "Zoom",
+              "value": "50% … 800% · scroll or menu"
+            },
+            {
+              "label": "Handle",
+              "value": "Offset on a stem, or centered"
+            },
+            {
+              "label": "Shows",
+              "value": "Full-res, recipe applied"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 2",
+              "brief": "Viewer with the Loupe active: a large circular glass floating offset on a stem from a crosshair on a detailed area (rock texture, feathers, eyelashes), showing crisp 100% pixels, with the loupe settings pill (zoom %, size slider, handle toggle) floating at the top.",
+              "alt": "The Loupe hovering over a sandstone formation: a large circular magnifier floats up and to the right of the cursor, connected by a stem to a small crosshair marking the examined point, showing the rock’s texture at full resolution with a “100%” badge. A frosted pill at the top of the photo holds the zoom percentage, a size slider, and the handle toggle."
+            }
+          ]
+        },
+        {
+          "title": "Neutralize with a click",
+          "body": [
+            "The <strong>Neutral</strong> eyedropper solves your white balance in one click. Point it at anything that ought to be a neutral gray — a concrete wall, a white shirt in shade — and ALTer sets Warmth and Tint so that spot reads truly neutral, computed against the real color engine rather than guessed. Regret the pick? <kbd>⌘Z</kbd> puts it right back."
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 2",
+              "brief": "Viewer with the Neutral eyedropper active (button highlighted), cursor over a neutral gray area of the photo, with the Warmth and Tint values in the panel showing they have shifted.",
+              "alt": "The white-balance eyedropper hovering over a gray rock face, its tray button highlighted. In the Adjust panel the WHITE BALANCE section shows Warmth and Tint carrying new accent-colored values where the click neutralized a color cast."
+            }
+          ]
+        },
+        {
+          "title": "Before and after, side by side",
+          "body": [
+            "Press <kbd>M</kbd> and the viewer splits: your untouched <strong>original</strong> on one side, the <strong>edited</strong> version on the other, each clearly badged. Drag a slider, brush, or neutralize and the edited half updates live while the original never lies — the honest test of whether an edit is earning its keep.",
+            "Flip the split between side-by-side and stacked with a tap, whichever suits the frame — panoramas stacked, portraits abreast. Step through a whole shoot two-up without leaving the comparison."
+          ],
+          "specs": [
+            {
+              "label": "Toggle",
+              "value": "M · or the Compare button"
+            },
+            {
+              "label": "Layout",
+              "value": "Side by side or stacked"
+            },
+            {
+              "label": "Live",
+              "value": "The edited half tracks every change"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "Compare mode: the viewer split into two, a flat original on the left badged ORIGINAL and a richer graded version on the right badged EDITED, with the small floating pill at top offering the Stacked / Side by Side toggle.",
+              "alt": "Compare mode: the viewer is split in two, the left half badged ORIGINAL showing a flat, cool rendering of a desert butte, the right half badged EDITED showing the same frame warmed and contrast-rich. A small frosted pill at the top offers a “Stacked” toggle to flip the split’s orientation."
+            }
+          ]
+        },
+        {
+          "title": "Auto-Enhance, with its work shown",
+          "body": [
+            "<kbd>⌥⌘A</kbd> analyzes the photo and <strong>moves the same seven sliders</strong>. Nothing hidden, nothing you cannot then take back over. Watch the values change and disagree with any of them.",
+            "It is deliberately conservative. It pushes exposure toward a balanced midtone but caps itself at ±1.25 EV. It only touches contrast when the image is genuinely flat, and it only adds vibrance when there is muted color to recover — which means <strong>a true black-and-white comes out untouched</strong>, and so does a photo you already graded.",
+            "Run it across a whole selection from the Media menu when a shoot needs a fast baseline."
+          ],
+          "specs": [
+            {
+              "label": "Copy adjustments",
+              "value": "⇧⌘C"
+            },
+            {
+              "label": "Paste to selection",
+              "value": "⇧⌘V"
+            },
+            {
+              "label": "Auto-Enhance",
+              "value": "⌥⌘A · single or batch"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "Before/after pair of the same flat-looking photo, with the adjustments panel visible in the \"after\" showing which sliders Auto-Enhance moved.",
+              "src": "/images/alter/adjust-auto-enhance.webp",
+              "alt": "The same night photograph of a lake below a mountain, side by side. On the left, before Auto-Enhance: flat and hazy. On the right, after: brighter with deeper blacks and more defined clouds. Auto-Enhance moved only Exposure and Contrast, leaving every colour slider at zero.",
+              "w": 2400,
+              "h": 909
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "timeline",
+      "eyebrow": "The timeline editor",
+      "title": "A real cutting room.",
+      "lede": "Cut clips from any number of videos into one sequence. Layer text, images, other videos, and audio over the top. Keyframe anything, ease it properly, and grade it — all against a preview that is assembled by the exact same code that writes the final file.",
+      "hero": {
+        "ratio": "16 / 10",
+        "brief": "The Animate editor filling the window. Canvas on top showing a video frame with a styled text layer and an image sticker, one of them selected with corner handles and the rotation knob. Timeline below with: ruler and red playhead, a sequence track containing 3–4 clips with visible filmstrips, two layer bars with yellow keyframe diamonds, and an audio track showing a real waveform.",
+        "src": "/images/alter/timeline-hero.webp",
+        "alt": "The Animate editor: a night timelapse of a fishing boat under moving clouds fills the canvas, with a styled caption reading “Night watch” selected, showing corner scale handles and a rotation knob. Below, the timeline shows a ruler with a red playhead, the clip’s filmstrip track, and a purple text-layer bar carrying a yellow keyframe diamond. The inspector on the right holds the text style, transform, and animation controls.",
+        "w": 2400,
+        "h": 1718
+      },
+      "chapters": [
+        {
+          "title": "The sequence",
+          "body": [
+            "Add clips from files or straight from your library selection. They land on the sequence track with generated filmstrips so you can see what you are cutting.",
+            "Split at the playhead. Drag either edge to trim, clamped to the source's real length so you cannot pull past the end of the footage. Drag a clip's body to reorder. Delete a segment and the gap closes. Multiple source videos live happily in one sequence, and re-adding the base clip to duplicate a moment is perfectly legal.",
+            "Animated GIFs are clips too. Open one in Animate and it lands on the timeline as real footage — its own frame timing intact — ready to cut, caption, and export like any video. The original GIF is never touched.",
+            "Zoom from fit to 24× with <kbd>⌥</kbd>-scroll anywhere over the timeline, centered on the playhead. A plain scroll pans sideways. During a drag the scale freezes, so trimming one clip never yanks the ruler out from under your cursor."
+          ],
+          "specs": [
+            {
+              "label": "Play / pause",
+              "value": "Space"
+            },
+            {
+              "label": "Step one frame",
+              "value": "← / →"
+            },
+            {
+              "label": "Step ten frames",
+              "value": "⇧← / ⇧→"
+            },
+            {
+              "label": "Nudge selected bar",
+              "value": ", / .  ·  ⇧, / ⇧."
+            },
+            {
+              "label": "Undo / redo",
+              "value": "⌘Z / ⇧⌘Z · 60 levels"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "21 / 9",
+              "brief": "Close-up of the sequence track alone, zoomed in, showing 4 clips from different sources with distinct filmstrips, the red playhead mid-clip, and the split (scissors) button in the toolbar.",
+              "src": "/images/alter/timeline-tracks.webp",
+              "alt": "Close-up of the timeline tracks: a ruler with per-second ticks and a red playhead, the clip’s filmstrip showing the boat repeating across the track, and beneath it a purple text-layer bar labelled “Night watch” carrying a yellow keyframe diamond.",
+              "w": 1600,
+              "h": 279
+            },
+            {
+              "ratio": "21 / 9",
+              "brief": "An audio track close-up showing the mirrored-peak waveform clearly.",
+              "src": "/images/alter/timeline-waveform.webp",
+              "alt": "Close-up of an audio track on the timeline: a green bar filled with a real mirrored-peak waveform drawn from the source file, the red playhead crossing it, with the purple caption bar and its yellow keyframe diamonds directly above.",
+              "w": 1200,
+              "h": 115
+            }
+          ]
+        },
+        {
+          "title": "Four kinds of layer",
+          "body": [
+            "<strong>Text</strong> — any bundled font, sized as a fraction of the frame so it scales with the output, with fill color, classic meme outline, drop shadow, and ALL CAPS toggles.",
+            "<strong>Image</strong> — from a file or straight from the photos you have selected in the library, which is how a photo becomes a sticker.",
+            "<strong>Video</strong> — picture-in-picture, with its own volume and a <em>clip in</em> control that sets where playback starts inside the source.",
+            "<strong>Audio</strong> — MP3, WAV, M4A, each track with its own volume. The base clip keeps its own Original Sound dial; drop it to zero to replace the soundtrack entirely."
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 4",
+              "brief": "The Animate inspector panel showing a text layer selected with all its style controls (font picker open, color well, outline / shadow / caps toggles).",
+              "src": "/images/alter/timeline-inspector.webp",
+              "alt": "The Animate inspector: a TEXT panel with the caption “Night watch”, a Helvetica Bold font picker, size slider, colour well, and toggles for Outline, Drop shadow, and ALL CAPS. Below it a TRANSFORM panel marked with a yellow Auto-key badge carries X, Y, Scale, Rotate, and Opacity sliders plus layer order buttons, and an ANIMATION panel offers Add at Playhead and Clear.",
+              "w": 877,
+              "h": 1100
+            },
+            {
+              "ratio": "16 / 9",
+              "brief": "Canvas with a picture-in-picture video layer and an image sticker composited over the base clip.",
+              "src": "/images/alter/timeline-canvas-pip.webp",
+              "alt": "A picture-in-picture video layer playing over the base clip: a second video of a rusted car in a moonlit field sits inside a selection box with corner handles and a rotation knob, composited over the night boat footage, with the caption “Visit Twilightscapes.com” below it.",
+              "w": 1200,
+              "h": 1177
+            }
+          ]
+        },
+        {
+          "title": "Direct manipulation on the canvas",
+          "body": [
+            "Drag a layer to move it. Corner circles scale radially — pull away to grow, push toward the center to shrink, and it stays correct from any corner at any rotation. A knob above the selection rotates it.",
+            "Double-click a text layer and type in place. A dark input chip appears below in the layer's own font while the fully styled text above updates on every keystroke. <kbd>Return</kbd> commits, <kbd>⌥Return</kbd> makes a new line.",
+            "Drag a layer off the edge and it renders at 45% with a dashed border and tells you the truth: <em>off canvas — visible here, not in renders</em>."
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "Canvas close-up mid-edit: a text layer being typed in place, with the floating dark input chip below it and the styled text updating above.",
+              "src": "/images/alter/timeline-canvas-text.webp",
+              "alt": "Typing a caption directly on the canvas: over the moonlit fishing boat, the fully styled words “Night watch” sit inside a selection box with corner handles and a rotation knob, while a floating dark input chip just below shows the same text being edited live.",
+              "w": 1600,
+              "h": 1026
+            },
+            {
+              "ratio": "4 / 3",
+              "brief": "A selected layer showing the corner scale circles and the rotation knob above it."
+            }
+          ]
+        },
+        {
+          "title": "Keyframes and easing",
+          "body": [
+            "Position, scale, rotation, and opacity, keyed at any point on the timeline. Diamonds sit on the layer's bar, grow and turn orange at the playhead, jump the playhead when tapped, and drag to retime. Hover one for a summary of everything it holds.",
+            "Four curves per segment — <strong>Linear</strong>, <strong>Ease In</strong>, <strong>Ease Out</strong>, <strong>Ease In-Out</strong> — and the preview evaluates the same curve the exporter renders. What you scrub is what you get.",
+            "Auto-key means the controls never go dead. Adjust a keyframed layer and ALTer writes or updates the keyframe at the playhead; adjust an un-keyframed one and it edits the base pose. Scrub-and-tweak updates the existing diamond instead of stacking new ones on top of it.",
+            "Not ready for keyframes yet? One-click motion presets — <strong>Ticker ◀</strong>, <strong>Ticker ▶</strong>, <strong>Rise ▲</strong> — plus a fade in/out toggle. They step aside the moment you place a diamond, because from then on the diamonds own the motion."
+          ],
+          "shots": [
+            {
+              "ratio": "21 / 9",
+              "brief": "Close-up of a layer bar carrying 4–5 yellow keyframe diamonds, one enlarged and orange at the playhead, with the hover tooltip showing time · scale · rotation · opacity · easing.",
+              "src": "/images/alter/timeline-keyframes.webp",
+              "alt": "Close-up of a caption layer bar carrying four yellow keyframe diamonds spread along its length, marking the points where its position, scale, rotation, or opacity change.",
+              "w": 1600,
+              "h": 63
+            },
+            {
+              "ratio": "3 / 4",
+              "brief": "The Transform pane: X, Y, Scale, Rotate, Opacity rows with sliders and scrubbable numeric values, plus the yellow Auto-key badge."
+            }
+          ]
+        },
+        {
+          "title": "Grade in the tray",
+          "body": [
+            "Hit the palette and the timeline swaps for a grading bench carrying the same controls you use on photos — the same sliders, the same gradient tracks, the same feel.",
+            "Select a clip and you grade that clip. Select nothing and you grade the whole edit. A per-clip grade overrides the global one, so you can match a shot that was lit differently without unpicking the look you set for everything else."
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "The grade tray open in place of the timeline, with the familiar adjustment sliders and the \"Whole Edit\" button visible, over a graded video frame.",
+              "src": "/images/alter/timeline-grade.webp",
+              "alt": "The grade tray open where the timeline normally sits: it reads “Grading clip 1 — overrides the whole-edit grade” beside a Whole Edit button, with the same LIGHT and Exposure controls used on photos, over the captioned boat footage.",
+              "w": 1563,
+              "h": 1600
+            }
+          ]
+        },
+        {
+          "title": "Track a face",
+          "body": [
+            "Put a sticker on someone at the playhead and press <strong>Track Face</strong>. One pass over the footage writes keyframes that follow the face nearest that layer — the starting position is the seed, so it locks onto the right person instead of hopping between everyone in frame.",
+            "The offset scales with the face, so a sticker stays anchored as your subject walks toward the camera or away from it."
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "Sequence of 3 frames from the same tracked clip showing a sticker staying pinned to a moving face as the subject changes size and position."
+            }
+          ]
+        },
+        {
+          "title": "Scenes",
+          "body": [
+            "Save a whole stack of layers by name and drop it onto anything. Scenes append rather than replace, so they stack, and they <strong>rescale their own timing</strong> to the length of whatever you apply them to — a lower-third built over thirty seconds still sweeps cleanly across a six-second clip.",
+            "Cuts and trims never travel with a scene. It carries the look, not your edit."
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "The Scenes menu open, showing several saved scenes by name."
+            }
+          ]
+        },
+        {
+          "title": "What comes out",
+          "body": [
+            "Video bases export to <strong>.mov</strong> at highest quality, at the source's own frame rate. Stills can be saved as PNG or JPEG, exported as video, or dropped straight back into your library as a new photo.",
+            "Sequence clips, per-clip grades, and video layers all render through the same custom compositor that drives the preview. Text and image overlays ride a Core Animation layer tree with real keyframe animations and matched timing functions. Audio becomes a proper mix with per-track parameters. Preview and export are not two implementations that agree most of the time — they are one."
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "The export sheet for a timeline composition, with the render progress bar mid-export."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "web",
+      "eyebrow": "Web layers",
+      "title": "The web is an input device.",
+      "lede": "Load any page live inside ALTer and capture it — as a still, or as a recording. What comes back is ordinary media. From that point it keyframes, eases, grades, trims, and exports like anything else you shot.",
+      "hero": {
+        "ratio": "16 / 10",
+        "brief": "The Add Web Layer sheet: URL field at the top, a live 640×360 web view showing a real page mid-render, and the two capture controls below (Add Snapshot, and Record & Add with its duration slider).",
+        "src": "/images/alter/web-layer-sheet.webp",
+        "alt": "The Web Layer sheet: a URL field reading alttext.org with a Load button, below it a live web view showing the real ALTtext site — its navigation, wordmark, and “Drop an image. Get accessible ALT text.” Beneath are Add Snapshot, a duration slider, and Record & Add, with a note that what you capture is your responsibility.",
+        "w": 1400,
+        "h": 1124
+      },
+      "chapters": [
+        {
+          "title": "Snapshot or record",
+          "body": [
+            "<strong>Add Snapshot</strong> captures the page as it stands and adds it as an image layer.",
+            "<strong>Record &amp; Add</strong> records the live page — animations running, video playing — for three to thirty seconds and adds it as a video layer starting at the playhead.",
+            "Either way the layer names itself after the site, so your timeline reads in plain language instead of web-4f2a91.png."
+          ],
+          "specs": [
+            {
+              "label": "Snapshot",
+              "value": "PNG · full backing-scale resolution"
+            },
+            {
+              "label": "Recording",
+              "value": "H.264 .mov · 15 fps · 3–30 seconds"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "The recording state: progress bar running, duration slider set to about 10 seconds."
+            },
+            {
+              "ratio": "21 / 9",
+              "brief": "A captured web recording sitting on the timeline as a normal video layer with its filmstrip, named after the host.",
+              "src": "/images/alter/web-layer-timeline.webp",
+              "alt": "A recorded web page now living on the timeline as an ordinary video layer: its bar is named twilightscapes.com and carries a filmstrip of the captured page scrolling, sitting above the caption and audio tracks. The inspector shows the usual VIDEO LAYER controls — width, volume, clip in — and full Transform sliders.",
+              "w": 2400,
+              "h": 1718
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "descriptions",
+      "eyebrow": "AI descriptions",
+      "title": "One click describes photos and video.",
+      "lede": "ALT text, a title, and a caption — written by the ALTtext engine and embedded into the file where every screen reader, CMS, and social platform will find them. Video gets described from motion <em>and</em> from what is actually said in it.",
+      "hero": {
+        "ratio": "16 / 10",
+        "brief": "The grid mid-batch: several cells showing the generating spinner overlay, one showing a completed green ALT pill, status bar reading \"Generating 6 of 24…\". Inspector on the right with a freshly written ALT text, title, and caption visible.",
+        "src": "/images/alter/ai-batch.webp",
+        "alt": "Nine night landscapes in the grid after a batch run, every one now carrying a green ALT badge. The inspector reads “9 photos selected” above Generate ALT Text for 9, and the status bar confirms “Saved metadata into 9 files.”",
+        "w": 2400,
+        "h": 1540
+      },
+      "chapters": [
+        {
+          "title": "Photos",
+          "body": [
+            "Press <kbd>⌘G</kbd>. ALTer sends a downscaled rendition — description needs detail, not a 60-megapixel upload — and fills three fields from one request.",
+            "ALT text is always written. Title fills only if it is empty. Caption fills if it is empty <em>or</em> if it still matches what ALTer generated last time. Regenerate as often as you like: machine-written text updates, and <strong>anything you typed yourself is never overwritten</strong>."
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 4",
+              "brief": "Inspector close-up immediately after generation, showing ALT text, Title, and Caption all populated.",
+              "src": "/images/alter/ai-inspector.webp",
+              "alt": "The inspector just after generating: the title reads “Moonlit Desert Spire” and the caption describes a wide-angle night desert landscape — a star-packed sky shading from dark blue to purple, a bright full moon lighting a tall slender rock formation, and a warm reddish glow on the sand. Below sit the ALT TEXT section, on-device keyword suggestions, creator, copyright, and EXIF size.",
+              "w": 721,
+              "h": 1100
+            }
+          ]
+        },
+        {
+          "title": "Video, described properly",
+          "body": [
+            "Describing a video from a single frame is guesswork. ALTer samples frames evenly across the clip and, at the same time, <strong>transcribes the speech entirely on your Mac</strong>. Both go to the engine together, so the description reports what happens and what is said.",
+            "No audio ever leaves your machine for transcription. On macOS 26 ALTer uses Apple's on-device speech analyzer, downloading the model once on first run. On earlier systems it uses on-device recognition where the hardware supports it.",
+            "If transcription fails, ALTer says so — <em>described from frames only — speech transcription failed</em> — instead of quietly handing you a thinner description and letting you assume it heard everything."
+          ],
+          "specs": [
+            {
+              "label": "Frames sampled",
+              "value": "6 for clips ≤15 s · 8 for longer"
+            },
+            {
+              "label": "Speech",
+              "value": "On-device · never uploaded"
+            },
+            {
+              "label": "Caption cues",
+              "value": "≤42 characters · ≤5.5 seconds"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "A video selected in the viewer with its generated ALT text in the inspector — ideally a description that clearly references both action and dialogue."
+            }
+          ]
+        },
+        {
+          "title": "Caption files, free",
+          "body": [
+            "That same on-device transcript writes <strong>.vtt</strong> and <strong>.srt</strong> sidecars next to your video, cued into lines that read comfortably on screen. Upload the video anywhere that accepts subtitles and the file is already sitting beside it."
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "Finder window showing a video with its .vtt and .srt sidecars alongside, just after ALTer revealed them."
+            }
+          ]
+        },
+        {
+          "title": "Keywords, on-device",
+          "body": [
+            "<kbd>⌥⌘K</kbd> suggests keywords using Apple's Vision framework, entirely on your Mac and entirely free. Click any suggestion to add it, or add them all. Suggestions already in your keyword list are filtered out."
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 4",
+              "brief": "The Info tab showing suggested keyword chips with the Add All button.",
+              "src": "/images/alter/ai-keywords.webp",
+              "alt": "The Keywords section of the inspector: an empty comma-separated field, then “Suggested (on-device)” with clickable chips reading plus outdoor, plus sky, and plus night sky, beside an Add All button.",
+              "w": 1200,
+              "h": 248
+            }
+          ]
+        },
+        {
+          "title": "Batches",
+          "body": [
+            "Select a hundred photos, or filter to <strong>Missing ALT Text</strong> and select nothing at all, and <kbd>⌘G</kbd> runs the lot. Per-cell status overlays show queued, generating, and failed. A rate limit stops the run cleanly and resets what was queued rather than hammering away at it."
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "Grid filtered to \"Missing ALT Text\" with a batch running — a mix of queued, spinner, and completed cells."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "publish",
+      "eyebrow": "Publish",
+      "title": "Out into the world, described.",
+      "lede": "Accessible web galleries to your own hosting. Bluesky posts where every image carries its ALT text automatically. Your Apple TV, subscribed to your own gallery. Nothing here holds your audience on someone else's platform.",
+      "hero": {
+        "ratio": "16 / 10",
+        "brief": "The Publish Gallery sheet open over the library: title and description fields, format/size/quality controls, the option toggles, and — importantly — the green accessibility pre-flight line reading \"Every photo has ALT text — fully accessible gallery.\"",
+        "src": "/images/alter/publish-gallery-sheet.webp",
+        "alt": "The Publish Web Gallery sheet: title and description fields, JPEG format at 1600 px and 85% quality, and toggles for showing titles and captions, applying a watermark, creating a zip, and publishing to the web. At the bottom, a green check reads “Every photo has ALT text — fully accessible gallery.”",
+        "w": 1400,
+        "h": 1137
+      },
+      "chapters": [
+        {
+          "title": "Web galleries",
+          "body": [
+            "One command builds a complete, self-contained site: an accessible HTML page, full-size renditions with your metadata stamped in, thumbnails, and a manifest. No tracking, no analytics, no framework, no CDN. A folder you could host anywhere or hand to a client on a drive.",
+            "The page is genuinely accessible, not accessible-shaped. Every image carries its ALT text. Captions sit in real figcaptions. The lightbox is a proper ARIA dialog with Escape and arrow-key navigation that moves focus in on open and <strong>returns it to where you were on close</strong>. It adapts to light and dark. And with JavaScript disabled the links still work.",
+            "Before it builds, ALTer counts what is missing and tells you: either an orange warning that some photos have no ALT text yet, or a green all-clear. You never publish an inaccessible gallery by accident."
+          ],
+          "specs": [
+            {
+              "label": "Formats",
+              "value": "JPEG · PNG · WebP"
+            },
+            {
+              "label": "Sizes",
+              "value": "1200 · 1600 · 2048 px · thumbs at 480"
+            },
+            {
+              "label": "Watermark",
+              "value": "Optional on full-size — thumbs stay clean"
+            },
+            {
+              "label": "Also",
+              "value": "Optional .zip"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 10",
+              "brief": "A published gallery open in Safari, dark mode, showing the responsive thumbnail grid with captions.",
+              "src": "/images/alter/publish-gallery-live.webp",
+              "alt": "A published ALTer gallery in a browser, dark theme: the title “Night Landscapes” over “Long exposures from the desert Southwest”, then a responsive grid of night photographs. Under each thumbnail sits its title, its full description, and the photographer’s credit.",
+              "w": 2400,
+              "h": 1650
+            },
+            {
+              "ratio": "16 / 10",
+              "brief": "The gallery lightbox open, with a visible focus ring on the Close button to show the focus management.",
+              "src": "/images/alter/publish-gallery-lightbox.webp",
+              "alt": "The gallery lightbox open over the dimmed grid: a moonlit sandstone spire under a star-filled sky fills the frame, with previous and next arrows at the edges, a close button top right, and the photo’s title and full description printed beneath.",
+              "w": 2400,
+              "h": 1650
+            },
+            {
+              "ratio": "4 / 3",
+              "brief": "The publish sheet showing the ORANGE state — \"N photos have no ALT text yet\" — as a contrast to the hero shot.",
+              "src": "/images/alter/publish-gallery-orange.webp",
+              "alt": "The same publish sheet with the warning state instead: an orange caution line reading “2 photos have no ALT text yet — generate before publishing for a fully accessible gallery.”",
+              "w": 1400,
+              "h": 1187
+            }
+          ]
+        },
+        {
+          "title": "Your hosting, one click",
+          "body": [
+            "Point ALTer at a GitHub repository and a fine-grained token and publishing deploys straight to GitHub Pages — blob, tree, commit, ref, with per-file progress. Bring a custom domain or use the default address. A local copy always stays in <strong>Pictures → ALTer Web Galleries</strong>.",
+            "It is your repository, your domain, your audience. ALTer is not in the middle of it."
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "Settings → Web Publishing with the repo field, token field, and custom domain field filled in."
+            },
+            {
+              "ratio": "3 / 2",
+              "brief": "The post-publish success alert with the Copy Link / Open buttons and the live URL."
+            }
+          ]
+        },
+        {
+          "title": "On the television",
+          "body": [
+            "A published gallery can subscribe itself to your Apple TV through the Twilightscapes app. Shoot in the afternoon, publish before dinner, and it is on the big screen in the living room — described, captioned, and yours."
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "A photo of an actual Apple TV screen showing a published ALTer gallery running in Twilightscapes."
+            }
+          ]
+        },
+        {
+          "title": "Bluesky, with ALT text attached",
+          "body": [
+            "Sign in with an app password — held in your Keychain — and post up to four photos, each one uploaded <strong>with its ALT text already attached</strong>. Not a reminder to add it. Attached. Your adjustments and any animation you built are baked into what goes out.",
+            "Video posts natively, with alt text and the correct aspect ratio. If you edited it in the timeline, ALTer renders your cut first and posts <em>that</em> — not the raw file. And a still photo you animated posts as real video.",
+            "Schedule for later and ALTer renders the media into an outbox at scheduling time, so firing needs nothing but a network connection. It wakes in short slices so sleep cannot make it overshoot, and anything that came due while the app was closed posts on the next launch.",
+            "Already signed in on Twilightscapes? You are signed in here."
+          ],
+          "specs": [
+            {
+              "label": "Photos",
+              "value": "Up to 4 per post · ALT attached automatically"
+            },
+            {
+              "label": "Video",
+              "value": "Native upload · up to 100 MB"
+            },
+            {
+              "label": "Composer",
+              "value": "Live 300-character counter"
+            }
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 4",
+              "brief": "The share sheet composer: text with the character counter, media rows below each showing its ALT text, and the schedule date picker visible."
+            },
+            {
+              "ratio": "3 / 4",
+              "brief": "The composer showing the \"No ALT text yet — Generate first for an accessible post\" warning state on a media row."
+            }
+          ]
+        },
+        {
+          "title": "The posts dashboard",
+          "body": [
+            "Everything you posted, searchable, filtered by posted, failed, photos, or video, sorted by newest, oldest, most liked, or most engagement. Look at it as a list, a grid, a gallery, or a calendar.",
+            "Likes, reposts, and replies come back from Bluesky and turn into charts: <strong>Engagement</strong> over time, and <strong>Best Times</strong> — which hour of the day your work actually lands."
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 10",
+              "brief": "The Posts view in calendar mode with scheduled and posted items on the month grid."
+            },
+            {
+              "ratio": "16 / 9",
+              "brief": "The insights panel showing the Best Times chart."
+            }
+          ]
+        },
+        {
+          "title": "X and YouTube",
+          "body": [
+            "Neither platform offers the posting access ALTer would need, so ALTer does the honest thing: it renders your creation, copies your text to the clipboard, reveals the file in Finder, and opens the composer with your text already filled in. Drag the file in and post.",
+            "For YouTube, any caption sidecars you generated are revealed alongside the video, ready for the Subtitles panel."
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "The share destination picker showing all destinations including X and YouTube."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility",
+      "eyebrow": "Accessibility",
+      "title": "A photo library a blind user can drive.",
+      "lede": "ALT text is not a checkbox at the end of this app. It is the reason the app exists — and that runs in both directions. ALTer helps sighted people describe their photos, and it lets people who cannot see their photos find out what is in them.",
+      "hero": {
+        "ratio": "16 / 10",
+        "brief": "The grid with VoiceOver active — the VoiceOver cursor box drawn around a single grid cell, with the caption panel at the bottom of the screen reading out the cell's label and state."
+      },
+      "chapters": [
+        {
+          "title": "It reads the description back",
+          "body": [
+            "Generate a description for one photo and VoiceOver <strong>speaks it aloud</strong>. Not \"generation complete\" — the actual text. Select an undescribed photo, press <kbd>⌘G</kbd>, and hear what is in your own picture.",
+            "Run a batch and it speaks the tally instead, because a hundred descriptions read verbatim is not help. Failures are spoken too, rather than failing silently into a status bar nobody can see."
+          ]
+        },
+        {
+          "title": "Every cell announces its state",
+          "body": [
+            "A grid cell is one element, not a pile of unlabelled images. It announces itself as a photo or a <strong>video</strong>, by name, and then tells you what it is: <em>has ALT text</em> or <em>no ALT text yet</em>, its rating, whether it is flagged, whether it has been adjusted, whether it has unsaved edits.",
+            "Which means you can navigate straight to the photos that still need describing, entirely by voice."
+          ]
+        },
+        {
+          "title": "It tells you how to fix it",
+          "body": [
+            "Open a photo with no description and the viewer reads: <em>no ALT text yet — press Command G to generate a description.</em> The app does not just report the problem, it says the words that solve it.",
+            "The rating control is a single adjustable element — \"3 of 5 stars\" — that VoiceOver raises and lowers by swipe, instead of five anonymous star images. The histogram identifies itself. The viewer runs fully from the keyboard."
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 9",
+              "brief": "The viewer with VoiceOver reading the \"No ALT text yet — press Command G\" label, caption panel visible."
+            }
+          ]
+        },
+        {
+          "title": "The cutting room speaks too",
+          "body": [
+            "The timeline editor is labelled end to end. Every clip announces its place in the cut and the slice of source it plays. Every layer bar says what it is — text with its words, image and video by name, audio tracks — and where it sits in time. Keyframe diamonds read out everything they hold: time, scale, rotation, opacity, easing.",
+            "The playhead is one adjustable element — VoiceOver steps it through the edit a second at a time. And every Transform slider, grade slider, and volume control speaks its name and its value as you change it."
+          ]
+        },
+        {
+          "title": "And it carries through to what you publish",
+          "body": [
+            "The galleries you build are keyboard-navigable and screen-reader-correct. The Bluesky posts you send carry ALT text on images and on video. The metadata you write lands in the standard fields other software actually reads.",
+            "Accessibility that stops at your own screen is not accessibility. It has to survive the export."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "craft",
+      "eyebrow": "The rest of it",
+      "title": "The details you only notice when they are missing.",
+      "lede": "Export presets that remember everything. Watermarks that know better than to stamp a thumbnail. Reusable text with tokens. A real map. Fonts that never touch your system.",
+      "hero": {
+        "ratio": "16 / 10",
+        "brief": "The Export sheet fully configured: format and quality, size, the naming preset dropdown with the live \"Example:\" filename preview, the metadata toggles, and the archive option.",
+        "src": "/images/alter/craft-export-sheet.webp",
+        "alt": "The Export sheet: a preset menu with Save Preset, JPEG format at 85% quality, Original size, a naming preset showing the live example filename, and toggles for including edited metadata, copying camera EXIF, applying a watermark, and packaging as a zip archive. A line reads “Exports carry no camera EXIF or GPS — clean for the web.”",
+        "w": 1400,
+        "h": 1181
+      },
+      "chapters": [
+        {
+          "title": "Export",
+          "body": [
+            "JPEG, PNG, or WebP. Original size or 2048, 1600, 1200, or a number you type. Name files with patterns — <code>&#123;name&#125;</code>, <code>&#123;seq&#125;</code>, <code>&#123;date&#125;</code>, <code>&#123;title&#125;</code> — with a live preview of the filename you are about to get, and save the whole configuration as a preset you can recall.",
+            "By default, <strong>exports carry no camera EXIF and no GPS</strong>. Renditions are encoded fresh from pixels, so your home address does not ride along with a photo of your kitchen. Turn camera EXIF back on if you want it; strip GPS separately if you want the settings but not the location.",
+            "Package a job as a .zip with a <strong>manifest.csv</strong> listing every filename against its title, ALT text, caption, keywords, creator, and copyright — the handoff a publisher or a client actually wants."
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "Close-up of the naming preset editor showing the pattern field and the live example filename."
+            }
+          ]
+        },
+        {
+          "title": "Watermark",
+          "body": [
+            "Set it once in Settings: your PNG, one of nine positions, size as a share of the photo's width, and opacity. Then switch it on per job.",
+            "It never touches your originals, and it never lands on gallery thumbnails — a watermark at 480 pixels is just clutter."
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "Settings → Watermark showing the 9-way position picker, size and opacity sliders, with a preview."
+            }
+          ]
+        },
+        {
+          "title": "Snippets",
+          "body": [
+            "Reusable text for any metadata field, with tokens that fill themselves in per photo: <code>&#123;name&#125;</code>, <code>&#123;date&#125;</code>, <code>&#123;title&#125;</code>. A copyright line becomes <em>© 2026 Your Name</em> across a whole shoot in one command. Applied to keywords, snippets append rather than replace."
+          ],
+          "shots": [
+            {
+              "ratio": "4 / 3",
+              "brief": "The Snippets editor with a few snippets defined, showing the field-type selector and token usage."
+            }
+          ]
+        },
+        {
+          "title": "Location",
+          "body": [
+            "The Info tab shows the shot data — camera, lens, exposure, aperture, ISO, focal length, capture date, dimensions — as selectable text, with a live mini-map when there are coordinates.",
+            "Click the map for a real Mapkit editor: zoom, satellite and hybrid, place search, click anywhere to drop a pin. Save the spots you shoot at often by name and reuse them. Apply to one photo or to everything you have selected — or strip location entirely."
+          ],
+          "shots": [
+            {
+              "ratio": "16 / 10",
+              "brief": "The location popout: full map in hybrid mode with a dropped pin, the saved-locations menu open, and the Apply to N Selected button."
+            }
+          ]
+        },
+        {
+          "title": "Fonts",
+          "body": [
+            "Eleven open-license families ship inside ALTer — display, text, handmade, and classic — registered to the app only. Nothing is installed into your system font book, and nothing you already have is disturbed."
+          ],
+          "shots": [
+            {
+              "ratio": "3 / 4",
+              "brief": "The font picker open showing the Display / Text / Handmade / Classic groups."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
