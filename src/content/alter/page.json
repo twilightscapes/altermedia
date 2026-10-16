@@ -2,6 +2,6 @@
   "title": "ALTer — the pro Media Editor for the Mac",
   "description": "ALTer is a Mac photo and video library that references your originals instead of absorbing them. Adjustments with a non-destructive, timeline editor, web layers, AI descriptions for photos and video, accessible web galleries, and Bluesky posting with ALT text attached automatically.",
   "tagline": "The pro Media Editor for the Mac.",
-  "betaLine": "Beta 0.9.17 · Free during the beta · macOS 13 or later · Apple Silicon & Intel · everything bundled, nothing to install",
-  "downloadUrl": "/downloads/ALTer-beta.dmg"
+  "finePrint": "Version 1.0 · Free · macOS 13 or later · Apple Silicon & Intel · everything bundled, nothing to install",
+  "downloadUrl": "/downloads/ALTer.dmg"
 }

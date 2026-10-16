@@ -7,3 +7,11 @@
   # Netlify serves at root — no base path needed
   # (GitHub Pages project sites need BASE_PATH, Netlify does not)
   BASE_PATH = ""
+
+# The download dropped its "-beta" suffix at 1.0. Old links — announcements,
+# alttext.org redirects, the last beta builds' "download" button — keep working.
+[[redirects]]
+  from = "/downloads/ALTer-beta.dmg"
+  to = "/downloads/ALTer.dmg"
+  status = 301
+  force = true

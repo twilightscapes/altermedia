@@ -51,7 +51,7 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
       </p>
       <p class="as-cta">
         <a class="as-btn" href={page.downloadUrl}>Download ALTer</a>
-        <a class="as-btn as-btn-quiet" href="#beta">Read about the beta</a>
+        <a class="as-btn as-btn-quiet" href="#download">What’s inside</a>
       </p>
       <p class="as-fine">
         macOS 13 or later · Apple Silicon &amp; Intel · everything bundled,
@@ -73,7 +73,7 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     <!-- ── Section nav ───────────────────────────────────────────────── -->
     <nav class="as-jump reveal" aria-label="Jump to a section">
       {sections.map((s) => <a href={`#${s.id}`}>{s.eyebrow}</a>)}
-      <a href="#beta">Beta</a>
+      <a href="#download">Download</a>
     </nav>
 
     <!-- ── Vignettes ─────────────────────────────────────────────────── -->
@@ -152,23 +152,25 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
       ))
     }
 
-    <!-- ── Beta ──────────────────────────────────────────────────────── -->
-    <section class="as-section as-beta reveal" id="beta">
+    <!-- ── Download ──────────────────────────────────────────────────── -->
+    <section class="as-section as-beta reveal" id="download">
+      <!-- Old #beta links (announcements, early testers) still land here. -->
+      <span id="beta" aria-hidden="true"></span>
       <div class="as-intro">
-        <p class="as-eyebrow">The beta</p>
-        <h2>ALTer <span class="as-badge">beta</span></h2>
+        <p class="as-eyebrow">Download</p>
+        <h2>Get ALTer</h2>
         <p class="as-lede">
-          ALTer is in free public beta. Everything on this page is in the build
-          you can download right now — including the parts that are normally
-          paid, which are unlocked for everyone while the beta runs.
+          ALTer is free to download and use. Everything on this page is in the
+          app you can download right now — the timeline exports and publishing
+          tools included.
         </p>
       </div>
 
       <p class="as-cta">
-        <a class="as-btn" href={page.downloadUrl}>Download ALTer beta for Mac</a>
+        <a class="as-btn" href={page.downloadUrl}>Download ALTer for Mac</a>
       </p>
       <p class="as-fine">
-        {page.betaLine}
+        {page.finePrint}
       </p>
 
       <div class="as-chapters">
@@ -233,14 +235,14 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
 
         <details class="as-chapter">
           <summary>
-            <span class="as-chapter-title">Beta notes</span>
+            <span class="as-chapter-title">Good to know</span>
             <span class="as-chevron" aria-hidden="true"></span>
           </summary>
           <div class="as-chapter-body">
             <ul class="as-list">
               <li>
-                It's a beta — keep backups like a pro. Your pixels are never
-                modified: adjustments render into exports and galleries only.
+                Your pixels are never modified: adjustments render into exports
+                and galleries only.
                 Metadata (ALT&nbsp;text, titles, captions, keywords) is written
                 into your files — automatically by default, or only on
                 Save&nbsp;Metadata&nbsp;to&nbsp;Files&nbsp;(⌘S) if you turn
@@ -260,6 +262,8 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
               data-netlify-honeypot="bot-field"
               action="/alter-sent/"
             >
+              <!-- Backend name stays "alter-beta" so Netlify keeps one
+                   continuous submissions history across the beta and 1.0. -->
               <input type="hidden" name="form-name" value="alter-beta" />
               <p class="hp" hidden aria-hidden="true">
                 <label>Leave this field empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
@@ -272,7 +276,7 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
 
               <div class="beta-field">
                 <label for="beta-version">ALTer version <span class="beta-opt">(optional — it's in Settings, bottom line)</span></label>
-                <input id="beta-version" name="version" type="text" placeholder="e.g. 0.9.10" />
+                <input id="beta-version" name="version" type="text" placeholder="e.g. 1.0.0" />
               </div>
 
               <div class="beta-field">
@@ -281,7 +285,7 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
                   placeholder="What broke, what's missing, or what surprised you?"></textarea>
               </div>
 
-              <button type="submit" class="btn-primary">Send bug report</button>
+              <button type="submit" class="btn-primary">Send feedback</button>
             </form>
           </div>
         </details>
@@ -300,7 +304,7 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
       <p class="as-cta">
         <a class="as-btn" href={page.downloadUrl}>Download ALTer for Mac</a>
       </p>
-      <p class="as-fine">Free during the beta · macOS 13 or later</p>
+      <p class="as-fine">Free · macOS 13 or later</p>
     </section>
   </div>
 </AlterBase>
