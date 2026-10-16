@@ -25,7 +25,7 @@ collections:
           - { label: "Browser Title", name: title, widget: string }
           - { label: "Meta Description", name: description, widget: text }
           - { label: Tagline, name: tagline, widget: string }
-          - { label: "Beta Fine Print", name: betaLine, widget: string, hint: "Version · terms · requirements line under the download button" }
+          - { label: "Download Fine Print", name: finePrint, widget: string, hint: "Version · price · requirements line under the download button" }
           - { label: "Download URL", name: downloadUrl, widget: string }
       - label: "Feature Sections"
         name: sections
