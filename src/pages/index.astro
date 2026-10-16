@@ -20,63 +20,609 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     : 0;
   return `--ratio: ${ratio};` + (maxW ? ` max-width: min(100%, ${maxW}px);` : '');
 }
+
+const SOURCE_URL = 'https://github.com/twilightscapes/alter';
+const IMG = '/images/alter/aperture';
+
+/** What an Aperture library brings with it (all verified against a real library). */
+const comesAcross = [
+  ['Projects & folders', 'Nested exactly as you filed them'],
+  ['Albums & smart albums', 'Smart albums keep their rules wherever Alter has an equivalent'],
+  ['Versions & stacks', 'Every version under its master, every stack with its pick'],
+  ['Ratings, flags & labels', 'Stars, rejects, flags and the seven colour labels'],
+  ['Keywords', 'Your keyword library, hierarchy and all'],
+  ['Titles & captions', 'Plus creator, copyright and camera data'],
+  ['Adjustments', 'Rebuilt from Aperture’s recipe, live and non-destructive'],
+  ['Crops, brushes & retouching', 'Straightening, brushed-in edits and repair spots'],
+];
+
+/** On-screen keys for the keyboard demo. `key` is what the page listens for. */
+const demoKeys = [
+  { key: '1', cap: '1', label: '★' },
+  { key: '2', cap: '2', label: '★★' },
+  { key: '3', cap: '3', label: '★★★' },
+  { key: '4', cap: '4', label: '★★★★' },
+  { key: '5', cap: '5', label: '★★★★★' },
+  { key: '0', cap: '0', label: 'Clear' },
+  { key: '9', cap: '9', label: 'Reject' },
+  { key: '/', cap: '/', label: 'Flag' },
+  { key: 'm', cap: 'M', label: 'Master' },
+  { key: 'z', cap: 'Z', label: 'Zoom' },
+  { key: 'f', cap: 'F', label: 'Full Screen' },
+  { key: 'h', cap: 'H', label: 'HUD' },
+];
+
+/** The reference table under the demo — Alter's real shortcuts. */
+const keyTable = [
+  ['1 – 5', 'Rate'],
+  ['0', 'Clear the rating'],
+  ['9', 'Reject'],
+  ['= and −', 'Raise or lower the rating'],
+  ['/', 'Flag'],
+  ['⌃1 – ⌃7', 'Colour label'],
+  ['V', 'Browser, Split View, Viewer'],
+  ['W', 'Cycle the Inspector tabs'],
+  ['F', 'Full Screen'],
+  ['H', 'Inspector HUD, in Full Screen'],
+  ['⇧H', 'Keywords HUD'],
+  ['O', 'Lift & Stamp'],
+  ['`', 'The Loupe'],
+  ['Z', 'Zoom to 100%'],
+  ['M', 'Show the master'],
+  ['⌥M', 'Compare with the original'],
+  ['C', 'Crop'],
+  ['G', 'Straighten'],
+  ['X', 'Retouch'],
+  ['E', 'Red Eye'],
+  ['⌘[ and ⌘]', 'Rotate'],
+];
+
+const loupeZooms = [0.5, 1, 2, 4, 8, 16];
 ---
 
 <AlterBase
   title={page.title}
   description={page.description}
-  image="/og-alter.webp"
-  imageAlt="The Alter app on macOS. A purple-sky photo of the Moulton barn below the Tetons fills the viewer, with the Adjust panel open on the right showing a live RGB histogram and Light, Color, and Detail sliders. The library sidebar lists All Media, No ALT Text, Flagged, Videos, and Animated, and the filmstrip below marks thumbnails with green ALT badges. The Alter app icon — a camera lens seen head-on on an aluminium tile, ALTER LENS engraved on its ring — sits in the lower right corner."
+  image="/og-alter-continued.webp"
 >
   <div class="as">
     <!-- ── Hero ──────────────────────────────────────────────────────── -->
     <header class="as-hero reveal">
-      <img
-        class="as-appicon"
-        src="/images/alter-icon.png"
-        alt="Alter app icon — a camera lens seen head-on on an aluminium tile, ALTER LENS engraved on its ring"
-        width="112"
-        height="112"
-      />
-      <h1>Alter</h1>
-      <p class="as-tagline">{page.tagline}</p>
+      <div class="as-brand">
+        <img
+          class="as-appicon"
+          src="/images/alter-icon.png"
+          alt="Alter app icon — a camera lens seen head-on on an aluminium tile, ALTER LENS engraved on its ring"
+          width="128"
+          height="128"
+        />
+        <!-- Stretched to exactly the width of the icon's visible tile (824 of
+             its 1024 pixels), whatever font the visitor's system draws it in. -->
+        <svg class="as-wordmark" viewBox="0 0 824 300" role="img" aria-label="Alter">
+          <text x="412" y="292" text-anchor="middle" textLength="824" lengthAdjust="spacingAndGlyphs">Alter</text>
+        </svg>
+      </div>
+      <p class="as-eyebrow as-eyebrow-hero">For everyone who never got over Aperture</p>
+      <h1>Aperture,<br />continued.</h1>
       <p class="as-lede">
-        Your photos and videos stay exactly where they live. Alter references
-        them, never absorbs them, and gives you everything on top — adjustments
-        with a live histogram, a full-resolution loupe, brushed edits and
-        before/after compare, a real timeline editor, live web capture,
-        descriptions for photos <em>and</em> video, accessible galleries you
-        host yourself, and Bluesky posting where every image carries its ALT
-        text automatically.
+        Alter opens your Aperture library exactly as you left it — every
+        project, version, rating, keyword and adjustment — and keeps going.
+        Same keys. Same tools. And this time it’s open source, so nobody can
+        take it away from you.
       </p>
       <p class="as-cta">
-        <a class="as-btn" href={page.downloadUrl}>Download Alter</a>
-        <a class="as-btn as-btn-quiet" href="#download">What’s inside</a>
+        <a class="as-btn" href={page.downloadUrl}>Download Alter — free</a>
+        <a class="as-btn as-btn-quiet" href={SOURCE_URL}>Read the source</a>
       </p>
-      <p class="as-fine">
-        macOS 13 or later · Apple Silicon &amp; Intel · everything bundled,
-        nothing to install
-      </p>
+      <p class="as-fine">{page.finePrint}</p>
+    </header>
 
+    <figure class="as-wide as-hero-shot reveal">
       <img
-        class="as-shot-img as-shot-hero"
-        src="/images/alter/hero-split-adjust.webp"
-        alt="Alter in Split View: a floodlit sandstone rock formation under a night sky fills the viewer, a filmstrip of rated landscape thumbnails runs below it, and the Adjust panel on the right shows a live RGB histogram over the Exposure, Contrast, Saturation, Vibrance, Warmth, Tint, and Sharpen sliders. The tray under the photo offers Grid, Playground, Crop, and Retouch."
-        width="1200"
-        height="770"
+        src={`${IMG}/hero-aperture.webp`}
+        alt="Alter with an Aperture library open. The sidebar lists the library’s projects — 1-2-2011, 2010, 2uf, BIGBEND, Cisco, Dennison, FortWorth and more. The viewer shows a night photo of a weathered Futuro house, its round windows glowing green and purple against a starry sky, with a filmstrip of night shots below. On the right, the Adjust inspector shows the photo’s Aperture edit as bricks: White Balance at 6700 K, Exposure +1.03, Enhance with Definition +0.49, and Highlights & Shadows. The status bar reads “Aperture library — originals untouched”."
+        width="1240"
+        height="780"
         loading="eager"
         fetchpriority="high"
         decoding="async"
       />
-    </header>
+    </figure>
 
     <!-- ── Section nav ───────────────────────────────────────────────── -->
     <nav class="as-jump reveal" aria-label="Jump to a section">
-      {sections.map((s) => <a href={`#${s.id}`}>{s.eyebrow}</a>)}
+      <a href="#open">Open source</a>
+      <a href="#yours">Your library</a>
+      <a href="#edits">Your edits</a>
+      <a href="#bricks">The tools</a>
+      <a href="#loupe">The Loupe</a>
+      <a href="#keys">The keys</a>
+      <a href="#organise">Organising</a>
+      <a href="#more">And more</a>
       <a href="#download">Download</a>
     </nav>
 
-    <!-- ── Vignettes ─────────────────────────────────────────────────── -->
+    <!-- ── Open source ───────────────────────────────────────────────── -->
+    <section class="as-section as-open" id="open">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">Open source</p>
+        <h2>This time, it can’t be taken away.</h2>
+        <p class="as-lede">
+          Apple stopped developing Aperture in 2014, and since macOS Catalina
+          it won’t even open. Years of work — your projects, your keywords,
+          your edits — stranded by a decision nobody asked you about. Alter is
+          built so that can’t happen again: its core is open source, published
+          in full under the Mozilla Public License.
+        </p>
+      </div>
+
+      <ol class="as-timeline reveal" aria-label="From Aperture to Alter">
+        <li>
+          <span class="as-tl-year">2005</span>
+          <strong>Aperture 1.0</strong>
+          <span>A professional photo library from Apple, with the tools to match.</span>
+        </li>
+        <li>
+          <span class="as-tl-year">2014</span>
+          <strong>Development stops</strong>
+          <span>No more features. Before long, no more fixes.</span>
+        </li>
+        <li>
+          <span class="as-tl-year">2019</span>
+          <strong>macOS Catalina</strong>
+          <span>Aperture won’t launch. Your library sits in a folder nothing can read.</span>
+        </li>
+        <li class="as-tl-now">
+          <span class="as-tl-year">Today</span>
+          <strong>Alter</strong>
+          <span>Opens that library as you left it — and publishes every line of its core.</span>
+        </li>
+      </ol>
+
+      <div class="as-pillars">
+        <article class="as-pillar reveal">
+          <span class="as-pillar-icon" aria-hidden="true">{'{ }'}</span>
+          <h3>Open source, for good</h3>
+          <p>
+            The library, the Aperture reader, the editor and the viewer are
+            public under the MPL&nbsp;2.0. Read it, build it, fix it. If we
+            ever stopped, anyone could pick Alter up and keep it going.
+          </p>
+        </article>
+        <article class="as-pillar reveal">
+          <span class="as-pillar-icon" aria-hidden="true">⇄</span>
+          <h3>Nothing held hostage</h3>
+          <p>
+            Photos you import stay in their own folders, with titles, captions
+            and keywords written into the files as standard metadata. Alter’s
+            catalog is a plain SQLite file beside your photos — readable by
+            anything.
+          </p>
+        </article>
+        <article class="as-pillar reveal">
+          <span class="as-pillar-icon" aria-hidden="true">◎</span>
+          <h3>Your Aperture library, untouched</h3>
+          <p>
+            Alter reads it and never writes inside it. Keep it as your
+            archive and open it in Alter as often as you like — it stays
+            exactly as Aperture left it.
+          </p>
+        </article>
+      </div>
+
+      <div class="as-terminal reveal">
+        <div class="as-terminal-bar">
+          <span class="as-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="as-terminal-title">Build Alter yourself</span>
+          <button type="button" class="as-copy" data-copy="#build-steps">Copy</button>
+        </div>
+        <pre id="build-steps"><code>git clone {SOURCE_URL}
+cd alter && xcodegen generate
+open Alter.xcodeproj</code></pre>
+        <p class="as-terminal-foot">
+          <a href={SOURCE_URL}>github.com/twilightscapes/alter</a>
+          <span>Mozilla Public License 2.0 · Swift · macOS 13 or later</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Your library ──────────────────────────────────────────────── -->
+    <section class="as-section" id="yours">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">Your library</p>
+        <h2>Right where you left it.</h2>
+        <p class="as-lede">
+          Double-click your <code>.aplibrary</code> in Finder, or choose
+          File ▸ Open Aperture Library. Alter reads it in place and builds its
+          own catalog beside it. Nothing moves. Nothing is modified.
+        </p>
+      </div>
+
+      <figure class="as-wide reveal">
+        <img
+          src={`${IMG}/library-aperture.webp`}
+          alt="Alter’s browser showing an Aperture library: a grid of night and urban-exploration photos — a Futuro house, a ruined stone building, a lit downtown street, an old hotel — each with its filename, star rating and colour label. The sidebar lists Library items and a long list of Aperture projects with photo counts. The Futuro house is selected and the Adjust inspector on the right shows its White Balance, Exposure, Enhance and Highlights & Shadows bricks."
+          width="1240"
+          height="780"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="as-comes reveal">
+        <h3>What comes across</h3>
+        <ul class="as-checks">
+          {comesAcross.map(([title, detail], i) => (
+            <li style={`--i: ${i}`}>
+              <span class="as-check" aria-hidden="true"></span>
+              <span><strong>{title}</strong> {detail}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="as-fine">
+          Masters on other drives? Connect the drive first — Alter looks for
+          each referenced master where Aperture last saw it.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Your edits ────────────────────────────────────────────────── -->
+    <section class="as-section" id="edits">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">Your edits</p>
+        <h2>Every adjustment came with you.</h2>
+        <p class="as-lede">
+          Exposure, levels, curves, colour, white balance, black &amp; white,
+          vignettes, brushed-in adjustments, retouching, crops and
+          straightening — Alter rebuilds each one from Aperture’s own recipe,
+          so your photos still look the way you finished them. And they stay
+          editable.
+        </p>
+      </div>
+
+      <div class="as-wide reveal">
+        <div class="as-compare" data-compare style="--pos: 50%">
+          <img
+            class="as-compare-after"
+            data-compare-after
+            src={`${IMG}/futuro-alter.webp`}
+            alt="The Futuro house with its Aperture edit, rendered by Alter: a deep blue night sky, the saucer’s rusted shell glowing orange, its windows lit pale green and violet."
+            width="1800"
+            height="1200"
+            loading="lazy"
+            decoding="async"
+          />
+          <img
+            class="as-compare-before"
+            src={`${IMG}/futuro-as-shot.webp`}
+            alt="The same Futuro house as shot, before any adjustment: flatter, browner and brighter, with a hazy grey-green sky."
+            width="1800"
+            height="1200"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="as-compare-tag as-compare-tag-left" aria-hidden="true">As shot</span>
+          <span class="as-compare-tag as-compare-tag-right" aria-hidden="true" data-compare-label>Your edit, in Alter</span>
+          <span class="as-compare-line" aria-hidden="true"><span></span></span>
+          <input
+            class="as-compare-range"
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            aria-label="Drag to compare the master as shot with the edited photo"
+          />
+        </div>
+        <div class="as-seg" role="group" aria-label="Right-hand side shows">
+          <button type="button" aria-pressed="true" data-compare-src={`${IMG}/futuro-alter.webp`} data-compare-name="Your edit, in Alter">
+            Rendered by Alter
+          </button>
+          <button type="button" aria-pressed="false" data-compare-src={`${IMG}/futuro-aperture.webp`} data-compare-name="Aperture’s own preview">
+            Aperture’s own preview
+          </button>
+        </div>
+        <p class="as-caption">
+          Drag across the photo. Switch the right-hand side to Aperture’s own
+          preview and back — in Alter, that comparison is one click on the
+          Compare badge.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── Bricks ─────────────────────────────────────────────────────── -->
+    <section class="as-section" id="bricks">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">The tools</p>
+        <h2>The bricks you know. Every one.</h2>
+        <p class="as-lede">
+          Adjustments stack as bricks, each with a checkbox, a gear and a reset
+          arrow — White Balance, Exposure, Enhance, Highlights &amp; Shadows,
+          Levels, Curves, Color, Black &amp; White, Vignette and more. Brush any
+          of them in or away. Try a few:
+        </p>
+      </div>
+
+      <div class="as-wide as-bricks-demo reveal" data-bricks>
+        <div class="as-bricks-photo">
+          <img
+            src={`${IMG}/poolhall-as-shot.webp`}
+            alt="A small-town main street as shot: a row of old brick storefronts with awnings, one sign reading Pool Hall, under a blue sky with white clouds. Moving the sliders beside it changes how it looks."
+            width="1600"
+            height="1067"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="as-bricks-vignette" aria-hidden="true"></span>
+        </div>
+
+        <div class="as-inspector" aria-label="Adjust inspector demo">
+          <details class="as-brick" open>
+            <summary>
+              <input type="checkbox" checked data-brick="exposure" aria-label="Exposure brick on" />
+              <span>Exposure</span>
+            </summary>
+            <label class="as-slider">
+              <span>Exposure</span>
+              <input type="range" min="-2" max="2" step="0.01" value="0.35" data-adj="exposure" />
+              <output>+0.35</output>
+            </label>
+            <label class="as-slider">
+              <span>Brightness</span>
+              <input type="range" min="-0.5" max="0.5" step="0.01" value="0" data-adj="brightness" />
+              <output>0.00</output>
+            </label>
+          </details>
+          <details class="as-brick" open>
+            <summary>
+              <input type="checkbox" checked data-brick="enhance" aria-label="Enhance brick on" />
+              <span>Enhance</span>
+            </summary>
+            <label class="as-slider">
+              <span>Contrast</span>
+              <input type="range" min="-1" max="1" step="0.01" value="0.2" data-adj="contrast" />
+              <output>+0.20</output>
+            </label>
+            <label class="as-slider">
+              <span>Saturation</span>
+              <input type="range" min="0" max="2" step="0.01" value="1.15" data-adj="saturation" />
+              <output>1.15</output>
+            </label>
+          </details>
+          <details class="as-brick">
+            <summary>
+              <input type="checkbox" data-brick="bw" aria-label="Black & White brick on" />
+              <span>Black &amp; White</span>
+            </summary>
+            <label class="as-slider">
+              <span>Tone</span>
+              <input type="range" min="0" max="1" step="0.01" value="0.25" data-adj="sepia" />
+              <output>0.25</output>
+            </label>
+          </details>
+          <details class="as-brick">
+            <summary>
+              <input type="checkbox" data-brick="vignette" aria-label="Vignette brick on" />
+              <span>Vignette</span>
+            </summary>
+            <label class="as-slider">
+              <span>Intensity</span>
+              <input type="range" min="0" max="1" step="0.01" value="0.6" data-adj="vignette" />
+              <output>0.60</output>
+            </label>
+          </details>
+          <p class="as-inspector-note">
+            A browser sketch of the idea. Alter renders every brick with Core
+            Image on the full-resolution file.
+          </p>
+        </div>
+      </div>
+
+      <ul class="as-chips reveal" aria-label="More tools">
+        <li>Levels &amp; Curves, with eyedroppers</li>
+        <li>Color, by hue</li>
+        <li>Brush In / Brush Away</li>
+        <li>Quick Brushes</li>
+        <li>Straighten <kbd>G</kbd></li>
+        <li>Crop <kbd>C</kbd></li>
+        <li>Retouch <kbd>X</kbd></li>
+        <li>Red Eye <kbd>E</kbd></li>
+        <li>Lift &amp; Stamp <kbd>O</kbd></li>
+        <li>Presets</li>
+        <li>Auto on five bricks</li>
+        <li>Chromatic Aberration</li>
+        <li>Edit With… your other apps</li>
+      </ul>
+    </section>
+
+    <!-- ── The Loupe ─────────────────────────────────────────────────── -->
+    <section class="as-section" id="loupe">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">The Loupe</p>
+        <h2>The Loupe is back.</h2>
+        <p class="as-lede">
+          Press the backtick. A real loupe, from 50% to 1600%, with the colour
+          values under it and a pixel grid when you get in close. Move your
+          pointer over the photo — on a phone, drag the loupe.
+        </p>
+      </div>
+
+      <div class="as-wide reveal">
+        <div class="as-loupe-stage" data-loupe>
+          <img
+            class="as-loupe-photo"
+            src={`${IMG}/bigbend-alter.webp`}
+            alt="A crumbling adobe and stone building in the Big Bend desert at dusk, red rock hills behind it under a moody grey sky, dry brush and stones in the foreground."
+            width="2928"
+            height="1951"
+            loading="lazy"
+            decoding="async"
+            crossorigin="anonymous"
+          />
+          <div class="as-loupe" data-loupe-lens tabindex="0" role="img" aria-label="Loupe — use the arrow keys to move it">
+            <span class="as-loupe-rgb" data-loupe-rgb>R — G — B —</span>
+          </div>
+        </div>
+        <div class="as-seg as-seg-zoom" role="group" aria-label="Loupe zoom">
+          {loupeZooms.map((z) => (
+            <button type="button" data-zoom={z} aria-pressed={z === 2 ? 'true' : 'false'}>
+              {`${Math.round(z * 100)}%`}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── The keys ──────────────────────────────────────────────────── -->
+    <section class="as-section" id="keys">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">The keys</p>
+        <h2>Your fingers remember.</h2>
+        <p class="as-lede">
+          Alter answers to Aperture’s keys. Try them here, on your keyboard or
+          on the keys below.
+        </p>
+      </div>
+
+      <div class="as-wide as-keys-demo reveal" data-keys>
+        <div class="as-keys-stage" data-keys-stage>
+          <div class="as-keys-photo">
+            <img
+              data-keys-img
+              src={`${IMG}/pump-alter.webp`}
+              data-edit={`${IMG}/pump-alter.webp`}
+              data-master={`${IMG}/pump-as-shot.webp`}
+              alt="An old red and white gas pump at night, marked 3 and Super Unleaded, in front of a shuttered building with an ICE sign, warm-toned with a dark vignette."
+              width="924"
+              height="924"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="as-keys-flag" aria-hidden="true">⚑</span>
+            <span class="as-keys-reject" aria-hidden="true">✕ Rejected</span>
+            <span class="as-keys-master" aria-hidden="true">Master</span>
+            <span class="as-keys-stars" aria-hidden="true" data-keys-stars></span>
+          </div>
+          <aside class="as-keys-hud" aria-hidden="true">
+            <strong>Inspector</strong>
+            <span>IMG_1229.CR2</span>
+            <span data-keys-hud-rating>No rating</span>
+            <span>Exposure, Levels, Curves, Color, Vignette</span>
+            <span>Black &amp; White</span>
+          </aside>
+          <p class="as-keys-hint" aria-hidden="true">Esc to leave Full Screen</p>
+        </div>
+
+        <div class="as-keys-side">
+          <div class="as-keycaps" role="group" aria-label="Aperture keys">
+            {demoKeys.map((k) => (
+              <button type="button" class="as-keycap" data-key={k.key}>
+                <span class="as-keycap-cap">{k.cap}</span>
+                <span class="as-keycap-label">{k.label}</span>
+              </button>
+            ))}
+          </div>
+          <p class="as-keys-status" data-keys-status aria-live="polite">Press a key.</p>
+        </div>
+      </div>
+
+      <div class="as-chapters reveal">
+        <details class="as-chapter">
+          <summary>
+            <span class="as-chapter-title">Every key</span>
+            <span class="as-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="as-chapter-body">
+            <dl class="as-keytable">
+              {keyTable.map(([k, what]) => (
+                <div>
+                  <dt><kbd>{k}</kbd></dt>
+                  <dd>{what}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ── Organising ────────────────────────────────────────────────── -->
+    <section class="as-section" id="organise">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">Organised your way</p>
+        <h2>Projects, versions, stacks. Still yours.</h2>
+        <p class="as-lede">
+          Projects inside folders, albums inside projects. Versions under one
+          master. Stacks with a pick. Smart albums by rating, label, camera,
+          lens, ISO or date — and the Keywords HUD with your whole hierarchy.
+        </p>
+      </div>
+
+      <div class="as-org reveal">
+        <article class="as-org-card">
+          <h3>Projects &amp; folders</h3>
+          <ul class="as-tree" aria-label="Example project tree">
+            <li class="as-tree-folder">Travel
+              <ul>
+                <li class="as-tree-folder">2012
+                  <ul>
+                    <li class="as-tree-project">Big Bend <span>48</span></li>
+                    <li class="as-tree-album">Selects <span>12</span></li>
+                  </ul>
+                </li>
+                <li class="as-tree-project">Panhandle <span>31</span></li>
+              </ul>
+            </li>
+            <li class="as-tree-folder">Night work
+              <ul>
+                <li class="as-tree-project">Futuro house <span>22</span></li>
+              </ul>
+            </li>
+          </ul>
+        </article>
+
+        <article class="as-org-card">
+          <h3>Versions &amp; stacks</h3>
+          <button type="button" class="as-stack" data-stack aria-expanded="false">
+            <span class="as-stack-count">3</span>
+            <img src={`${IMG}/futuro-alter.webp`} alt="" width="180" height="120" loading="lazy" decoding="async" />
+            <img src={`${IMG}/futuro-aperture.webp`} alt="" width="180" height="120" loading="lazy" decoding="async" />
+            <img src={`${IMG}/futuro-as-shot.webp`} alt="" width="180" height="120" loading="lazy" decoding="async" />
+            <span class="as-stack-pick">Pick</span>
+            <span class="visually-hidden">Open the stack of three versions</span>
+          </button>
+          <p>Click the stack to open it — the pick stays first.</p>
+        </article>
+
+        <article class="as-org-card">
+          <h3>Smart albums</h3>
+          <div class="as-rules" aria-label="Example smart album rules">
+            <div><span>Lens</span><span>contains</span><span class="as-rule-val">16-35</span></div>
+            <div><span>Rating</span><span>is at least</span><span class="as-rule-val">★★★</span></div>
+            <div><span>ISO</span><span>is greater than</span><span class="as-rule-val">1600</span></div>
+          </div>
+          <p>Live, and they update as you rate and keyword.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── And more (CMS sections) ───────────────────────────────────── -->
+    <section class="as-section as-more" id="more">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">And then some</p>
+        <h2>Ten years of Mac you missed.</h2>
+        <p class="as-lede">
+          Alter didn’t start as an Aperture replacement — it started as a
+          library for describing and publishing photos. So it also has a
+          timeline editor, web layers, AI descriptions for photos and video,
+          accessible web galleries, and posting with ALT text attached. All
+          optional, all in the same library.
+        </p>
+      </div>
+      <nav class="as-jump-inline reveal" aria-label="Jump to a feature">
+        {sections.map((s) => <a href={`#${s.id}`}>{s.eyebrow}</a>)}
+      </nav>
+    </section>
+
     {
       sections.map((section) => (
         <section class="as-section" id={section.id}>
@@ -156,25 +702,95 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     <section class="as-section as-beta reveal" id="download">
       <!-- Old #beta links (announcements, early testers) still land here. -->
       <span id="beta" aria-hidden="true"></span>
-      <div class="as-intro">
+      <div class="as-download-head">
+        <img
+          src="/images/alter-icon.png"
+          alt=""
+          width="96"
+          height="96"
+          class="as-appicon as-appicon-small"
+        />
         <p class="as-eyebrow">Download</p>
-        <h2>Get Alter</h2>
+        <h2>Welcome back.</h2>
         <p class="as-lede">
-          Alter is free to download and use. Everything on this page is in the
-          app you can download right now — the timeline exports and publishing
-          tools included.
+          Download Alter, double-click your Aperture library, and pick up where
+          you left off.
         </p>
+        <p class="as-cta">
+          <a class="as-btn" href={page.downloadUrl}>Download Alter for Mac</a>
+          <a class="as-btn as-btn-quiet" href={SOURCE_URL}>Read the source</a>
+        </p>
+        <p class="as-fine">{page.finePrint}</p>
       </div>
-
-      <p class="as-cta">
-        <a class="as-btn" href={page.downloadUrl}>Download Alter for Mac</a>
-      </p>
-      <p class="as-fine">
-        {page.finePrint}
-      </p>
 
       <div class="as-chapters">
         <details class="as-chapter" open>
+          <summary>
+            <span class="as-chapter-title">Will Alter change my Aperture library?</span>
+            <span class="as-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="as-chapter-body">
+            <p>
+              No. Alter opens it read-only and never writes inside the
+              <code>.aplibrary</code> package. Its own catalog lives beside it,
+              in a separate file.
+            </p>
+          </div>
+        </details>
+
+        <details class="as-chapter">
+          <summary>
+            <span class="as-chapter-title">Do I need Aperture installed?</span>
+            <span class="as-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="as-chapter-body">
+            <p>
+              No. Alter reads the library itself, so it works on Macs that can
+              no longer run Aperture.
+            </p>
+          </div>
+        </details>
+
+        <details class="as-chapter">
+          <summary>
+            <span class="as-chapter-title">My masters are on another drive.</span>
+            <span class="as-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="as-chapter-body">
+            <p>
+              Connect the drive before you open the library. Alter looks for
+              each referenced master at the path Aperture recorded.
+            </p>
+          </div>
+        </details>
+
+        <details class="as-chapter">
+          <summary>
+            <span class="as-chapter-title">What happens if you stop making Alter?</span>
+            <span class="as-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="as-chapter-body">
+            <p>
+              Alter keeps going. Its core is open source under the
+              <a href="https://mozilla.org/MPL/2.0/">Mozilla Public License 2.0</a>,
+              so anyone can <a href={SOURCE_URL}>build it, fix it and carry it
+              on</a>. And your originals and your Aperture library never
+              depended on Alter in the first place.
+            </p>
+          </div>
+        </details>
+
+        <details class="as-chapter">
+          <summary>
+            <span class="as-chapter-title">Is it really free?</span>
+            <span class="as-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="as-chapter-body">
+            <p>Yes. Alter 1.0 is free to download and use.</p>
+          </div>
+        </details>
+
+        <details class="as-chapter">
           <summary>
             <span class="as-chapter-title">What's inside</span>
             <span class="as-chevron" aria-hidden="true"></span>
@@ -182,17 +798,20 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
           <div class="as-chapter-body">
             <ul class="as-list">
               <li>
+                <strong>Your Aperture library</strong> — projects, folders,
+                albums, versions, stacks, ratings, labels, keywords, captions
+                and adjustments, read in place and never modified.
+              </li>
+              <li>
                 <strong>A real library</strong> — referenced originals, folders,
                 albums, ratings, flags, filters, fast sorting, and search across
                 every metadata field. Videos are first-class citizens.
               </li>
               <li>
-                <strong>Pro editing</strong> — light, white balance, color, and
-                detail with a live RGB histogram; a full-resolution Loupe;
-                brushed adjustments you paint exactly where you want them; a
-                white-balance eyedropper; crop, straighten, rotate, and
-                click-to-heal retouch; before/after compare — all
-                non-destructive recipes that never touch your files.
+                <strong>Aperture’s tools</strong> — adjustment bricks with Brush
+                In and Brush Away, Quick Brushes, Levels and Curves, the Loupe,
+                Straighten, Crop, Retouch, Red Eye, Lift &amp; Stamp, Full
+                Screen with HUDs, and Aperture’s keyboard shortcuts.
               </li>
               <li>
                 <strong>The timeline editor</strong> — cut clips from <em>any number of videos</em> into one sequence; layer styled
@@ -205,12 +824,6 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
                 and capture it as a layer: a snapshot for stills, or a timed
                 recording that drops in as video you can trim, keyframe, and
                 animate like anything else.
-              </li>
-              <li>
-                <strong>Grade &amp; track</strong> — color-grade any clip or the
-                whole edit right in the timeline tray, and one click writes
-                keyframes that pin a sticker to a face as it moves through your
-                footage.
               </li>
               <li>
                 <strong>AI descriptions</strong> — one click describes photos and
@@ -235,24 +848,14 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
 
         <details class="as-chapter">
           <summary>
-            <span class="as-chapter-title">Good to know</span>
+            <span class="as-chapter-title">Send us feedback</span>
             <span class="as-chevron" aria-hidden="true"></span>
           </summary>
           <div class="as-chapter-body">
-            <ul class="as-list">
-              <li>
-                Your pixels are never modified: adjustments render into exports
-                and galleries only.
-                Metadata (ALT&nbsp;text, titles, captions, keywords) is written
-                into your files — automatically by default, or only on
-                Save&nbsp;Metadata&nbsp;to&nbsp;Files&nbsp;(⌘S) if you turn
-                autosave off in Settings.
-              </li>
-              <li>
-                Found something broken or missing? Tell us with the form below —
-                it comes straight to us.
-              </li>
-            </ul>
+            <p>
+              Found something broken or missing? Something Aperture did that
+              Alter doesn’t yet? Tell us — it comes straight to us.
+            </p>
 
             <form
               class="beta-form"
@@ -294,17 +897,21 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
 
     <!-- ── Close ─────────────────────────────────────────────────────── -->
     <section class="as-close reveal">
-      <h2>Everything described. Nothing locked in.</h2>
+      <h2>Nothing locked in. Ever.</h2>
       <p class="as-lede">
-        Your originals stay yours, in place, in their own folders. Your galleries
-        publish to your own domain. Your library is a catalog you can walk away
-        from. Alter earns its place by being useful, not by holding your work
-        hostage.
+        Your originals stay yours, in place, in their own folders. Your Aperture
+        library stays exactly as you left it. Your galleries publish to your own
+        domain. And the app itself is open source, so it can never be
+        switched off on you.
       </p>
       <p class="as-cta">
         <a class="as-btn" href={page.downloadUrl}>Download Alter for Mac</a>
+        <a class="as-btn as-btn-quiet" href={SOURCE_URL}>Read the source</a>
       </p>
-      <p class="as-fine">Free · macOS 13 or later</p>
+      <p class="as-fine">
+        Aperture is a trademark of Apple Inc. Alter is not affiliated with or
+        endorsed by Apple.
+      </p>
     </section>
   </div>
 </AlterBase>
@@ -328,17 +935,21 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     --accent-strong: #4f7ce8;
     color-scheme: dark;
   }
+  html:root body { overflow-x: clip; }
 </style>
 
 <style>
   /* ── Page tokens ───────────────────────────────────────────────────── */
   .as {
     --as-max: 1080px;
+    --as-wide: 1320px;
     --as-text: #edf1f6;
     --as-muted: #98a2b1;
     --as-dim: #6f7987;
     --as-accent: #6f9bff;
     --as-violet: #a77dff;
+    --as-good: #4fd18b;
+    --as-amber: #f5b544;
     --as-line: #262c36;
     --as-panel: #101318;
     --as-panel-2: #161a21;
@@ -364,6 +975,15 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     text-wrap: pretty;
   }
   .as-lede em { color: var(--as-text); font-style: italic; }
+  .as :is(.as-lede, .as-chapter-body) code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.86em;
+    color: var(--as-text);
+    background: var(--as-panel-2);
+    border: 1px solid var(--as-line);
+    border-radius: 6px;
+    padding: 1px 6px;
+  }
 
   .as-fine {
     color: var(--as-dim);
@@ -371,31 +991,77 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     margin-top: 14px;
   }
 
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  /* Wider than the text column — the big highlights. */
+  /* Centred with margins, not a transform: a transformed ancestor would
+     trap the keys demo's position: fixed Full Screen inside it. */
+  .as-wide {
+    --w: min(var(--as-wide), calc(100vw - 32px));
+    width: var(--w);
+    margin: 0 0 0 calc((100% - var(--w)) / 2);
+  }
+  .as-wide > img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    border: 1px solid var(--as-line);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  }
+
   /* ── Hero ──────────────────────────────────────────────────────────── */
   .as-hero {
     text-align: center;
-    padding: 64px 0 40px;
+    padding: 64px 0 48px;
   }
+  /* The PNG has transparent padding around its tile, so the glow follows
+     the tile's alpha (drop-shadow) — a box-shadow lit up the padding and
+     left a dark square around the icon. */
   .as-appicon {
-    border-radius: 26px;
-    box-shadow: 0 18px 60px rgba(110, 90, 240, 0.35);
+    filter: drop-shadow(0 16px 36px rgba(110, 90, 240, 0.45));
   }
-  .as-hero h1 {
-    font-size: clamp(3.2rem, 11vw, 6.5rem);
+  .as-brand {
+    width: 128px;
+    margin: 0 auto;
+  }
+  .as-brand .as-appicon { display: block; }
+  .as-wordmark {
+    display: block;
+    width: calc(100% * 824 / 1024);
+    height: auto;
+    margin: 6px auto 0;
+    overflow: visible;
+  }
+  .as-wordmark text {
+    fill: var(--as-text);
+    font-family: var(--font);
+    font-size: 386px;
     font-weight: 800;
-    margin: 18px 0 0;
+    letter-spacing: -0.03em;
+  }
+  .as-hero .as-eyebrow-hero { margin: 40px 0 14px; }
+  .as-hero h1 {
+    font-size: clamp(3.2rem, 10vw, 7rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    margin: 0 0 26px;
     background: linear-gradient(135deg, #ffffff 20%, var(--as-accent) 65%, var(--as-violet));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
-  .as-tagline {
-    font-size: clamp(1.3rem, 3.4vw, 1.9rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin: 6px 0 22px;
-  }
   .as-hero .as-lede { margin: 0 auto; }
+
+  .as-hero-shot { margin-top: 8px; }
 
   .as-cta {
     display: flex;
@@ -436,14 +1102,15 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     overflow-x: auto;
     scrollbar-width: none;
     padding: 12px 0;
-    margin: 40px 0 8px;
+    margin: 56px 0 8px;
     background: color-mix(in srgb, var(--bg) 82%, transparent);
     backdrop-filter: saturate(180%) blur(16px);
     -webkit-backdrop-filter: saturate(180%) blur(16px);
     border-bottom: 1px solid var(--as-line);
   }
   .as-jump::-webkit-scrollbar { display: none; }
-  .as-jump a {
+  .as-jump a,
+  .as-jump-inline a {
     flex: 0 0 auto;
     color: var(--as-muted);
     text-decoration: none;
@@ -455,18 +1122,25 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     white-space: nowrap;
     transition: color 0.15s ease, background 0.15s ease;
   }
-  .as-jump a:hover {
+  .as-jump a:hover,
+  .as-jump-inline a:hover {
     color: var(--as-text);
     background: var(--as-panel-2);
     border-color: var(--as-line);
   }
+  .as-jump-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .as-jump-inline a { border-color: var(--as-line); }
 
   /* ── Sections ──────────────────────────────────────────────────────── */
   .as-section {
-    padding: 96px 0 24px;
+    padding: 120px 0 24px;
     scroll-margin-top: 72px;
   }
-  .as-intro { max-width: 66ch; margin-bottom: 34px; }
+  .as-intro { max-width: 66ch; margin-bottom: 40px; }
   .as-eyebrow {
     color: var(--as-accent);
     font-size: 0.78rem;
@@ -476,10 +1150,821 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     margin: 0 0 12px;
   }
   .as-section h2 {
-    font-size: clamp(2.1rem, 5.6vw, 3.6rem);
-    font-weight: 750;
+    font-size: clamp(2.4rem, 6.4vw, 4.4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+  .as-caption {
+    color: var(--as-dim);
+    font-size: 0.92rem;
+    text-align: center;
+    margin: 18px auto 0;
+    max-width: 62ch;
+  }
+
+  /* Segmented control (compare source, loupe zoom). */
+  .as-seg {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    width: fit-content;
+    margin: 22px auto 0;
+    padding: 4px;
+    border-radius: 999px;
+    background: var(--as-panel-2);
+    border: 1px solid var(--as-line);
+  }
+  .as-seg button {
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--as-muted);
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+  }
+  .as-seg button[aria-pressed='true'] {
+    color: #06080d;
+    background: var(--as-accent);
+  }
+  .as-seg button:focus-visible { outline: 2px solid var(--as-accent); outline-offset: 2px; }
+
+  /* ── Open source ───────────────────────────────────────────────────── */
+  .as-open .as-intro { max-width: 70ch; }
+  .as-open h2 {
+    background: linear-gradient(135deg, #ffffff 30%, var(--as-good));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .as-timeline {
+    list-style: none;
+    margin: 0 0 56px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    position: relative;
+  }
+  .as-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 23px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--as-line), #5a3b3b 45%, #5a3b3b 70%, var(--as-good));
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  }
+  .as-timeline.is-in::before { transform: scaleX(1); }
+  .as-timeline li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 44px;
+    color: var(--as-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .as-timeline li::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--as-panel);
+    border: 2px solid var(--as-dim);
+  }
+  .as-timeline li:nth-child(2)::before,
+  .as-timeline li:nth-child(3)::before { border-color: #d0605e; }
+  .as-timeline .as-tl-now::before {
+    border-color: var(--as-good);
+    background: var(--as-good);
+    box-shadow: 0 0 0 6px rgba(79, 209, 139, 0.18);
+  }
+  .as-tl-year {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--as-dim);
+  }
+  .as-timeline strong {
+    color: var(--as-text);
+    font-size: 1.15rem;
+    letter-spacing: -0.02em;
+  }
+  .as-tl-now strong { color: var(--as-good); }
+
+  .as-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .as-pillar {
+    border: 1px solid var(--as-line);
+    border-radius: 20px;
+    padding: 26px 24px 22px;
+    background:
+      radial-gradient(120% 100% at 0% 0%, rgba(79, 209, 139, 0.08), transparent 60%),
+      var(--as-panel);
+  }
+  .as-pillar-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: var(--as-good);
+    background: rgba(79, 209, 139, 0.12);
     margin-bottom: 18px;
   }
+  .as-pillar h3 { font-size: 1.3rem; margin-bottom: 10px; }
+  .as-pillar p { margin: 0; color: var(--as-muted); line-height: 1.6; }
+
+  .as-terminal {
+    margin-top: 28px;
+    border: 1px solid var(--as-line);
+    border-radius: 18px;
+    overflow: hidden;
+    background: #05070a;
+  }
+  .as-terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: var(--as-panel-2);
+    border-bottom: 1px solid var(--as-line);
+  }
+  .as-dots { display: inline-flex; gap: 7px; }
+  .as-dots i { width: 11px; height: 11px; border-radius: 50%; background: #3a404b; }
+  .as-terminal-title { color: var(--as-muted); font-size: 0.85rem; font-weight: 600; flex: 1; }
+  .as-copy {
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--as-text);
+    background: transparent;
+    border: 1px solid var(--as-line);
+    border-radius: 999px;
+    padding: 0.25rem 0.8rem;
+    cursor: pointer;
+  }
+  .as-copy:hover { border-color: var(--as-accent); }
+  .as-terminal pre {
+    margin: 0;
+    padding: 22px 22px 18px;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #cfe9d9;
+  }
+  .as-terminal-foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 18px;
+    margin: 0;
+    padding: 12px 22px 16px;
+    font-size: 0.85rem;
+    color: var(--as-dim);
+    border-top: 1px solid var(--as-line);
+  }
+  .as-terminal-foot a { color: var(--as-good); font-weight: 600; text-decoration: none; }
+  .as-terminal-foot a:hover { text-decoration: underline; }
+
+  /* ── What comes across ─────────────────────────────────────────────── */
+  .as-comes { margin-top: 56px; }
+  .as-comes h3 { font-size: 1.5rem; margin-bottom: 18px; }
+  .as-checks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 32px;
+  }
+  .as-checks li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    color: var(--as-muted);
+    line-height: 1.5;
+  }
+  .as-checks strong { color: var(--as-text); display: block; }
+  .as-check {
+    flex: 0 0 auto;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--as-line);
+    margin-top: 1px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+    transition-delay: calc(var(--i) * 140ms + 200ms);
+  }
+  .as-check::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 11px;
+    border-right: 2.5px solid #06080d;
+    border-bottom: 2.5px solid #06080d;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: calc(var(--i) * 140ms + 260ms);
+  }
+  .as-comes.is-in .as-check { background: var(--as-good); border-color: var(--as-good); }
+  .as-comes.is-in .as-check::after { transform: rotate(45deg) scale(1); }
+
+  /* ── Compare slider ────────────────────────────────────────────────── */
+  .as-compare {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--as-line);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+    background: #000;
+    user-select: none;
+  }
+  .as-compare img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .as-compare-before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+  .as-compare-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    width: 2px;
+    margin-left: -1px;
+    background: #fff;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+  }
+  .as-compare-line span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 46px;
+    height: 46px;
+    margin: -23px 0 0 -23px;
+    border-radius: 50%;
+    background: rgba(8, 9, 12, 0.7);
+    border: 2px solid #fff;
+    backdrop-filter: blur(6px);
+  }
+  .as-compare-line span::before,
+  .as-compare-line span::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+  }
+  .as-compare-line span::before { left: 11px; transform: rotate(45deg); }
+  .as-compare-line span::after { right: 11px; transform: rotate(-135deg); }
+  .as-compare-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+  }
+  .as-compare:has(.as-compare-range:focus-visible) {
+    outline: 3px solid var(--as-accent);
+    outline-offset: 4px;
+  }
+  .as-compare-tag {
+    position: absolute;
+    top: 18px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(8, 9, 12, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 999px;
+    padding: 6px 12px;
+    pointer-events: none;
+  }
+  .as-compare-tag-left { left: 18px; }
+  .as-compare-tag-right { right: 18px; }
+
+  /* ── Bricks demo ───────────────────────────────────────────────────── */
+  .as-bricks-demo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    border: 1px solid var(--as-line);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1e2127;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  }
+  .as-bricks-photo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #141518;
+    padding: 18px;
+  }
+  .as-bricks-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    filter: var(--photo-filter, none);
+  }
+  .as-bricks-vignette {
+    position: absolute;
+    inset: 18px;
+    border-radius: 4px;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.95) 100%);
+    opacity: var(--vignette, 0);
+  }
+  .as-inspector {
+    background: #2a2d33;
+    border-left: 1px solid #16181c;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 0.85rem;
+  }
+  .as-brick {
+    background: #33363d;
+    border: 1px solid #1d1f23;
+    border-radius: 8px;
+  }
+  .as-brick summary {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 10px;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 650;
+    color: #eceef2;
+  }
+  .as-brick summary::-webkit-details-marker { display: none; }
+  .as-brick summary::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid #9aa1ad;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform 0.15s ease;
+  }
+  .as-brick[open] summary::before { transform: rotate(90deg); }
+  .as-brick input[type='checkbox'] { accent-color: var(--as-accent); width: 15px; height: 15px; margin: 0; }
+  .as-slider {
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr) 44px;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px 8px;
+    color: #c4c8d0;
+  }
+  .as-slider input { width: 100%; accent-color: #d8dbe0; }
+  .as-slider output {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: #eceef2;
+    font-size: 0.8rem;
+  }
+  .as-brick:has(input[type='checkbox']:not(:checked)) .as-slider { opacity: 0.45; }
+  .as-inspector-note {
+    margin: auto 0 0;
+    padding: 10px 4px 2px;
+    color: #8a909b;
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .as-chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    margin: 34px 0 0;
+  }
+  .as-chips li {
+    font-size: 0.9rem;
+    color: var(--as-text);
+    background: var(--as-panel-2);
+    border: 1px solid var(--as-line);
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+  }
+  .as :is(.as-chips, .as-keytable, .as-chapter-body) kbd {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82em;
+    color: var(--as-text);
+    background: #0b0d11;
+    border: 1px solid var(--as-line);
+    border-bottom-width: 2px;
+    border-radius: 6px;
+    padding: 1px 6px;
+    margin-left: 4px;
+    white-space: nowrap;
+  }
+
+  /* ── Loupe ─────────────────────────────────────────────────────────── */
+  .as-loupe-stage {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--as-line);
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+    cursor: none;
+  }
+  .as-loupe-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .as-loupe {
+    --size: 240px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--size);
+    height: var(--size);
+    margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+    border-radius: 50%;
+    border: 8px solid #1b1d22;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35), 0 22px 50px rgba(0, 0, 0, 0.7), inset 0 0 0 1px rgba(0, 0, 0, 0.5);
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-origin: padding-box;
+    touch-action: none;
+    cursor: grab;
+    will-change: transform;
+  }
+  .as-loupe:focus-visible { outline: 3px solid var(--as-accent); outline-offset: 4px; }
+  .as-loupe-rgb {
+    position: absolute;
+    left: 50%;
+    bottom: -40px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem;
+    color: #fff;
+    background: rgba(8, 9, 12, 0.75);
+    border-radius: 999px;
+    padding: 4px 10px;
+    pointer-events: none;
+  }
+  .as-seg-zoom button { font-variant-numeric: tabular-nums; min-width: 64px; }
+
+  /* ── Keys demo ─────────────────────────────────────────────────────── */
+  .as-keys-demo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+  .as-keys-stage {
+    position: relative;
+    border-radius: 20px;
+    background: #1d2026;
+    border: 1px solid var(--as-line);
+    padding: 26px;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.5);
+  }
+  .as-keys-photo {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    aspect-ratio: 1;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .as-keys-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(var(--zoom, 1));
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.25s ease;
+  }
+  .as-keys-flag {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    font-size: 1.5rem;
+    color: #f08c2e;
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  }
+  .as-keys-reject {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) scale(0.8);
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #ff6b6b;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.3s ease;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.9);
+  }
+  .as-keys-master {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #06080d;
+    background: var(--as-amber);
+    border-radius: 999px;
+    padding: 4px 10px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .as-keys-stars {
+    position: absolute;
+    left: 12px;
+    bottom: 10px;
+    font-size: 1.25rem;
+    letter-spacing: 2px;
+    color: #ffd25e;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  }
+  [data-keys-stage][data-flag] .as-keys-flag { opacity: 1; transform: scale(1); }
+  [data-keys-stage][data-reject] .as-keys-reject { opacity: 1; transform: translateY(-50%) scale(1); }
+  [data-keys-stage][data-reject] .as-keys-photo img { filter: grayscale(0.6) brightness(0.55); }
+  [data-keys-stage][data-master] .as-keys-master { opacity: 1; }
+  [data-keys-stage][data-zoom] .as-keys-photo img { --zoom: 2.4; }
+
+  .as-keys-hud {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 14px;
+    font-size: 0.78rem;
+    color: #cdd2da;
+    background: rgba(32, 35, 41, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .as-keys-hud strong { color: #fff; font-size: 0.85rem; margin-bottom: 4px; }
+  .as-keys-hint {
+    display: none;
+    position: absolute;
+    left: 50%;
+    bottom: 14px;
+    transform: translateX(-50%);
+    margin: 0;
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  /* Full Screen: the stage takes the viewport, black, as Aperture did. */
+  [data-keys-stage][data-full] {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    border-radius: 0;
+    border: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  [data-keys-stage][data-full] .as-keys-photo {
+    width: min(86vh, 92vw);
+    max-width: none;
+  }
+  [data-keys-stage][data-full] .as-keys-hint { display: block; }
+  [data-keys-stage][data-full][data-hud] .as-keys-hud { opacity: 1; transform: none; }
+
+  .as-keycaps {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .as-keycap {
+    font: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: var(--as-muted);
+  }
+  .as-keycap-cap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 64px;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--as-text);
+    background: linear-gradient(#262a32, #1c1f25);
+    border: 1px solid #3a404b;
+    border-bottom-width: 4px;
+    border-radius: 12px;
+    transition: transform 0.08s ease, border-bottom-width 0.08s ease, background 0.15s ease;
+  }
+  .as-keycap-label { font-size: 0.72rem; white-space: nowrap; }
+  .as-keycap:hover .as-keycap-cap { border-color: var(--as-accent); }
+  .as-keycap:focus-visible .as-keycap-cap { outline: 2px solid var(--as-accent); outline-offset: 2px; }
+  .as-keycap.is-down .as-keycap-cap {
+    transform: translateY(3px);
+    border-bottom-width: 1px;
+    background: linear-gradient(#2f3a52, #253049);
+    border-color: var(--as-accent);
+  }
+  .as-keys-status {
+    margin: 22px 0 0;
+    min-height: 1.6em;
+    color: var(--as-text);
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .as-keytable {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px 28px;
+    margin: 6px 0 0;
+  }
+  .as-keytable div { display: flex; align-items: baseline; gap: 12px; }
+  .as-keytable dt { flex: 0 0 96px; text-align: right; }
+  .as-keytable dt kbd { margin: 0; }
+  .as-keytable dd { margin: 0; color: var(--as-muted); }
+  .as-chapter-body:has(.as-keytable) { max-width: none; }
+
+  /* ── Organising ────────────────────────────────────────────────────── */
+  .as-org {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .as-org-card {
+    border: 1px solid var(--as-line);
+    border-radius: 20px;
+    padding: 24px;
+    background: var(--as-panel);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .as-org-card h3 { font-size: 1.25rem; }
+  .as-org-card > p { margin: 0; color: var(--as-dim); font-size: 0.88rem; }
+
+  .as-tree, .as-tree ul { list-style: none; margin: 0; padding: 0; }
+  .as-tree ul { padding-left: 18px; }
+  .as-tree li { font-size: 0.92rem; line-height: 2; color: var(--as-text); }
+  .as-tree li::before {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 11px;
+    margin-right: 8px;
+    border-radius: 2px;
+    vertical-align: -1px;
+  }
+  .as-tree-folder::before { background: #7c8698; }
+  .as-tree-project::before { background: var(--as-accent); border-radius: 3px; }
+  .as-tree-album::before { background: transparent; border: 2px solid var(--as-violet); width: 10px; height: 8px; }
+  .as-tree span { color: var(--as-dim); font-size: 0.8rem; margin-left: 6px; }
+
+  .as-stack {
+    position: relative;
+    height: 150px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .as-stack img {
+    position: absolute;
+    left: 50%;
+    top: 14px;
+    width: 160px;
+    height: 107px;
+    object-fit: cover;
+    margin-left: -80px;
+    border-radius: 6px;
+    border: 2px solid #2e333c;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .as-stack img:nth-of-type(1) { z-index: 3; }
+  .as-stack img:nth-of-type(2) { z-index: 2; transform: translate(8px, -6px) rotate(3deg); }
+  .as-stack img:nth-of-type(3) { z-index: 1; transform: translate(16px, -12px) rotate(6deg); }
+  .as-stack[aria-expanded='true'] img:nth-of-type(1) { transform: translateX(-92px) scale(0.62); }
+  .as-stack[aria-expanded='true'] img:nth-of-type(2) { transform: scale(0.62); }
+  .as-stack[aria-expanded='true'] img:nth-of-type(3) { transform: translateX(92px) scale(0.62); }
+  .as-stack-count {
+    position: absolute;
+    z-index: 4;
+    left: calc(50% - 74px);
+    top: 20px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #06080d;
+    background: #f5f5f7;
+    border-radius: 6px;
+    padding: 1px 6px;
+    transition: opacity 0.2s ease;
+  }
+  .as-stack-pick {
+    position: absolute;
+    z-index: 4;
+    left: calc(50% - 92px);
+    bottom: 4px;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--as-amber);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .as-stack[aria-expanded='true'] .as-stack-count { opacity: 0; }
+  .as-stack[aria-expanded='true'] .as-stack-pick { opacity: 1; }
+  .as-stack:focus-visible { outline: 2px solid var(--as-accent); outline-offset: 4px; border-radius: 10px; }
+
+  .as-rules { display: flex; flex-direction: column; gap: 8px; }
+  .as-rules div {
+    display: grid;
+    grid-template-columns: 62px 1fr auto;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.86rem;
+    color: var(--as-muted);
+    background: var(--as-panel-2);
+    border: 1px solid var(--as-line);
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+  .as-rules div > span:first-child { color: var(--as-text); font-weight: 600; }
+  .as-rule-val {
+    color: var(--as-text);
+    background: #0b0d11;
+    border: 1px solid var(--as-line);
+    border-radius: 6px;
+    padding: 2px 8px;
+  }
+
+  .as-more { padding-bottom: 0; }
 
   /* ── Shot placeholders ─────────────────────────────────────────────── */
   .as-shot {
@@ -527,9 +2012,8 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
     margin: 0 auto 8px;
   }
-  .as-shot-img-inline { margin-top: 24px; }
-
-  .as-shot-hero { margin-top: 56px; }
+  /* Tall shots (an inspector, a sheet) shrink to a readable height. */
+  .as-shot-img-inline { margin-top: 24px; width: auto; max-height: 640px; }
   .as-shot-inline {
     margin-top: 24px;
     /* max-width comes from shotStyle() — height-capped per aspect ratio. */
@@ -592,17 +2076,6 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
   .as-chapter-body strong { color: var(--as-text); font-weight: 650; }
   .as-chapter-body em { color: var(--as-text); font-style: italic; }
 
-  .as-chapter-body :is(kbd, code) {
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 0.84em;
-    color: var(--as-text);
-    background: var(--as-panel-2);
-    border: 1px solid var(--as-line);
-    border-radius: 6px;
-    padding: 1px 6px;
-    white-space: nowrap;
-  }
-
   .as-chapter-body .as-shot { max-width: none; }
 
   /* Chapter bodies animate open where the browser can interpolate it. */
@@ -644,30 +2117,19 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     line-height: 1.45;
   }
 
-  /* ── Beta + close ──────────────────────────────────────────────────── */
+  /* ── Download + close ──────────────────────────────────────────────── */
   .as-beta {
     border: 1px solid var(--as-line);
     border-radius: 24px;
-    padding: 56px 34px 34px;
-    margin-top: 96px;
+    padding: 64px 34px 34px;
+    margin-top: 120px;
     background:
-      radial-gradient(100% 120% at 50% 0%, rgba(167, 125, 255, 0.09), transparent 60%),
+      radial-gradient(100% 120% at 50% 0%, rgba(167, 125, 255, 0.1), transparent 60%),
       var(--as-panel);
   }
-  .as-beta .as-cta { justify-content: flex-start; }
-  .as-badge {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 0.34em;
-    font-weight: 700;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    background: linear-gradient(135deg, var(--as-accent), var(--as-violet));
-    color: #06080d;
-    border-radius: 8px;
-    padding: 5px 10px;
-    margin-left: 10px;
-  }
+  .as-download-head { text-align: center; }
+  .as-download-head .as-lede { margin: 0 auto; }
+  .as-appicon-small { margin-bottom: 18px; }
   .as-list { margin: 0; padding-left: 1.15rem; }
   .as-list li {
     color: var(--as-muted);
@@ -676,7 +2138,7 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
   }
   .as-list strong { color: var(--as-text); font-weight: 650; }
 
-  /* Beta bug-report form (Netlify) */
+  /* Feedback form (Netlify) */
   .beta-form {
     display: grid;
     gap: 0.9rem;
@@ -708,11 +2170,11 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
 
   .as-close {
     text-align: center;
-    padding: 120px 0 40px;
+    padding: 140px 0 40px;
   }
   .as-close h2 {
-    font-size: clamp(1.9rem, 5vw, 3rem);
-    font-weight: 750;
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    font-weight: 800;
     margin-bottom: 20px;
   }
   .as-close .as-lede { margin: 0 auto; }
@@ -732,26 +2194,49 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
     .as-chapter::details-content { transition: none; }
-    .as-btn { transition: none; }
+    .as-btn, .as-check, .as-check::after, .as-stack img, .as-keys-photo img { transition: none; }
+    .as-timeline::before { transition: none; }
+  }
+
+  @media (max-width: 900px) {
+    .as-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
+    .as-timeline::before { display: none; }
+    .as-pillars, .as-org { grid-template-columns: minmax(0, 1fr); }
+    .as-bricks-demo { grid-template-columns: minmax(0, 1fr); }
+    .as-inspector { border-left: 0; border-top: 1px solid #16181c; }
+    .as-keys-demo { grid-template-columns: minmax(0, 1fr); }
+    .as-checks { grid-template-columns: minmax(0, 1fr); }
   }
 
   @media (max-width: 640px) {
-    .as { padding: 0 18px 80px; }
-    .as-section { padding-top: 68px; }
-    .as-beta { padding: 40px 20px 24px; border-radius: 18px; }
+    .as { padding: 0 16px 80px; }
+    .as-section { padding-top: 84px; }
+    .as-wide > img, .as-compare, .as-loupe-stage, .as-bricks-demo { border-radius: 14px; }
+    .as-beta { padding: 44px 18px 24px; border-radius: 18px; }
     .as-shot { padding: 20px; border-radius: 14px; }
     .as-cta { justify-content: stretch; }
     .as-btn { flex: 1 1 auto; text-align: center; }
+    .as-timeline { grid-template-columns: minmax(0, 1fr); }
+    .as-loupe { --size: 150px; }
+    .as-keycaps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .as-keys-stage { padding: 14px; }
+    .as-compare-tag { top: 10px; font-size: 0.66rem; padding: 4px 9px; }
+    .as-compare-tag-left { left: 10px; }
+    .as-compare-tag-right { right: 10px; }
+    .as-seg-zoom { flex-wrap: wrap; border-radius: 16px; }
+    .as-seg-zoom button { min-width: 0; padding: 0.4rem 0.7rem; }
+    .as-keytable dt { flex-basis: 84px; }
   }
 </style>
 
 <script>
-  // Reveal-on-scroll. CSS handles the animation; this only flips the class.
-  // Anything already on screen at load reveals immediately, so the hero never
-  // sits blank waiting for a scroll that may not come.
-  const targets = document.querySelectorAll<HTMLElement>('.reveal');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  // ── Reveal-on-scroll ────────────────────────────────────────────────
+  // CSS handles the animation; this only flips the class. Anything already
+  // on screen at load reveals immediately, so the hero never sits blank.
+  const targets = document.querySelectorAll<HTMLElement>('.reveal');
+  if (!reduceMotion) {
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -760,10 +2245,7 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
           io.unobserve(entry.target);
         }
       },
-      // threshold 0: fire the moment any sliver crosses the line. A ratio-based
-      // threshold is wrong here — a 2800px section can only ever reach ~25%
-      // visibility in a 720px viewport, so anything above a few percent leaves
-      // tall sections invisible long after they should have appeared.
+      // threshold 0: tall sections can never reach a large visible ratio.
       { rootMargin: '0px 0px -8% 0px', threshold: 0 }
     );
     targets.forEach((el) => io.observe(el));
@@ -771,15 +2253,356 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
     targets.forEach((el) => el.classList.add('is-in'));
   }
 
-  // Opening a collapsed chapter should bring its heading to a comfortable
-  // reading position rather than leaving it pinned under the sticky nav.
+  // Opening a collapsed chapter brings its heading to a comfortable reading
+  // position rather than leaving it pinned under the sticky nav.
+  // Only for a person opening it: chapters that start open fire 'toggle' on
+  // load too, and scrolling to those would yank the page down on arrival.
   document.querySelectorAll<HTMLDetailsElement>('.as-chapter').forEach((d) => {
+    let byPerson = false;
+    d.querySelector('summary')?.addEventListener('click', () => (byPerson = true));
     d.addEventListener('toggle', () => {
-      if (!d.open) return;
+      const wanted = byPerson;
+      byPerson = false;
+      if (!d.open || !wanted) return;
       const top = d.getBoundingClientRect().top;
       if (top < 80 || top > window.innerHeight * 0.72) {
-        d.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        d.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
       }
     });
   });
+
+  // ── Copy build steps ────────────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const src = document.querySelector(btn.dataset.copy!);
+      if (!src) return;
+      try {
+        await navigator.clipboard.writeText(src.textContent ?? '');
+        btn.textContent = 'Copied';
+      } catch {
+        btn.textContent = 'Select and copy';
+      }
+      setTimeout(() => (btn.textContent = 'Copy'), 1800);
+    });
+  });
+
+  // ── Before / after ──────────────────────────────────────────────────
+  const compare = document.querySelector<HTMLElement>('[data-compare]');
+  if (compare) {
+    const range = compare.querySelector<HTMLInputElement>('input[type=range]')!;
+    const after = compare.querySelector<HTMLImageElement>('[data-compare-after]')!;
+    const label = compare.querySelector<HTMLElement>('[data-compare-label]')!;
+    const setPos = (v: number) => compare.style.setProperty('--pos', `${v}%`);
+    range.addEventListener('input', () => setPos(Number(range.value)));
+
+    // With a mouse, hovering moves the line too — no need to grab it.
+    compare.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      const r = compare.getBoundingClientRect();
+      const v = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+      range.value = String(v);
+      setPos(v);
+    });
+
+    const alts: Record<string, string> = {
+      alter: after.alt,
+      aperture:
+        'The Futuro house as Aperture itself rendered the edit, from the preview saved in the library — nearly identical to Alter’s render.',
+    };
+    const buttons = compare.parentElement!.querySelectorAll<HTMLButtonElement>('[data-compare-src]');
+    buttons.forEach((b) =>
+      b.addEventListener('click', () => {
+        buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        after.src = b.dataset.compareSrc!;
+        label.textContent = b.dataset.compareName!;
+        after.alt = b.dataset.compareSrc!.includes('aperture.webp') ? alts.aperture : alts.alter;
+      })
+    );
+  }
+
+  // ── Bricks ──────────────────────────────────────────────────────────
+  const bricks = document.querySelector<HTMLElement>('[data-bricks]');
+  if (bricks) {
+    const photo = bricks.querySelector<HTMLElement>('.as-bricks-photo')!;
+    const val = (name: string) =>
+      Number(bricks.querySelector<HTMLInputElement>(`[data-adj="${name}"]`)!.value);
+    const on = (name: string) =>
+      bricks.querySelector<HTMLInputElement>(`[data-brick="${name}"]`)!.checked;
+    const fmt = (n: number, signed: boolean) => (signed && n > 0 ? '+' : '') + n.toFixed(2);
+
+    const render = () => {
+      const f: string[] = [];
+      if (on('exposure')) {
+        f.push(`brightness(${(Math.pow(2, val('exposure') * 0.55) + val('brightness')).toFixed(3)})`);
+      }
+      if (on('enhance')) {
+        f.push(`contrast(${(1 + val('contrast') * 0.6).toFixed(3)})`);
+        f.push(`saturate(${val('saturation').toFixed(3)})`);
+      }
+      if (on('bw')) {
+        f.push('grayscale(1)');
+        f.push(`sepia(${val('sepia').toFixed(3)})`);
+      }
+      photo.style.setProperty('--photo-filter', f.length ? f.join(' ') : 'none');
+      photo.style.setProperty('--vignette', on('vignette') ? String(val('vignette')) : '0');
+    };
+
+    bricks.querySelectorAll<HTMLInputElement>('input[type=range]').forEach((r) => {
+      const out = r.parentElement!.querySelector('output')!;
+      const signed = Number(r.min) < 0;
+      r.addEventListener('input', () => {
+        out.textContent = fmt(Number(r.value), signed);
+        render();
+      });
+    });
+    bricks.querySelectorAll<HTMLInputElement>('input[type=checkbox]').forEach((c) => {
+      // The checkbox lives in the summary: ticking it shouldn't also fold the brick.
+      c.addEventListener('click', (e) => e.stopPropagation());
+      c.addEventListener('change', render);
+    });
+    render();
+  }
+
+  // ── Loupe ───────────────────────────────────────────────────────────
+  const loupeStage = document.querySelector<HTMLElement>('[data-loupe]');
+  if (loupeStage) {
+    const img = loupeStage.querySelector<HTMLImageElement>('img')!;
+    const lens = loupeStage.querySelector<HTMLElement>('[data-loupe-lens]')!;
+    const rgb = loupeStage.querySelector<HTMLElement>('[data-loupe-rgb]')!;
+    const zoomButtons = loupeStage.parentElement!.querySelectorAll<HTMLButtonElement>('[data-zoom]');
+    let zoom = 2;
+    // Where the loupe sits, as fractions of the photo, so resizes keep the spot.
+    let px = 0.6, py = 0.45;
+    let sampler: CanvasRenderingContext2D | null = null;
+    let samplerTried = false;
+
+    const ensureSampler = () => {
+      if (samplerTried || !img.complete || !img.naturalWidth) return;
+      samplerTried = true;
+      try {
+        const c = document.createElement('canvas');
+        c.width = img.naturalWidth;
+        c.height = img.naturalHeight;
+        const ctx = c.getContext('2d', { willReadFrequently: true });
+        if (!ctx) return;
+        ctx.drawImage(img, 0, 0);
+        ctx.getImageData(0, 0, 1, 1); // throws if the canvas is tainted
+        sampler = ctx;
+      } catch {
+        sampler = null;
+      }
+    };
+
+    const draw = () => {
+      const w = img.clientWidth, h = img.clientHeight;
+      const nw = img.naturalWidth || 2928, nh = img.naturalHeight || 1951;
+      const inner = lens.clientWidth; // inside the rim
+      lens.style.transform = `translate(${px * w}px, ${py * h}px)`;
+
+      // 100% = one photo pixel per CSS pixel. Centre the lens on the photo
+      // pixel under its middle.
+      const bw = nw * zoom, bh = nh * zoom;
+      const ox = inner / 2 - px * bw, oy = inner / 2 - py * bh;
+      const layers = [`url("${img.currentSrc || img.src}")`];
+      const sizes = [`${bw}px ${bh}px`];
+      const positions = [`${ox}px ${oy}px`];
+      if (zoom >= 8) {
+        // Pixel grid, aligned to the photo's pixel boundaries.
+        const g = 'rgba(0,0,0,0.35)';
+        layers.unshift(
+          `linear-gradient(to right, ${g} 1px, transparent 1px)`,
+          `linear-gradient(to bottom, ${g} 1px, transparent 1px)`
+        );
+        sizes.unshift(`${zoom}px ${zoom}px`, `${zoom}px ${zoom}px`);
+        positions.unshift(`${ox}px ${oy}px`, `${ox}px ${oy}px`);
+      }
+      lens.style.backgroundImage = layers.join(', ');
+      lens.style.backgroundSize = sizes.join(', ');
+      lens.style.backgroundPosition = positions.join(', ');
+      lens.style.backgroundRepeat = zoom >= 8 ? 'repeat, repeat, no-repeat' : 'no-repeat';
+      lens.style.imageRendering = zoom >= 4 ? 'pixelated' : 'auto';
+
+      ensureSampler();
+      if (sampler) {
+        const sx = Math.min(nw - 1, Math.max(0, Math.floor(px * nw)));
+        const sy = Math.min(nh - 1, Math.max(0, Math.floor(py * nh)));
+        const [r, g, b] = sampler.getImageData(sx, sy, 1, 1).data;
+        rgb.textContent = `${Math.round(zoom * 100)}%   R ${r}  G ${g}  B ${b}`;
+      } else {
+        rgb.textContent = `${Math.round(zoom * 100)}%`;
+      }
+      lens.setAttribute('aria-label', `Loupe at ${Math.round(zoom * 100)}% — use the arrow keys to move it`);
+    };
+
+    const moveTo = (clientX: number, clientY: number) => {
+      const r = img.getBoundingClientRect();
+      px = Math.max(0, Math.min(1, (clientX - r.left) / r.width));
+      py = Math.max(0, Math.min(1, (clientY - r.top) / r.height));
+      draw();
+    };
+
+    // Mouse: the loupe follows the pointer.
+    loupeStage.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'mouse') moveTo(e.clientX, e.clientY);
+    });
+    // Touch and pen: drag the lens itself (the page still scrolls elsewhere).
+    let dragging = false;
+    lens.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse') return;
+      dragging = true;
+      lens.setPointerCapture(e.pointerId);
+    });
+    lens.addEventListener('pointermove', (e) => {
+      if (dragging) moveTo(e.clientX, e.clientY);
+    });
+    const stop = () => (dragging = false);
+    lens.addEventListener('pointerup', stop);
+    lens.addEventListener('pointercancel', stop);
+
+    lens.addEventListener('keydown', (e) => {
+      const step = e.shiftKey ? 0.05 : 0.01;
+      const moves: Record<string, [number, number]> = {
+        ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step],
+      };
+      const m = moves[e.key];
+      if (!m) return;
+      e.preventDefault();
+      px = Math.max(0, Math.min(1, px + m[0]));
+      py = Math.max(0, Math.min(1, py + m[1]));
+      draw();
+    });
+
+    zoomButtons.forEach((b) =>
+      b.addEventListener('click', () => {
+        zoom = Number(b.dataset.zoom);
+        zoomButtons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        draw();
+      })
+    );
+
+    if (img.complete) draw();
+    img.addEventListener('load', draw);
+    window.addEventListener('resize', draw);
+  }
+
+  // ── Keys ────────────────────────────────────────────────────────────
+  const keysDemo = document.querySelector<HTMLElement>('[data-keys]');
+  if (keysDemo) {
+    const stage = keysDemo.querySelector<HTMLElement>('[data-keys-stage]')!;
+    const img = keysDemo.querySelector<HTMLImageElement>('[data-keys-img]')!;
+    const stars = keysDemo.querySelector<HTMLElement>('[data-keys-stars]')!;
+    const status = keysDemo.querySelector<HTMLElement>('[data-keys-status]')!;
+    const hudRating = keysDemo.querySelector<HTMLElement>('[data-keys-hud-rating]')!;
+    const caps = new Map<string, HTMLButtonElement>();
+    keysDemo.querySelectorAll<HTMLButtonElement>('[data-key]').forEach((b) => caps.set(b.dataset.key!, b));
+
+    // Preload the master so M swaps instantly.
+    new Image().src = img.dataset.master!;
+
+    let rating = 0;
+    const set = (name: string, value: boolean) =>
+      value ? stage.setAttribute(`data-${name}`, '') : stage.removeAttribute(`data-${name}`);
+    const has = (name: string) => stage.hasAttribute(`data-${name}`);
+    const say = (text: string) => (status.textContent = text);
+    const showRating = () => {
+      stars.textContent = '★'.repeat(rating);
+      hudRating.textContent = rating ? `${'★'.repeat(rating)}` : 'No rating';
+    };
+
+    const press = (key: string) => {
+      const cap = caps.get(key);
+      if (cap) {
+        cap.classList.add('is-down');
+        setTimeout(() => cap.classList.remove('is-down'), 140);
+      }
+      switch (key) {
+        case '1': case '2': case '3': case '4': case '5':
+          rating = Number(key);
+          set('reject', false);
+          showRating();
+          say(`Rated ${rating} star${rating > 1 ? 's' : ''}.`);
+          break;
+        case '0':
+          rating = 0;
+          set('reject', false);
+          showRating();
+          say('Rating cleared.');
+          break;
+        case '9':
+          rating = 0;
+          showRating();
+          set('reject', !has('reject'));
+          say(has('reject') ? 'Rejected.' : 'No longer rejected.');
+          break;
+        case '/':
+          set('flag', !has('flag'));
+          say(has('flag') ? 'Flagged.' : 'Unflagged.');
+          break;
+        case 'm':
+          set('master', !has('master'));
+          img.src = has('master') ? img.dataset.master! : img.dataset.edit!;
+          say(has('master') ? 'Showing the master, as shot. M again for your edit.' : 'Back to your edit.');
+          break;
+        case 'z':
+          set('zoom', !has('zoom'));
+          say(has('zoom') ? 'Zoomed to 100%.' : 'Zoomed to fit.');
+          break;
+        case 'f':
+          set('full', !has('full'));
+          if (!has('full')) set('hud', false);
+          say(has('full') ? 'Full Screen. Try H for the Inspector HUD, Esc to leave.' : 'Left Full Screen.');
+          break;
+        case 'h':
+          if (!has('full')) {
+            say('H brings up the Inspector HUD in Full Screen. Press F first.');
+            break;
+          }
+          set('hud', !has('hud'));
+          say(has('hud') ? 'Inspector HUD.' : 'HUD hidden.');
+          break;
+        case 'escape':
+          if (has('full')) {
+            set('full', false);
+            set('hud', false);
+            say('Left Full Screen.');
+          }
+          break;
+      }
+    };
+
+    caps.forEach((b, key) => b.addEventListener('click', () => press(key)));
+    // In Full Screen the on-screen keys are hidden behind the stage; a click
+    // on the black leaves it, as a tap would expect.
+    stage.addEventListener('click', (e) => {
+      if (has('full') && e.target === stage) press('escape');
+    });
+
+    // Real keys work while the demo is on screen and you're not typing.
+    let inView = false;
+    new IntersectionObserver(
+      (entries) => {
+        inView = entries.some((e) => e.isIntersecting);
+      },
+      { threshold: 0.35 }
+    ).observe(keysDemo);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const t = e.target instanceof Element ? e.target : null;
+      if (t?.closest('input, textarea, select, [contenteditable]')) return;
+      const key = e.key.toLowerCase();
+      if (!(inView || has('full'))) return;
+      if (key === 'escape' ? has('full') : caps.has(key)) {
+        e.preventDefault();
+        press(key);
+      }
+    });
+  }
+
+  // ── Stack ───────────────────────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('[data-stack]').forEach((b) =>
+    b.addEventListener('click', () =>
+      b.setAttribute('aria-expanded', String(b.getAttribute('aria-expanded') !== 'true'))
+    )
+  );
 </script>
