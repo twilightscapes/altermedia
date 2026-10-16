@@ -120,9 +120,9 @@ const loupeZooms = [0.5, 1, 2, 4, 8, 16];
     <figure class="as-wide as-hero-shot reveal">
       <img
         src={`${IMG}/hero-aperture.webp`}
-        alt="Alter with an Aperture library open. The sidebar lists the library’s projects — 1-2-2011, 2010, 2uf, BIGBEND, Cisco, Dennison, FortWorth and more. The viewer shows a night photo of a weathered Futuro house, its round windows glowing green and purple against a starry sky, with a filmstrip of night shots below. On the right, the Adjust inspector shows the photo’s Aperture edit as bricks: White Balance at 6700 K, Exposure +1.03, Enhance with Definition +0.49, and Highlights & Shadows. The status bar reads “Aperture library — originals untouched”."
+        alt="Alter with an Aperture library open. The sidebar lists the library’s projects — 1-2-2011, 2010, 2uf, BIGBEND, Cisco, Dennison, FortWorth and more. The viewer shows a night photo of a weathered Futuro house, its round windows glowing green and purple against a starry sky, with a filmstrip of night shots below. On the right, the Adjust inspector shows the photo’s Aperture edit as bricks: White Balance at 5706 K, Exposure +0.55, Enhance with Definition +0.49, Highlights & Shadows, Levels with its histogram, and Color. The status bar reads “Aperture library — originals untouched”."
         width="1240"
-        height="780"
+        height="807"
         loading="eager"
         fetchpriority="high"
         decoding="async"
@@ -2307,7 +2307,7 @@ open Alter.xcodeproj</code></pre>
     const alts: Record<string, string> = {
       alter: after.alt,
       aperture:
-        'The Futuro house as Aperture itself rendered the edit, from the preview saved in the library — nearly identical to Alter’s render.',
+        'The Futuro house as Aperture itself rendered the edit, from the preview saved in the library: a blue night sky, the saucer’s shell glowing orange, its windows pale green and violet.',
     };
     const buttons = compare.parentElement!.querySelectorAll<HTMLButtonElement>('[data-compare-src]');
     buttons.forEach((b) =>
