@@ -8,10 +8,26 @@
   # (GitHub Pages project sites need BASE_PATH, Netlify does not)
   BASE_PATH = ""
 
-# The download dropped its "-beta" suffix at 1.0. Old links — announcements,
-# alttext.org redirects, the last beta builds' "download" button — keep working.
+# The download lives at a lowercase path and saves as "Alter.dmg". Netlify
+# lowercases mixed-case static paths on its own, so a file whose name differs
+# from an old one only by case would be fragile; this one doesn't collide.
+# Old links — announcements, alttext.org redirects, the beta builds'
+# "download" button, the 1.0 page — keep working.
 [[redirects]]
   from = "/downloads/ALTer-beta.dmg"
-  to = "/downloads/ALTer.dmg"
+  to = "/downloads/alter.dmg"
   status = 301
   force = true
+
+[[redirects]]
+  from = "/downloads/ALTer.dmg"
+  to = "/downloads/alter.dmg"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/downloads/alter.dmg"
+  [headers.values]
+    Content-Type = "application/x-apple-diskimage"
+    Content-Disposition = 'attachment; filename="Alter.dmg"'
+
