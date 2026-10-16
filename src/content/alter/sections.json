@@ -4,12 +4,12 @@
       "id": "library",
       "eyebrow": "The library",
       "title": "Your photos never move.",
-      "lede": "ALTer references your originals exactly where they already live — on the internal drive, the big external, the NAS. It builds a catalog around them and leaves the files alone. Nothing is absorbed, nothing is duplicated, nothing is rewritten behind your back.",
+      "lede": "Alter references your originals exactly where they already live — on the internal drive, the big external, the NAS. It builds a catalog around them and leaves the files alone. Nothing is absorbed, nothing is duplicated, nothing is rewritten behind your back.",
       "hero": {
         "ratio": "16 / 10",
         "brief": "Full app window, Browser view, dark UI. A dense grid of mixed photos and video thumbnails at ~180px, sidebar open on the left showing All Media / No ALT Text / Flagged / Videos / Animated / Recently Added plus a few folders and albums, inspector open on the right. Several cells should show badges: a green ALT pill, a star row, an orange flag, a play badge.",
         "src": "/images/alter/library-browser.webp",
-        "alt": "ALTer’s Browser view: a grid of landscape photos wearing star ratings, orange flags, and green ALT badges. The sidebar lists All Media (77), No ALT Text (12), Flagged, Videos, Animated, and Recently Added plus folders and an album. The inspector shows a photo titled Moulton Barn Sunset with its full caption and on-device suggested keywords like outdoor, sky, and barn.",
+        "alt": "Alter’s Browser view: a grid of landscape photos wearing star ratings, orange flags, and green ALT badges. The sidebar lists All Media (77), No ALT Text (12), Flagged, Videos, Animated, and Recently Added plus folders and an album. The inspector shows a photo titled Moulton Barn Sunset with its full caption and on-device suggested keywords like outdoor, sky, and barn.",
         "w": 2400,
         "h": 1540
       },
@@ -17,7 +17,7 @@
         {
           "title": "A catalog, not a container",
           "body": [
-            "A library is a single <strong>.alterlib</strong> bundle holding a SQLite catalog of absolute paths. Move ALTer to another Mac and point it back at your drives and everything reconnects. There is no proprietary vault to escape from later.",
+            "A library is a single <strong>.alterlib</strong> bundle holding a SQLite catalog of absolute paths. Move Alter to another Mac and point it back at your drives and everything reconnects. There is no proprietary vault to escape from later.",
             "The one and only operation that touches an original is <strong>Move File to Trash</strong>, and it asks first. <em>Remove from Library</em> just un-indexes. If a drive comes back on a different mount point, <strong>Locate / Relink Folder</strong> rewrites the path prefix for every photo underneath it in one pass."
           ],
           "specs": [
@@ -61,8 +61,8 @@
           "title": "Getting media in",
           "body": [
             "Import files or whole folders with <kbd>⌘I</kbd>, drag them onto the window, or pull straight from your Photos library with <kbd>⇧⌘I</kbd>. Folder imports recurse and skip hidden files. Everything you just brought in arrives selected, and the grid scrolls to reveal it.",
-            "The Photos import runs through the system picker, so ALTer never asks for blanket access to your Photos library. You choose the photos, ALTer asks where to put them, and from that moment they are referenced like anything else.",
-            "Originals parked in iCloud come down automatically. ALTer detects a dataless placeholder and materializes it before it builds a thumbnail, describes it, exports it, or renders it into a gallery — you never get a mystery failure on an evicted file."
+            "The Photos import runs through the system picker, so Alter never asks for blanket access to your Photos library. You choose the photos, Alter asks where to put them, and from that moment they are referenced like anything else.",
+            "Originals parked in iCloud come down automatically. Alter detects a dataless placeholder and materializes it before it builds a thumbnail, describes it, exports it, or renders it into a gallery — you never get a mystery failure on an evicted file."
           ],
           "shots": [
             {
@@ -75,7 +75,7 @@
           "title": "Rate, flag, filter, search",
           "body": [
             "Stars <kbd>⌥⌘0</kbd>–<kbd>⌥⌘5</kbd>, flags <kbd>⌘'</kbd>, applied across a whole selection. Ratings and flags live in the catalog, so a fast pass over a shoot never rewrites a single file.",
-            "Filter the grid to <strong>Starred</strong> at any threshold, <strong>Flagged</strong>, <strong>Videos</strong>, <strong>Animated</strong>, <strong>Adjusted</strong>, <strong>Has Location</strong> or <strong>No Location</strong> — and, because this is ALTer, <strong>Has ALT Text</strong> and <strong>Missing ALT Text</strong>. That last one is the whole workflow in a single click.",
+            "Filter the grid to <strong>Starred</strong> at any threshold, <strong>Flagged</strong>, <strong>Videos</strong>, <strong>Animated</strong>, <strong>Adjusted</strong>, <strong>Has Location</strong> or <strong>No Location</strong> — and, because this is Alter, <strong>Has ALT Text</strong> and <strong>Missing ALT Text</strong>. That last one is the whole workflow in a single click.",
             "And search. <kbd>⌘F</kbd> jumps to the search field, and it reads everything a person might remember about a photo: filename, title, caption, keywords, ALT text, creator. Type two words and both must match. Search composes with the filters — <em>Missing ALT Text</em> plus a search term is exactly the triage view you want.",
             "Sort by Name, Date Imported, File Date, or Rating, ascending or descending. Your choice persists, along with window size, column widths, filmstrip height, and thumbnail size."
           ],
@@ -147,61 +147,78 @@
     {
       "id": "adjust",
       "eyebrow": "Adjust",
-      "title": "Seven sliders. No black boxes.",
-      "lede": "Every adjustment is a recipe stored beside the photo, never baked into it. The grid, the filmstrip, the viewer, and the histogram all repaint live as you drag. Your original file is byte-for-byte untouched at the end of it.",
+      "title": "A recipe, never baked in.",
+      "lede": "Every adjustment is a recipe stored beside the photo, never baked into it. Bricks stack in Aperture’s order, and the grid, the filmstrip, the viewer and the histogram all repaint live as you drag. Your original file is byte-for-byte untouched at the end of it.",
       "hero": {
-        "ratio": "16 / 10",
-        "brief": "Split View with the Adjust panel open on the right. A rich, colorful photo in the viewer. The three slider groups (LIGHT / COLOR / DETAIL) visible with a couple of sliders pushed off-neutral showing their accent-colored delta values, and the RGB histogram at the top of the panel.",
-        "src": "/images/alter/adjust-hero.webp",
-        "alt": "Split View while editing: a weathered barn stands before the Teton range under a vivid purple and pink sunset. The Adjust panel on the right shows a live RGB histogram above the LIGHT, COLOR, and DETAIL groups, with Exposure, Contrast, Vibrance, and Warmth showing accent-coloured values where they have been moved. A note underneath reads “Originals are never changed — adjustments render into exports and galleries.”",
+        "ratio": "2400 / 1562",
+        "brief": "Split View with the Adjust inspector open on a photo carrying several bricks, including brushed-in ones.",
+        "src": "/images/alter/adjust-hero-bricks.webp",
+        "alt": "Alter in Split View: a moonlit abandoned farmhouse stands in tall grass under a deep blue night sky streaked with cloud, with a second house behind it and a filmstrip of night photos below. The Adjust inspector on the right shows a live RGB histogram above the photo’s bricks — White Balance at 5169 K, Exposure −0.50, Enhance with Definition +0.36, Highlights & Shadows with Shadows +0.35 — and three brushed-in bricks: Polarize, Intensify Contrast and Sharpen. A note at the bottom reads “Originals are never changed — adjustments render into exports and galleries.”",
         "w": 2400,
-        "h": 1540
+        "h": 1562
       },
       "chapters": [
         {
-          "title": "Light, White Balance, Color, Detail",
+          "title": "Bricks, in Aperture’s order",
           "body": [
-            "Exposure, Contrast, Highlights, and Shadows under <strong>LIGHT</strong>. Warmth and Tint stand on their own under <strong>WHITE BALANCE</strong>. Saturation and Vibrance under <strong>COLOR</strong>. Sharpen under <strong>DETAIL</strong>. Each slider runs over a gradient track that shows you what it does — Warmth fades blue through white to amber, Tint green through white to magenta.",
-            "Highlights pulls blown skies back down; Shadows lifts what is buried or crushes it further. Every row carries a monospaced signed value that turns accent-colored the moment it leaves neutral, so you can see at a glance what you touched. Double-click any value to snap it back."
+            "Every photo starts with Aperture’s four: <strong>White Balance</strong>, <strong>Exposure</strong>, <strong>Enhance</strong> and <strong>Highlights &amp; Shadows</strong>. <strong>Add Adjustment</strong> brings in the rest — Levels, Curves, Color, Black &amp; White, Color Monochrome, Sepia Tone, Sharpen, Edge Sharpen, Noise Reduction, Vignette, Devignette, Chromatic Aberration, Polarize and Intensify Contrast.",
+            "Each brick has a checkbox, a gear and a reset arrow. Untick it to see the photo without that adjustment — the settings wait for you. Every slider carries a number you can drag, and a double-click puts it back. The gear brushes the brick in or away, resets it, or removes it."
           ],
           "specs": [
             {
+              "label": "White Balance",
+              "value": "Temp 2700 – 7700 K · Tint ±100"
+            },
+            {
               "label": "Exposure",
-              "value": "−2 … +2 EV"
+              "value": "Exposure ±2 · Recovery · Black Point · Brightness"
             },
             {
-              "label": "Contrast",
-              "value": "0.5 … 1.5"
+              "label": "Enhance",
+              "value": "Contrast · Definition · Saturation · Vibrancy"
             },
             {
-              "label": "Highlights",
-              "value": "0 … 1 · recover blown detail"
+              "label": "Highlights & Shadows",
+              "value": "Highlights · Shadows · Mid Contrast"
             },
             {
-              "label": "Shadows",
-              "value": "−1 … +1 · crush or open"
+              "label": "Black & White",
+              "value": "Red, green, blue mix, −100 – 200%"
             },
             {
-              "label": "Warmth / Tint",
-              "value": "−100 … +100 each"
-            },
-            {
-              "label": "Saturation / Vibrance",
-              "value": "0 … 2 · −1 … +1"
-            },
-            {
-              "label": "Sharpen",
-              "value": "0 … 1"
+              "label": "Vignette",
+              "value": "Intensity · Radius"
             }
           ],
           "shots": [
             {
-              "ratio": "3 / 4",
-              "brief": "Tight crop of the adjustments panel — all seven sliders, gradient tracks clearly visible, two or three showing off-neutral accent-colored deltas.",
-              "src": "/images/alter/adjust-panel.webp",
-              "alt": "The adjustments panel: a live RGB histogram above three groups — LIGHT with Exposure and Contrast, COLOR with Saturation, Vibrance, Warmth and Tint, DETAIL with Sharpen. Each slider sits over a gradient track showing what it does, and Exposure, Vibrance, Warmth and Sharpen display accent-colored values because they have been moved off neutral.",
-              "w": 941,
-              "h": 1200
+              "ratio": "615 / 2212",
+              "brief": "The Adjust inspector alone, showing several bricks including brushed ones.",
+              "src": "/images/alter/adjust-panel-bricks.webp",
+              "alt": "The Adjust inspector, top to bottom: an Auto button, an RGB histogram, the Add Adjustment and Presets menus, then the bricks. White Balance has eyedroppers and Temp 5169 K; Exposure, Enhance and Highlights & Shadows each have an Auto button and their sliders with values and reset arrows; Polarize, Intensify Contrast and Sharpen are marked “brushed in”. Each brick has a checkbox and a gear menu. A Reset All Adjustments button sits at the bottom.",
+              "w": 615,
+              "h": 2212
+            }
+          ]
+        },
+        {
+          "title": "Levels, Curves and Color",
+          "body": [
+            "<strong>Levels</strong> puts black, grey and white handles under the histogram and output handles above it, for RGB or any single channel. <strong>Curves</strong> draws over the same histogram: click to add a point, drag to shape it, drag it off the plot to remove it. Both have an Auto button and eyedroppers for the black, grey and white points.",
+            "<strong>Color</strong> works the way Aperture’s did: six hue swatches — reds, yellows, greens, cyans, blues and magentas — each with its own hue, saturation, luminance and range."
+          ],
+          "specs": [
+            {
+              "label": "Levels",
+              "value": "RGB · R · G · B · input and output handles"
+            },
+            {
+              "label": "Curves",
+              "value": "As many points as you like · smooth, never overshoots"
+            },
+            {
+              "label": "Color",
+              "value": "Hue ±180° · Saturation ±100 · Luminance ±100 · Range"
             }
           ]
         },
@@ -209,7 +226,7 @@
           "title": "A histogram you can actually read",
           "body": [
             "Sixty-four bins per channel, red green and blue screen-blended over a faint luminance base. Counts are square-rooted so a single blown spike does not flatten everything else into a flat line — the shape of your midtones stays legible.",
-            "It reads the <em>adjusted</em> image, not the original, and recomputes on every slider move."
+            "It reads the <em>adjusted</em> image, not the original, and recomputes on every slider move. Turn on <strong>Highlight Hot &amp; Cold Areas</strong> (<kbd>⌥⇧H</kbd>) and the viewer paints blown highlights red and crushed shadows blue."
           ],
           "shots": [
             {
@@ -223,24 +240,24 @@
           ]
         },
         {
-          "title": "Crop, straighten, rotate",
+          "title": "Crop, straighten, rotate, flip",
           "body": [
-            "Hit <strong>Crop</strong> in the viewer and the frame becomes the control: drag anywhere to draw a crop, pull the corners to resize it, drag inside to move it, all over a thirds grid. Lock it to an aspect — Original, Square, 3:2, 4:3, 16:9 — or leave it freeform.",
-            "Straighten runs to ±15° and <strong>scales the frame to cover as it turns</strong>, so a leveled horizon never buys you blank corners. Rotate in 90° steps, and the crop turns with the pixels — frame something in portrait, rotate the shot, and your framing is still on the subject.",
-            "It is all recipe, like everything else. The crop shows up in exports, galleries, and Bluesky renditions; the original file keeps every pixel you cropped away, and one Reset gets them back."
+            "Press <kbd>C</kbd> and the frame becomes the control: pull a corner to resize, drag inside to move, drag outside to draw a new crop, with thirds guides and a live pixel readout. While you crop, the whole uncropped frame stays in view, so you can always grow it back out.",
+            "Lock it to the master’s own aspect, Square, 2:3, 3:2, 3:4, 4:3, 4:5, 5:4, 9:16, 16:9 or any ratio you type — or leave it freeform. Press <kbd>G</kbd> to straighten by dragging around the photo’s centre over a level grid, up to 15° either way; the frame scales to cover as it turns, so there are never blank corners. Rotate in 90° steps with <kbd>⌘[</kbd> and <kbd>⌘]</kbd>, and flip horizontally or vertically.",
+            "It is all recipe, like everything else. The crop shows up in exports and galleries; the original file keeps every pixel you cropped away, and Reset brings them back."
           ],
           "specs": [
             {
               "label": "Aspects",
-              "value": "Freeform · Original · Square · 3:2 · 4:3 · 16:9"
+              "value": "Freeform · Master · Square · 2:3 · 3:2 · 3:4 · 4:3 · 4:5 · 5:4 · 9:16 · 16:9 · Custom"
             },
             {
               "label": "Straighten",
-              "value": "±15° · cover-scaled, no blank corners"
+              "value": "G · ±15° · cover-scaled, no blank corners"
             },
             {
-              "label": "Rotate",
-              "value": "90° steps · the crop travels with the pixels"
+              "label": "Rotate & flip",
+              "value": "⌘[ ⌘] · horizontal · vertical"
             },
             {
               "label": "Destructive",
@@ -249,156 +266,137 @@
           ],
           "shots": [
             {
-              "ratio": "3 / 2",
-              "brief": "Crop mode in the viewer: a landscape with a slightly tilted horizon, crop rect drawn with corner handles and thirds grid, dimmed surround, and the tray showing the aspect picker, straighten slider at a non-zero angle, and rotate buttons.",
-              "src": "/images/alter/adjust-crop.webp",
-              "alt": "Crop mode over a moonlit sandstone formation: a crop rectangle with round corner handles and a thirds grid, the area outside it dimmed. The tray below shows an Aspect menu set to Freeform, a Straighten slider reading plus 4.6 degrees, rotate-left and rotate-right buttons, Reset, and Done. The straightened frame has scaled to cover, so no blank corners appear.",
-              "w": 2000,
-              "h": 1655
+              "ratio": "2400 / 1710",
+              "brief": "Crop mode with a crop drawn, thirds guides and the crop bar.",
+              "src": "/images/alter/adjust-crop-hud.webp",
+              "alt": "Crop mode over the moonlit farmhouse: a crop rectangle with corner handles and a thirds grid covers most of the frame, the area outside it dimmed but still visible. The bar below shows the Aspect menu set to Freeform, a guides toggle, a readout of 4761 × 3256 px, a Straighten slider at −0.5°, rotate and flip buttons, Reset and Done.",
+              "w": 2400,
+              "h": 1710
             }
           ]
         },
         {
-          "title": "Retouch",
+          "title": "Retouch and Red Eye",
           "body": [
-            "Click a blemish to drop a spot. ALTer picks a clean source beside it, flipping away from the nearer edge of the frame, and blends the patch through a soft-edged circular mask. Size the spot from a hair to a broad patch, undo the last one, or clear them all.",
-            "Spots are part of the recipe like everything else. They render into exports, galleries, and Bluesky renditions, and they come off again whenever you want."
-          ],
-          "shots": [
-            {
-              "ratio": "3 / 2",
-              "brief": "Viewer in Retouch mode: a portrait with three or four accent-colored ring markers placed on the skin, the spot-size slider and Undo Spot / Clear All / Done buttons visible in the tray.",
-              "src": "/images/alter/adjust-retouch.webp",
-              "alt": "Retouch mode over the sandstone formation: four accent-colored ring markers sit on the rock where spots have been placed. The tray reads “Click a spot to heal it” beside a spot-size slider, with Undo Spot, Clear All, and Done.",
-              "w": 2000,
-              "h": 1655
-            }
-          ]
-        },
-        {
-          "title": "Brush it in",
-          "body": [
-            "Not every adjustment belongs to the whole frame. Hit <strong>Brush</strong> and paint an adjustment exactly where it is wanted — dodge a face, cool a sky, sharpen just the eyes. The Adjust panel turns orange and its sliders now shape <em>only where you brushed</em>.",
-            "Size and feather the brush, hold to paint or switch to <strong>Erase</strong> to carve the mask back out. A photo can carry several brushes at once, each with its own recipe — one warming the foreground, another draining the color from a billboard — and every one stays editable forever. It is all recipe: the mask and its adjustments render into exports and galleries, and the original keeps every pixel."
+            "Press <kbd>X</kbd> and click a blemish. <strong>Repair</strong> takes a clean patch from beside the spot, away from the nearer edge of the frame; <strong>Clone</strong> copies from a source you <kbd>⌥</kbd>-click. Set the radius, softness and opacity, undo the last spot, or clear them all.",
+            "Press <kbd>E</kbd> for Red Eye and click each pupil. Alter takes the red out only where red clearly dominates and keeps the pupil’s own brightness, so eyes still look like eyes.",
+            "Spots are recipe like everything else. They render into exports and galleries, and they come off again whenever you want."
           ],
           "specs": [
             {
-              "label": "Paint / Erase",
-              "value": "Toggle in the tray"
+              "label": "Retouch",
+              "value": "X · Repair or Clone (⌥-click a source)"
             },
             {
-              "label": "Size · Feather",
-              "value": "Both continuous"
+              "label": "Controls",
+              "value": "Radius · Softness · Opacity · Undo · Clear All"
             },
             {
-              "label": "Brushes per photo",
-              "value": "As many as you like — each its own look"
+              "label": "Red Eye",
+              "value": "E · click each pupil · adjustable radius"
+            }
+          ]
+        },
+        {
+          "title": "Brush it in, or away",
+          "body": [
+            "Any brick can be painted. Choose <strong>Brush In</strong> or <strong>Brush Away</strong> from its gear and paint where the adjustment should — or shouldn’t — apply. Size, softness and strength sit on the brush bar along with Erase, and overlays show your strokes in colour, on black or on white.",
+            "Or reach for a <strong>Quick Brush</strong>: Skin Smoothing, Dodge, Burn, Polarize, Intensify Contrast, Saturate, Desaturate, Sharpen, Blur, Noise Reduction, Definition, Vibrancy and Contrast. A photo can carry as many brushed adjustments as it needs, each with its own strokes, and every one stays editable."
+          ],
+          "specs": [
+            {
+              "label": "Brush bar",
+              "value": "In · Away · Erase · Undo Stroke · Clear"
+            },
+            {
+              "label": "Controls",
+              "value": "Size · Softness · Strength"
+            },
+            {
+              "label": "Overlays",
+              "value": "Colour · Strokes · On Black · On White"
             },
             {
               "label": "Destructive",
               "value": "Never — strokes live in the recipe"
-            }
-          ],
-          "shots": [
-            {
-              "ratio": "3 / 2",
-              "brief": "Viewer in Brush mode mid-dodge: the brush cursor (outer solid ring, dashed inner feather ring) over a face or foreground, the Adjust panel on the right glowing orange with an Exposure slider pushed up, and the brush tray showing Paint/Erase, Size, Feather.",
-              "alt": "Brush mode: a soft round brush cursor sits over the shadowed foreground of a landscape, its outer ring showing reach and a dashed inner ring the feathered core. The Adjust panel on the right carries an orange “Brushing — sliders shape the brushed area” banner with Exposure raised, and the tray below offers a Paint/Erase toggle, Size, and Feather sliders."
             }
           ]
         },
         {
           "title": "The Loupe",
           "body": [
-            "Press <kbd>L</kbd> and a magnifier floats over the photo showing its <strong>full-resolution pixels</strong> — the real ones, with your recipe applied — without ever leaving the fitted view. It is how you check critical focus and judge grain without zooming the whole image in and out.",
-            "Scroll to zoom it from 50% right up to 800%. Size the glass to taste, and let it float offset on a handle — a stem running back to a crosshair on the exact point being examined — or sit it dead-centered on the cursor. It remembers how you left it, shot to shot and launch to launch."
+            "Press <kbd>`</kbd> — or <kbd>L</kbd> — and a loupe floats over the photo showing its <strong>full-resolution pixels</strong>, with your recipe applied. Check critical focus and grain without zooming the whole view.",
+            "Zoom it from 50% to 1600% by scrolling, or with <kbd>⇧⌘+</kbd> and <kbd>⇧⌘−</kbd>. Let it follow the pointer on a tether, or switch to Focus on Loupe and drag the glass where you want it. Size it by dragging the rim, turn on colour values for the RGB under the crosshair, and a pixel grid appears from 800%. It remembers how you left it."
           ],
           "specs": [
             {
               "label": "Toggle",
-              "value": "L · or the Loupe button"
+              "value": "` or L · Esc closes"
             },
             {
               "label": "Zoom",
-              "value": "50% … 800% · scroll or menu"
+              "value": "50% … 1600%"
             },
             {
-              "label": "Handle",
-              "value": "Offset on a stem, or centered"
+              "label": "Focus",
+              "value": "On the cursor, or on the loupe"
             },
             {
               "label": "Shows",
-              "value": "Full-res, recipe applied"
-            }
-          ],
-          "shots": [
-            {
-              "ratio": "3 / 2",
-              "brief": "Viewer with the Loupe active: a large circular glass floating offset on a stem from a crosshair on a detailed area (rock texture, feathers, eyelashes), showing crisp 100% pixels, with the loupe settings pill (zoom %, size slider, handle toggle) floating at the top.",
-              "alt": "The Loupe hovering over a sandstone formation: a large circular magnifier floats up and to the right of the cursor, connected by a stem to a small crosshair marking the examined point, showing the rock’s texture at full resolution with a “100%” badge. A frosted pill at the top of the photo holds the zoom percentage, a size slider, and the handle toggle."
+              "value": "Full-res, recipe applied · RGB values · pixel grid"
             }
           ]
         },
         {
           "title": "Neutralize with a click",
           "body": [
-            "The <strong>Neutral</strong> eyedropper solves your white balance in one click. Point it at anything that ought to be a neutral gray — a concrete wall, a white shirt in shade — and ALTer sets Warmth and Tint so that spot reads truly neutral, computed against the real color engine rather than guessed. Regret the pick? <kbd>⌘Z</kbd> puts it right back."
-          ],
-          "shots": [
-            {
-              "ratio": "3 / 2",
-              "brief": "Viewer with the Neutral eyedropper active (button highlighted), cursor over a neutral gray area of the photo, with the Warmth and Tint values in the panel showing they have shifted.",
-              "alt": "The white-balance eyedropper hovering over a gray rock face, its tray button highlighted. In the Adjust panel the WHITE BALANCE section shows Warmth and Tint carrying new accent-colored values where the click neutralized a color cast."
-            }
+            "The <strong>Neutral</strong> eyedropper on the White Balance brick solves white balance in one click. Point it at anything that ought to be grey — a concrete wall, a white shirt in shade — and Alter sets Temp and Tint so that spot reads neutral, solved against the real colour engine rather than guessed. Switch to <strong>Skin Tone</strong> and click a face instead. <kbd>⌘Z</kbd> puts it right back."
           ]
         },
         {
-          "title": "Before and after, side by side",
+          "title": "Before and after",
           "body": [
-            "Press <kbd>M</kbd> and the viewer splits: your untouched <strong>original</strong> on one side, the <strong>edited</strong> version on the other, each clearly badged. Drag a slider, brush, or neutralize and the edited half updates live while the original never lies — the honest test of whether an edit is earning its keep.",
-            "Flip the split between side-by-side and stacked with a tap, whichever suits the frame — panoramas stacked, portraits abreast. Step through a whole shoot two-up without leaving the comparison."
+            "Press <kbd>M</kbd> to see the master in place, exactly as shot, and again to come back to your edit. Press <kbd>⌥M</kbd> and the viewer splits: the original on one side, the edited photo on the other, each badged, side by side or stacked.",
+            "For a photo from an Aperture library, the original side can switch to <strong>Aperture</strong> — Aperture’s own render of your edit, from the preview it saved — so you can check Alter’s work against the real thing."
           ],
           "specs": [
             {
-              "label": "Toggle",
-              "value": "M · or the Compare button"
+              "label": "Show the master",
+              "value": "M"
+            },
+            {
+              "label": "Compare",
+              "value": "⌥M · or the Compare button"
             },
             {
               "label": "Layout",
               "value": "Side by side or stacked"
             },
             {
-              "label": "Live",
-              "value": "The edited half tracks every change"
-            }
-          ],
-          "shots": [
-            {
-              "ratio": "16 / 9",
-              "brief": "Compare mode: the viewer split into two, a flat original on the left badged ORIGINAL and a richer graded version on the right badged EDITED, with the small floating pill at top offering the Stacked / Side by Side toggle.",
-              "alt": "Compare mode: the viewer is split in two, the left half badged ORIGINAL showing a flat, cool rendering of a desert butte, the right half badged EDITED showing the same frame warmed and contrast-rich. A small frosted pill at the top offers a “Stacked” toggle to flip the split’s orientation."
+              "label": "Aperture libraries",
+              "value": "Original ⇄ Aperture’s own render"
             }
           ]
         },
         {
-          "title": "Auto-Enhance, with its work shown",
+          "title": "Auto, presets, and Lift & Stamp",
           "body": [
-            "<kbd>⌥⌘A</kbd> analyzes the photo and <strong>moves the same seven sliders</strong>. Nothing hidden, nothing you cannot then take back over. Watch the values change and disagree with any of them.",
-            "It is deliberately conservative. It pushes exposure toward a balanced midtone but caps itself at ±1.25 EV. It only touches contrast when the image is genuinely flat, and it only adds vibrance when there is muted color to recover — which means <strong>a true black-and-white comes out untouched</strong>, and so does a photo you already graded.",
-            "Run it across a whole selection from the Media menu when a shoot needs a fast baseline."
+            "<strong>Auto</strong> buttons sit on the Exposure, Enhance, Highlights &amp; Shadows, Levels and Curves bricks. <strong>Auto-Enhance</strong> (<kbd>⌥⌘A</kbd>) looks at the whole photo and sets a baseline exposure, contrast and vibrance — conservatively: within ±1.25 EV, adding contrast only when the image is flat, and vibrance only when there is muted colour to recover.",
+            "The <strong>Presets</strong> menu has fourteen built-ins — Auto Levels, Brighten, Darken, Punch, Soft, Warm, Cool, Vivid, Faded Film, Black &amp; White, High Contrast B&amp;W, Sepia, Vignette and Toy Camera — and <strong>Save as Preset</strong> keeps your own. A preset changes only the bricks it carries; your crop, retouching and brushes stay put.",
+            "<strong>Lift &amp; Stamp</strong> (<kbd>O</kbd>) copies a photo’s adjustments — and, if you like, its crop, retouching, keywords, rating, label, flag and captions — onto a whole selection. <kbd>⇧⌘C</kbd> lifts and <kbd>⇧⌘V</kbd> stamps."
           ],
           "specs": [
             {
-              "label": "Copy adjustments",
-              "value": "⇧⌘C"
-            },
-            {
-              "label": "Paste to selection",
-              "value": "⇧⌘V"
-            },
-            {
               "label": "Auto-Enhance",
-              "value": "⌥⌘A · single or batch"
+              "value": "⌥⌘A"
+            },
+            {
+              "label": "Presets",
+              "value": "14 built-in · Save as Preset"
+            },
+            {
+              "label": "Lift & Stamp",
+              "value": "O · ⇧⌘C lift · ⇧⌘V stamp"
             }
           ],
           "shots": [
@@ -531,7 +529,7 @@
           "body": [
             "Position, scale, rotation, and opacity, keyed at any point on the timeline. Diamonds sit on the layer's bar, grow and turn orange at the playhead, jump the playhead when tapped, and drag to retime. Hover one for a summary of everything it holds.",
             "Four curves per segment — <strong>Linear</strong>, <strong>Ease In</strong>, <strong>Ease Out</strong>, <strong>Ease In-Out</strong> — and the preview evaluates the same curve the exporter renders. What you scrub is what you get.",
-            "Auto-key means the controls never go dead. Adjust a keyframed layer and ALTer writes or updates the keyframe at the playhead; adjust an un-keyframed one and it edits the base pose. Scrub-and-tweak updates the existing diamond instead of stacking new ones on top of it.",
+            "Auto-key means the controls never go dead. Adjust a keyframed layer and Alter writes or updates the keyframe at the playhead; adjust an un-keyframed one and it edits the base pose. Scrub-and-tweak updates the existing diamond instead of stacking new ones on top of it.",
             "Not ready for keyframes yet? One-click motion presets — <strong>Ticker ◀</strong>, <strong>Ticker ▶</strong>, <strong>Rise ▲</strong> — plus a fade in/out toggle. They step aside the moment you place a diamond, because from then on the diamonds own the motion."
           ],
           "shots": [
@@ -611,7 +609,7 @@
       "id": "web",
       "eyebrow": "Web layers",
       "title": "The web is an input device.",
-      "lede": "Load any page live inside ALTer and capture it — as a still, or as a recording. What comes back is ordinary media. From that point it keyframes, eases, grades, trims, and exports like anything else you shot.",
+      "lede": "Load any page live inside Alter and capture it — as a still, or as a recording. What comes back is ordinary media. From that point it keyframes, eases, grades, trims, and exports like anything else you shot.",
       "hero": {
         "ratio": "16 / 10",
         "brief": "The Add Web Layer sheet: URL field at the top, a live 640×360 web view showing a real page mid-render, and the two capture controls below (Add Snapshot, and Record & Add with its duration slider).",
@@ -672,8 +670,8 @@
         {
           "title": "Photos",
           "body": [
-            "Press <kbd>⌘G</kbd>. ALTer sends a downscaled rendition — description needs detail, not a 60-megapixel upload — and fills three fields from one request.",
-            "ALT text is always written. Title fills only if it is empty. Caption fills if it is empty <em>or</em> if it still matches what ALTer generated last time. Regenerate as often as you like: machine-written text updates, and <strong>anything you typed yourself is never overwritten</strong>."
+            "Press <kbd>⌘G</kbd>. Alter sends a downscaled rendition — description needs detail, not a 60-megapixel upload — and fills three fields from one request.",
+            "ALT text is always written. Title fills only if it is empty. Caption fills if it is empty <em>or</em> if it still matches what Alter generated last time. Regenerate as often as you like: machine-written text updates, and <strong>anything you typed yourself is never overwritten</strong>."
           ],
           "shots": [
             {
@@ -689,9 +687,9 @@
         {
           "title": "Video, described properly",
           "body": [
-            "Describing a video from a single frame is guesswork. ALTer samples frames evenly across the clip and, at the same time, <strong>transcribes the speech entirely on your Mac</strong>. Both go to the engine together, so the description reports what happens and what is said.",
-            "No audio ever leaves your machine for transcription. On macOS 26 ALTer uses Apple's on-device speech analyzer, downloading the model once on first run. On earlier systems it uses on-device recognition where the hardware supports it.",
-            "If transcription fails, ALTer says so — <em>described from frames only — speech transcription failed</em> — instead of quietly handing you a thinner description and letting you assume it heard everything."
+            "Describing a video from a single frame is guesswork. Alter samples frames evenly across the clip and, at the same time, <strong>transcribes the speech entirely on your Mac</strong>. Both go to the engine together, so the description reports what happens and what is said.",
+            "No audio ever leaves your machine for transcription. On macOS 26 Alter uses Apple's on-device speech analyzer, downloading the model once on first run. On earlier systems it uses on-device recognition where the hardware supports it.",
+            "If transcription fails, Alter says so — <em>described from frames only — speech transcription failed</em> — instead of quietly handing you a thinner description and letting you assume it heard everything."
           ],
           "specs": [
             {
@@ -722,7 +720,7 @@
           "shots": [
             {
               "ratio": "4 / 3",
-              "brief": "Finder window showing a video with its .vtt and .srt sidecars alongside, just after ALTer revealed them."
+              "brief": "Finder window showing a video with its .vtt and .srt sidecars alongside, just after Alter revealed them."
             }
           ]
         },
@@ -775,7 +773,7 @@
           "body": [
             "One command builds a complete, self-contained site: an accessible HTML page, full-size renditions with your metadata stamped in, thumbnails, and a manifest. No tracking, no analytics, no framework, no CDN. A folder you could host anywhere or hand to a client on a drive.",
             "The page is genuinely accessible, not accessible-shaped. Every image carries its ALT text. Captions sit in real figcaptions. The lightbox is a proper ARIA dialog with Escape and arrow-key navigation that moves focus in on open and <strong>returns it to where you were on close</strong>. It adapts to light and dark. And with JavaScript disabled the links still work.",
-            "Before it builds, ALTer counts what is missing and tells you: either an orange warning that some photos have no ALT text yet, or a green all-clear. You never publish an inaccessible gallery by accident."
+            "Before it builds, Alter counts what is missing and tells you: either an orange warning that some photos have no ALT text yet, or a green all-clear. You never publish an inaccessible gallery by accident."
           ],
           "specs": [
             {
@@ -800,7 +798,7 @@
               "ratio": "16 / 10",
               "brief": "A published gallery open in Safari, dark mode, showing the responsive thumbnail grid with captions.",
               "src": "/images/alter/publish-gallery-live.webp",
-              "alt": "A published ALTer gallery in a browser, dark theme: the title “Night Landscapes” over “Long exposures from the desert Southwest”, then a responsive grid of night photographs. Under each thumbnail sits its title, its full description, and the photographer’s credit.",
+              "alt": "A published Alter gallery in a browser, dark theme: the title “Night Landscapes” over “Long exposures from the desert Southwest”, then a responsive grid of night photographs. Under each thumbnail sits its title, its full description, and the photographer’s credit.",
               "w": 2400,
               "h": 1650
             },
@@ -825,8 +823,8 @@
         {
           "title": "Your hosting, one click",
           "body": [
-            "Point ALTer at a GitHub repository and a fine-grained token and publishing deploys straight to GitHub Pages — blob, tree, commit, ref, with per-file progress. Bring a custom domain or use the default address. A local copy always stays in <strong>Pictures → ALTer Web Galleries</strong>.",
-            "It is your repository, your domain, your audience. ALTer is not in the middle of it."
+            "Point Alter at a GitHub repository and a fine-grained token and publishing deploys straight to GitHub Pages — blob, tree, commit, ref, with per-file progress. Bring a custom domain or use the default address. A local copy always stays in <strong>Pictures → Alter Web Galleries</strong>.",
+            "It is your repository, your domain, your audience. Alter is not in the middle of it."
           ],
           "shots": [
             {
@@ -847,7 +845,7 @@
           "shots": [
             {
               "ratio": "16 / 9",
-              "brief": "A photo of an actual Apple TV screen showing a published ALTer gallery running in Twilightscapes."
+              "brief": "A photo of an actual Apple TV screen showing a published Alter gallery running in Twilightscapes."
             }
           ]
         },
@@ -855,8 +853,8 @@
           "title": "Bluesky, with ALT text attached",
           "body": [
             "Sign in with an app password — held in your Keychain — and post up to four photos, each one uploaded <strong>with its ALT text already attached</strong>. Not a reminder to add it. Attached. Your adjustments and any animation you built are baked into what goes out.",
-            "Video posts natively, with alt text and the correct aspect ratio. If you edited it in the timeline, ALTer renders your cut first and posts <em>that</em> — not the raw file. And a still photo you animated posts as real video.",
-            "Schedule for later and ALTer renders the media into an outbox at scheduling time, so firing needs nothing but a network connection. It wakes in short slices so sleep cannot make it overshoot, and anything that came due while the app was closed posts on the next launch.",
+            "Video posts natively, with alt text and the correct aspect ratio. If you edited it in the timeline, Alter renders your cut first and posts <em>that</em> — not the raw file. And a still photo you animated posts as real video.",
+            "Schedule for later and Alter renders the media into an outbox at scheduling time, so firing needs nothing but a network connection. It wakes in short slices so sleep cannot make it overshoot, and anything that came due while the app was closed posts on the next launch.",
             "Already signed in on Twilightscapes? You are signed in here."
           ],
           "specs": [
@@ -904,7 +902,7 @@
         {
           "title": "X and YouTube",
           "body": [
-            "Neither platform offers the posting access ALTer would need, so ALTer does the honest thing: it renders your creation, copies your text to the clipboard, reveals the file in Finder, and opens the composer with your text already filled in. Drag the file in and post.",
+            "Neither platform offers the posting access Alter would need, so Alter does the honest thing: it renders your creation, copies your text to the clipboard, reveals the file in Finder, and opens the composer with your text already filled in. Drag the file in and post.",
             "For YouTube, any caption sidecars you generated are revealed alongside the video, ready for the Subtitles panel."
           ],
           "shots": [
@@ -920,7 +918,7 @@
       "id": "accessibility",
       "eyebrow": "Accessibility",
       "title": "A photo library a blind user can drive.",
-      "lede": "ALT text is not a checkbox at the end of this app. It is the reason the app exists — and that runs in both directions. ALTer helps sighted people describe their photos, and it lets people who cannot see their photos find out what is in them.",
+      "lede": "ALT text is not a checkbox at the end of this app. It is the reason the app exists — and that runs in both directions. Alter helps sighted people describe their photos, and it lets people who cannot see their photos find out what is in them.",
       "hero": {
         "ratio": "16 / 10",
         "brief": "The grid with VoiceOver active — the VoiceOver cursor box drawn around a single grid cell, with the caption panel at the bottom of the screen reading out the cell's label and state."
@@ -1038,7 +1036,7 @@
         {
           "title": "Fonts",
           "body": [
-            "Eleven open-license families ship inside ALTer — display, text, handmade, and classic — registered to the app only. Nothing is installed into your system font book, and nothing you already have is disturbed."
+            "Eleven open-license families ship inside Alter — display, text, handmade, and classic — registered to the app only. Nothing is installed into your system font book, and nothing you already have is disturbed."
           ],
           "shots": [
             {
