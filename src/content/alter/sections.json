@@ -852,7 +852,7 @@
         {
           "title": "Bluesky, with ALT text attached",
           "body": [
-            "Sign in with an app password — held in your Keychain — and post up to four photos, each one uploaded <strong>with its ALT text already attached</strong>. Not a reminder to add it. Attached. Your adjustments and any animation you built are baked into what goes out.",
+            "Sign in through Bluesky itself — no app password; the session is bound to a key on your Mac — and post up to four photos, each one uploaded <strong>with its ALT text already attached</strong>. Not a reminder to add it. Attached. Your adjustments and any animation you built are baked into what goes out.",
             "Video posts natively, with alt text and the correct aspect ratio. If you edited it in the timeline, Alter renders your cut first and posts <em>that</em> — not the raw file. And a still photo you animated posts as real video.",
             "Schedule for later and Alter renders the media into an outbox at scheduling time, so firing needs nothing but a network connection. It wakes in short slices so sleep cannot make it overshoot, and anything that came due while the app was closed posts on the next launch.",
             "Already signed in on Twilightscapes? You are signed in here."
