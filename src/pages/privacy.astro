@@ -1,0 +1,144 @@
+---
+import AlterBase from '../layouts/AlterBase.astro';
+
+// What the app actually sends was checked against the code (Alter 1.0.9,
+// alttext.org API) on 2026-10-17. Keep it true: if Alter starts talking to
+// a new service, add it under "When Alter goes online".
+const lastUpdated = 'October 17, 2026';
+---
+
+<AlterBase
+  title="Privacy · Alter"
+  description="How Alter handles your photos and data. Short version: your library stays on your Mac. No account, no analytics, no ads, no tracking."
+>
+  <article class="prose">
+    <h1>Privacy</h1>
+    <p class="lede">Last updated: {lastUpdated}</p>
+
+    <p>
+      Alter is a photo library for the Mac, made by Twilightscapes, the team
+      behind <a href="https://alttext.org">ALTtext.org</a>. The short version:
+      <strong>your photos and your library stay on your Mac.</strong> Alter has
+      no account, no analytics, no crash reporting, no ads and no tracking.
+      It only goes online for the things listed below, and only when you use
+      them.
+    </p>
+
+    <h2>On your Mac</h2>
+    <p>
+      Your library, your photos, your edits, keywords, ratings, albums and
+      locations are stored in your library on your Mac (or wherever you keep
+      it). We never receive them.
+    </p>
+    <ul>
+      <li>
+        <strong>Faces.</strong> Face recognition runs entirely on your Mac. Alter
+        turns each face into a set of numbers to find the same person in other
+        photos. The numbers, and the names you give people, stay in your library
+        and are never sent anywhere.
+      </li>
+      <li>
+        <strong>Select.</strong> The Select tool's object finding runs on your
+        Mac too. No photo leaves it.
+      </li>
+      <li>
+        <strong>Sign-ins.</strong> If you connect Bluesky, the sign-in is kept in
+        your Mac's Keychain.
+      </li>
+    </ul>
+
+    <h2>When Alter goes online</h2>
+
+    <h3>ALT text</h3>
+    <p>
+      When you ask Alter to write ALT text, it sends a smaller copy of that photo
+      to <a href="https://alttext.org">alttext.org</a>. For a video, it sends up
+      to eight still frames, plus a transcript of the speech in it made on your
+      Mac. alttext.org passes them to <strong>Google's Gemini API</strong> and
+      returns the description. We don't store the photo, the frames, the
+      transcript or the description. Our Gemini account is a paid one, so
+      Google doesn't use what we send to train its models.
+    </p>
+    <p>
+      To keep the service fair, alttext.org keeps a count of how many
+      descriptions are written each day. It's kept against your network
+      address, or against your ALTtext key if you have Pro. The counts
+      contain no photos and no text.
+    </p>
+
+    <h3>Buying Alter Pro</h3>
+    <p>
+      <strong>From the Mac App Store:</strong> Apple handles the payment, and we
+      never see your name, Apple Account or payment details. Unlimited ALT text
+      comes with Pro, so once after you buy, Alter sends Apple's signed record of
+      that purchase to alttext.org, which checks it with Apple and issues an
+      ALTtext key. We keep that purchase's transaction number together with the
+      key, so the same purchase always gets the same key back.
+    </p>
+    <p>
+      <strong>From altermedia.app:</strong> payment is handled by Stripe, as
+      described in the <a href="https://alttext.org/privacy">ALTtext privacy
+      policy</a>. We keep the key we issue, the email address you gave and
+      Stripe's customer reference.
+    </p>
+
+    <h3>Maps and place names</h3>
+    <p>
+      Maps, and the place names shown for your photos, come from Apple's map
+      services. To name a place, Alter sends only its location, rounded to about
+      a kilometre, and never a photo. This is covered by Apple's privacy policy.
+      You can turn place names off in Settings (Look up place names).
+    </p>
+
+    <h3>Downloads</h3>
+    <p>
+      The first time you use Faces or Select, Alter downloads the model it needs
+      from Hugging Face. Alter Pro's font picker downloads fonts from Google
+      Fonts. These are plain downloads. Nothing of yours is sent.
+    </p>
+
+    <h3>Places you post to</h3>
+    <p>
+      If you connect Bluesky, post a video, or publish a web gallery to GitHub,
+      Alter sends what you chose to post to that service, under your own
+      account. The sign-in happens on that service's own page. Subscribing a
+      gallery on your Apple TV saves its address in your own iCloud, for the
+      Twilightscapes app.
+    </p>
+
+    <h3>Feedback</h3>
+    <p>
+      If you send feedback from altermedia.app, we keep what you wrote, the
+      Alter version if you gave it, and your email address if you left one so
+      we can reply.
+    </p>
+
+    <h2>Who else is involved</h2>
+    <ul>
+      <li><strong>Google</strong> writes ALT text descriptions (Gemini API).</li>
+      <li><strong>Apple</strong> handles App Store purchases and map services.</li>
+      <li><strong>Netlify</strong> hosts altermedia.app and alttext.org, and stores the usage counts, keys and feedback.</li>
+      <li><strong>Stripe</strong> handles purchases made on altermedia.app.</li>
+    </ul>
+    <p>We don't sell your data, and we don't use advertising or tracking of any kind.</p>
+
+    <h2>Your choices</h2>
+    <p>
+      Alter works fully offline apart from the features above. To ask about, or
+      delete, the key and purchase record that go with your Alter Pro, email{' '}
+      <a href="mailto:support@alttext.org">support@alttext.org</a>.
+    </p>
+
+    <h2>Children</h2>
+    <p>Alter isn't directed to children under 13, and we don't knowingly collect their data.</p>
+
+    <h2>Changes</h2>
+    <p>
+      When this page changes, the date at the top changes too, and anything
+      important will be noted on the site.
+    </p>
+
+    <h2>Contact</h2>
+    <p>Questions? <a href="mailto:support@alttext.org">support@alttext.org</a>.</p>
+  </article>
+</AlterBase>

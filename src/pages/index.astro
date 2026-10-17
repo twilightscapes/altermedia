@@ -1020,7 +1020,7 @@ open Alter.xcodeproj</code></pre>
           </div>
         </details>
 
-        <details class="as-chapter">
+        <details class="as-chapter" id="feedback" style="scroll-margin-top: 5rem">
           <summary>
             <span class="as-chapter-title">Send us feedback</span>
             <span class="as-chevron" aria-hidden="true"></span>
@@ -1064,6 +1064,21 @@ open Alter.xcodeproj</code></pre>
 
               <button type="submit" class="btn-primary">Send feedback</button>
             </form>
+            <script>
+              // altermedia.app/#feedback is the App Store support link — open
+              // the form when someone arrives that way.
+              const openFeedback = () => {
+                const el = document.getElementById('feedback');
+                if (location.hash === '#feedback' && el instanceof HTMLDetailsElement) {
+                  el.open = true;
+                  el.scrollIntoView();
+                }
+              };
+              openFeedback();
+              addEventListener('hashchange', openFeedback);
+              // Images above it shift the page while they load.
+              addEventListener('load', openFeedback);
+            </script>
           </div>
         </details>
       </div>
