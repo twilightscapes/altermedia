@@ -74,10 +74,24 @@ const keyTable = [
   ['G', 'Straighten'],
   ['X', 'Retouch'],
   ['E', 'Red Eye'],
-  ['⌘[ and ⌘]', 'Rotate'],
+  ['S', 'Select'],
+  ['I', 'Show or hide the Inspector'],
+  ['[ and ]', 'Rotate'],
+  ['⌘[ and ⌘]', 'Promote and demote in a stack'],
+  ['⌘P', 'Print'],
 ];
 
 const loupeZooms = [0.5, 1, 2, 4, 8, 16];
+
+/** What's hidden in the Select demo's photo (masks in /images/alter/select). */
+const selectObjects = [
+  { id: 'sky', name: 'The sky' },
+  { id: 'hill', name: 'The red hill' },
+  { id: 'building', name: 'The adobe' },
+  { id: 'window', name: 'A window' },
+  { id: 'rocks', name: 'The rock pile' },
+  { id: 'ground', name: 'The sand' },
+];
 ---
 
 <AlterBase
@@ -134,7 +148,9 @@ const loupeZooms = [0.5, 1, 2, 4, 8, 16];
       <a href="#open">Open source</a>
       <a href="#yours">Your library</a>
       <a href="#edits">Your edits</a>
+      <a href="#new">What’s new</a>
       <a href="#bricks">The tools</a>
+      <a href="#select">Select</a>
       <a href="#loupe">The Loupe</a>
       <a href="#keys">The keys</a>
       <a href="#organise">Organising</a>
@@ -330,6 +346,57 @@ open Alter.xcodeproj</code></pre>
     </section>
 
     <!-- ── Bricks ─────────────────────────────────────────────────────── -->
+    <!-- ── What's new ─────────────────────────────────────────────────── -->
+    <section class="as-section" id="new">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">What’s new</p>
+        <h2>The rest of Aperture, now in Alter.</h2>
+        <p class="as-lede">
+          Faces. Places. Print. An Import window that knows your cards and
+          cameras, and tethered shooting. The things you reached for in
+          Aperture and missed — free, like the rest of what Aperture had.
+        </p>
+      </div>
+
+      <figure class="as-wide reveal">
+        <img
+          src="/images/alter/new/places.webp"
+          alt="Alter’s Places view: a map of Texas with photo thumbnails pinned where they were taken — groups near Dallas, Wichita Falls and Texarkana with counts on them, single photos near El Paso, Abilene and Houston. Under the map, the browser shows the photos in view: night shots of a Futuro house, motel signs, rusted machinery and an old textile mill."
+          width="2400"
+          height="1826"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="as-org as-new reveal">
+        <article class="as-org-card">
+          <h3>Faces</h3>
+          <p>Alter finds the faces in your library and groups the ones that look alike. Name a group in one go, then confirm what it suggests — Aperture’s Name tool and corkboard, back. Recognition runs on your Mac; no face ever leaves it.</p>
+        </article>
+        <article class="as-org-card">
+          <h3>Places</h3>
+          <p>Your whole library on a map, gathered into pins that split as you zoom. Drag photos onto the map to place them, search for somewhere, or lay a GPS track over a shoot and every photo lands where it was taken — with place names to search by.</p>
+        </article>
+        <article class="as-org-card">
+          <h3>Print</h3>
+          <p>Standard, contact sheets and review sheets with names and stars, 4×6 to 8×10 and wallets, and presets of your own — with a live preview that is the print. No printer? Save it as a PDF.</p>
+        </article>
+        <article class="as-org-card">
+          <h3>Import &amp; tethering</h3>
+          <p>Cards, cameras and folders in one window: rename as you copy, file into a project or a project per day, stamp creator and keywords, skip what’s already in. Tether a Canon or Sony and every shot lands in the library as you take it.</p>
+        </article>
+        <article class="as-org-card">
+          <h3>Filter &amp; dates</h3>
+          <p>The Filter HUD narrows any view by rating, keyword, camera, person or place. Adjust Date &amp; Time fixes a camera that was set to the wrong zone — in the library, and in the files if you like.</p>
+        </article>
+        <article class="as-org-card">
+          <h3>And the small things</h3>
+          <p>Metadata presets. The Mac’s Share menu. A Secondary Viewer for your other display. Detect Edges for brushes. Promote and demote in stacks, and Aperture’s own keys for them.</p>
+        </article>
+      </div>
+    </section>
+
     <section class="as-section" id="bricks">
       <div class="as-intro reveal">
         <p class="as-eyebrow">The tools</p>
@@ -420,7 +487,7 @@ open Alter.xcodeproj</code></pre>
       <ul class="as-chips reveal" aria-label="More tools">
         <li>Levels &amp; Curves, with eyedroppers</li>
         <li>Color, by hue</li>
-        <li>Brush In / Brush Away</li>
+        <li>Brush In / Brush Away, with Detect Edges</li>
         <li>Quick Brushes</li>
         <li>Straighten <kbd>G</kbd></li>
         <li>Crop <kbd>C</kbd></li>
@@ -431,6 +498,113 @@ open Alter.xcodeproj</code></pre>
         <li>Auto on five bricks</li>
         <li>Chromatic Aberration</li>
         <li>Edit With… your other apps</li>
+      </ul>
+    </section>
+
+    <!-- ── Select ──────────────────────────────────────────────────────── -->
+    <section class="as-section" id="select">
+      <div class="as-intro reveal">
+        <p class="as-eyebrow">Select · S</p>
+        <h2>Point at it. Alter selects it.</h2>
+        <p class="as-lede">
+          Click the sky, a wall, a window — Alter finds its edges with Segment
+          Anything, running on your Mac, and you adjust just that, or
+          everything but it. This photo has <em>six things hidden in it</em>.
+          Move over it to find them, click one to select it, then try the
+          bricks.
+        </p>
+      </div>
+
+      <div class="as-wide as-select-demo reveal" data-select>
+        <div class="as-select-photo">
+          <div class="as-select-stage" data-select-stage>
+            <img
+              class="as-select-base"
+              data-select-base
+              src={`${IMG}/bigbend-alter.webp`}
+              alt="An abandoned adobe building in the Texas desert under a grey sky: whitewashed walls crumbling to brick, dark window openings, a pile of rocks at its base, sand and scrub around it, and a red clay hill behind. Selecting parts of it and moving the sliders beside it changes just those parts."
+              width="2928"
+              height="1951"
+              loading="lazy"
+              decoding="async"
+            />
+            <img
+              class="as-select-layer"
+              data-select-layer
+              src={`${IMG}/bigbend-alter.webp`}
+              alt=""
+              aria-hidden="true"
+              width="2928"
+              height="1951"
+              loading="lazy"
+              decoding="async"
+            />
+            <canvas class="as-select-outline" data-select-outline aria-hidden="true"></canvas>
+            <p class="as-select-hint" data-select-hint aria-hidden="true">Move over the photo</p>
+          </div>
+        </div>
+
+        <div class="as-inspector" aria-label="Select demo">
+          <div class="as-select-found">
+            <p class="as-select-score" aria-live="polite"><span data-select-count>0</span> of 6 found</p>
+            <ul class="as-select-list">
+              {selectObjects.map((o, i) => (
+                <li>
+                  <button type="button" data-select-object={o.id} aria-label={`Select ${o.name.toLowerCase()}`}>
+                    <span class="as-select-q" aria-hidden="true">{i + 1}</span>
+                    <span class="as-select-name">{o.name}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <details class="as-brick" open>
+            <summary><span>Adjust the selection</span></summary>
+            <label class="as-slider">
+              <span>Exposure</span>
+              <input type="range" min="-1" max="1" step="0.01" value="0.4" data-sel-adj="exposure" disabled />
+              <output>+0.40</output>
+            </label>
+            <label class="as-slider">
+              <span>Saturation</span>
+              <input type="range" min="0" max="2" step="0.01" value="1.4" data-sel-adj="saturation" disabled />
+              <output>1.40</output>
+            </label>
+            <label class="as-slider">
+              <span>Warmth</span>
+              <input type="range" min="0" max="1" step="0.01" value="0.3" data-sel-adj="warmth" disabled />
+              <output>0.30</output>
+            </label>
+            <label class="as-slider">
+              <span>Blur</span>
+              <input type="range" min="0" max="10" step="0.1" value="0" data-sel-adj="blur" disabled />
+              <output>0.0</output>
+            </label>
+            <label class="as-select-check">
+              <input type="checkbox" data-sel-adj="bw" disabled />
+              <span>Black &amp; White</span>
+            </label>
+            <label class="as-select-check">
+              <input type="checkbox" data-sel-adj="invert" disabled />
+              <span>Everything but the selection</span>
+            </label>
+          </details>
+          <p class="as-inspector-note" data-select-note>
+            These are the selections Alter really made of this photo — the same
+            model, run on a Mac. Here the browser plays them back; in Alter it
+            works on any photo, and the adjustment is a full brick.
+          </p>
+        </div>
+      </div>
+
+      <ul class="as-chips reveal" aria-label="What Select does">
+        <li>Click to select <kbd>S</kbd></li>
+        <li>Adjust only the selection</li>
+        <li>Or everything but it</li>
+        <li>Remove it — content-aware fill</li>
+        <li>Refine with the Brush</li>
+        <li>Detect Edges</li>
+        <li>Runs on your Mac</li>
       </ul>
     </section>
 
@@ -1600,6 +1774,135 @@ open Alter.xcodeproj</code></pre>
     white-space: nowrap;
   }
 
+  /* ── Select ───────────────────────────────────────────────────────── */
+  .as-select-demo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    border: 1px solid var(--as-line);
+    border-radius: 20px;
+    overflow: hidden;
+    background: #1e2127;
+    box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
+  }
+  .as-select-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #141518;
+    padding: 18px;
+  }
+  .as-select-stage {
+    position: relative;
+    width: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: crosshair;
+    touch-action: manipulation;
+  }
+  .as-select-stage img {
+    display: block;
+    width: 100%;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .as-select-base { filter: var(--base-filter, none); }
+  .as-select-layer {
+    position: absolute;
+    inset: 0;
+    filter: var(--layer-filter, none);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    visibility: hidden;
+  }
+  .as-select-layer.is-on { visibility: visible; }
+  .as-select-outline {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .as-select-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 14px;
+    transform: translateX(-50%);
+    margin: 0;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(10, 12, 16, 0.72);
+    backdrop-filter: blur(8px);
+    color: #eceef2;
+    font-size: 0.82rem;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+  }
+  .as-select-hint.is-gone { opacity: 0; }
+  .as-select-found { padding: 4px 2px 6px; }
+  .as-select-score {
+    margin: 0 0 8px;
+    font-weight: 650;
+    color: #eceef2;
+    font-variant-numeric: tabular-nums;
+  }
+  .as-select-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+  .as-select-list button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 8px;
+    border-radius: 7px;
+    border: 1px dashed #4a4f59;
+    background: transparent;
+    color: #8a909b;
+    font: inherit;
+    font-size: 0.8rem;
+    text-align: left;
+    cursor: pointer;
+  }
+  .as-select-list button:hover { border-color: #6b717c; }
+  .as-select-q {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3a3e46;
+    color: #c4c8d0;
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+  .as-select-name { visibility: hidden; }
+  .as-select-list button.is-found { border-style: solid; border-color: #3b4250; color: #eceef2; }
+  .as-select-list button.is-found .as-select-name { visibility: visible; }
+  .as-select-list button.is-found .as-select-q { background: var(--as-good); color: #08130c; }
+  .as-select-list button.is-current { border-color: var(--as-accent); background: rgba(111, 155, 255, 0.12); }
+  .as-select-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px 8px;
+    color: #c4c8d0;
+  }
+  .as-new { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 28px; }
+  .as-new .as-org-card p { margin: 0; color: var(--as-muted); line-height: 1.55; }
+  .as-select-check input { accent-color: var(--as-accent); width: 15px; height: 15px; margin: 0; }
+  .as-select-demo .as-slider:has(input:disabled),
+  .as-select-check:has(input:disabled) { opacity: 0.45; }
+
   /* ── Loupe ─────────────────────────────────────────────────────────── */
   .as-loupe-stage {
     position: relative;
@@ -2202,7 +2505,7 @@ open Alter.xcodeproj</code></pre>
     .as-timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
     .as-timeline::before { display: none; }
     .as-pillars, .as-org { grid-template-columns: minmax(0, 1fr); }
-    .as-bricks-demo { grid-template-columns: minmax(0, 1fr); }
+    .as-bricks-demo, .as-select-demo { grid-template-columns: minmax(0, 1fr); }
     .as-inspector { border-left: 0; border-top: 1px solid #16181c; }
     .as-keys-demo { grid-template-columns: minmax(0, 1fr); }
     .as-checks { grid-template-columns: minmax(0, 1fr); }
@@ -2211,7 +2514,8 @@ open Alter.xcodeproj</code></pre>
   @media (max-width: 640px) {
     .as { padding: 0 16px 80px; }
     .as-section { padding-top: 84px; }
-    .as-wide > img, .as-compare, .as-loupe-stage, .as-bricks-demo { border-radius: 14px; }
+    .as-wide > img, .as-compare, .as-loupe-stage, .as-bricks-demo, .as-select-demo { border-radius: 14px; }
+    .as-select-photo { padding: 10px; }
     .as-beta { padding: 44px 18px 24px; border-radius: 18px; }
     .as-shot { padding: 20px; border-radius: 14px; }
     .as-cta { justify-content: stretch; }
@@ -2605,4 +2909,204 @@ open Alter.xcodeproj</code></pre>
       b.setAttribute('aria-expanded', String(b.getAttribute('aria-expanded') !== 'true'))
     )
   );
+
+  // ── Select: six real selections hidden in a photo ─────────────────────
+  const selectDemo = document.querySelector<HTMLElement>('[data-select]');
+  if (selectDemo) {
+    const stage = selectDemo.querySelector<HTMLElement>('[data-select-stage]')!;
+    const base = selectDemo.querySelector<HTMLImageElement>('[data-select-base]')!;
+    const layer = selectDemo.querySelector<HTMLImageElement>('[data-select-layer]')!;
+    const canvas = selectDemo.querySelector<HTMLCanvasElement>('[data-select-outline]')!;
+    const hint = selectDemo.querySelector<HTMLElement>('[data-select-hint]')!;
+    const countEl = selectDemo.querySelector<HTMLElement>('[data-select-count]')!;
+    const note = selectDemo.querySelector<HTMLElement>('[data-select-note]')!;
+    const buttons = new Map<string, HTMLButtonElement>();
+    selectDemo.querySelectorAll<HTMLButtonElement>('[data-select-object]').forEach((b) =>
+      buttons.set(b.dataset.selectObject!, b));
+    const controls = selectDemo.querySelectorAll<HTMLInputElement>('[data-sel-adj]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const MASKS = '/images/alter/select';
+    // No hover on a phone: tap to find.
+    const touch = window.matchMedia('(hover: none)').matches;
+    const idleHint = touch ? 'Tap around the photo' : 'Move over the photo';
+    hint.textContent = idleHint;
+
+    type Mask = { id: string; w: number; h: number; alpha: Uint8ClampedArray; area: number; edge: Int32Array };
+    const masks = new Map<string, Mask>();
+    const found = new Set<string>();
+    let hovered: string | null = null;
+    let selected: string | null = null;
+    let raf = 0;
+
+    // Each mask's alpha (for hit-testing) and its outline pixels.
+    const load = (id: string) =>
+      new Promise<void>((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          const w = img.naturalWidth, h = img.naturalHeight;
+          const c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          const ctx = c.getContext('2d', { willReadFrequently: true })!;
+          ctx.drawImage(img, 0, 0);
+          const data = ctx.getImageData(0, 0, w, h).data;
+          const alpha = new Uint8ClampedArray(w * h);
+          let area = 0;
+          for (let i = 0; i < w * h; i++) { alpha[i] = data[i * 4 + 3]; if (alpha[i] > 127) area++; }
+          const edge: number[] = [];
+          for (let y = 1; y < h - 1; y++) {
+            for (let x = 1; x < w - 1; x++) {
+              const i = y * w + x;
+              if (alpha[i] <= 127) continue;
+              if (alpha[i - 1] <= 127 || alpha[i + 1] <= 127 || alpha[i - w] <= 127 || alpha[i + w] <= 127) edge.push(i);
+            }
+          }
+          masks.set(id, { id, w, h, alpha, area, edge: Int32Array.from(edge) });
+          resolve();
+        };
+        img.onerror = () => resolve();
+        img.src = `${MASKS}/${id}.webp`;
+      });
+
+    let loading: Promise<void> | null = null;
+    const ensureLoaded = () => (loading ??= Promise.all([...buttons.keys()].map(load)).then(() => {}));
+    // Start fetching when the demo comes near the screen.
+    new IntersectionObserver((entries, obs) => {
+      if (entries.some((e) => e.isIntersecting)) { ensureLoaded(); obs.disconnect(); }
+    }, { rootMargin: '400px' }).observe(selectDemo);
+
+    // What's under a point: the smallest thing there (a window over its wall).
+    const hit = (clientX: number, clientY: number): string | null => {
+      const r = stage.getBoundingClientRect();
+      const nx = (clientX - r.left) / r.width, ny = (clientY - r.top) / r.height;
+      if (nx < 0 || ny < 0 || nx > 1 || ny > 1) return null;
+      let best: Mask | null = null;
+      for (const m of masks.values()) {
+        const a = m.alpha[Math.min(m.h - 1, Math.floor(ny * m.h)) * m.w + Math.min(m.w - 1, Math.floor(nx * m.w))];
+        if (a > 127 && (!best || m.area < best.area)) best = m;
+      }
+      return best?.id ?? null;
+    };
+
+    const draw = (t = 0) => {
+      const r = stage.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
+      if (canvas.width !== W || canvas.height !== H) { canvas.width = W; canvas.height = H; }
+      const ctx = canvas.getContext('2d')!;
+      ctx.clearRect(0, 0, W, H);
+      const paint = (m: Mask, style: 'hover' | 'ants') => {
+        const sx = W / m.w, sy = H / m.h, dot = Math.max(1.5, sx * 1.2);
+        const phase = Math.floor(t / 90);
+        for (let k = 0; k < m.edge.length; k++) {
+          const i = m.edge[k], x = i % m.w, y = (i / m.w) | 0;
+          if (style === 'ants') {
+            ctx.fillStyle = (((x + y) >> 2) + phase) & 1 ? '#ffffff' : '#111111';
+          }
+          ctx.fillRect(x * sx, y * sy, dot, dot);
+        }
+      };
+      if (hovered && hovered !== selected) {
+        const m = masks.get(hovered);
+        if (m) {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+          ctx.shadowColor = 'rgba(111, 155, 255, 0.9)';
+          ctx.shadowBlur = 6 * dpr;
+          paint(m, 'hover');
+          ctx.shadowBlur = 0;
+        }
+      }
+      if (selected) {
+        const m = masks.get(selected);
+        if (m) paint(m, 'ants');
+      }
+    };
+
+    const animate = (t: number) => {
+      draw(t);
+      raf = selected && !reduceMotion ? requestAnimationFrame(animate) : 0;
+    };
+    const redraw = () => {
+      if (raf) return; // the animation is already drawing
+      if (selected && !reduceMotion) raf = requestAnimationFrame(animate);
+      else draw();
+    };
+
+    const applyLook = () => {
+      const v = (name: string) => selectDemo.querySelector<HTMLInputElement>(`[data-sel-adj="${name}"]`)!;
+      const exposure = Number(v('exposure').value), sat = Number(v('saturation').value);
+      const warmth = Number(v('warmth').value), blur = Number(v('blur').value);
+      const bw = v('bw').checked, invert = v('invert').checked;
+      const look = `brightness(${(1 + exposure * 0.7).toFixed(3)}) saturate(${sat.toFixed(2)}) ` +
+        `sepia(${(warmth * 0.45).toFixed(2)}) grayscale(${bw ? 1 : 0}) blur(${blur.toFixed(1)}px)`;
+      if (!selected) {
+        stage.style.setProperty('--base-filter', 'none');
+        layer.classList.remove('is-on');
+        return;
+      }
+      // Inverted: the photo takes the look and the selection, untouched,
+      // sits on top of it.
+      stage.style.setProperty('--base-filter', invert ? look : 'none');
+      stage.style.setProperty('--layer-filter', invert ? 'none' : look);
+      const url = `url(${MASKS}/${selected}.webp)`;
+      layer.style.setProperty('mask-image', url);
+      layer.style.setProperty('-webkit-mask-image', url);
+      layer.classList.add('is-on');
+    };
+
+    const select = (id: string | null) => {
+      selected = id;
+      for (const [key, b] of buttons) b.classList.toggle('is-current', key === id);
+      controls.forEach((c) => (c.disabled = !id));
+      if (id && !found.has(id)) {
+        found.add(id);
+        buttons.get(id)!.classList.add('is-found');
+        countEl.textContent = String(found.size);
+        if (found.size === buttons.size) {
+          note.textContent = 'All six — that’s Select. In Alter it works on any photo, on your Mac: click, adjust, done.';
+        }
+      }
+      hint.classList.toggle('is-gone', !!id);
+      if (id) hint.textContent = 'Now try the bricks';
+      applyLook();
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      redraw();
+    };
+
+    stage.addEventListener('pointermove', (e) => {
+      if (!masks.size) { ensureLoaded(); return; }
+      const id = hit(e.clientX, e.clientY);
+      if (id !== hovered) {
+        hovered = id;
+        if (!selected) {
+          hint.textContent = id ? (found.has(id) ? 'Click to select it again' : 'Found something — click it') : idleHint;
+          hint.classList.remove('is-gone');
+        }
+        redraw();
+      }
+    });
+    stage.addEventListener('pointerleave', () => { hovered = null; redraw(); });
+    stage.addEventListener('click', async (e) => {
+      await ensureLoaded();
+      const id = hit(e.clientX, e.clientY);
+      select(id && id === selected ? null : id);
+    });
+    for (const [id, b] of buttons) {
+      b.addEventListener('click', async () => {
+        await ensureLoaded();
+        select(id === selected ? null : id);
+      });
+    }
+    controls.forEach((c) => {
+      const out = c.parentElement!.querySelector('output');
+      c.addEventListener('input', () => {
+        if (out) {
+          const n = Number(c.value);
+          out.textContent = c.dataset.selAdj === 'exposure' ? (n >= 0 ? '+' : '') + n.toFixed(2)
+            : c.dataset.selAdj === 'blur' ? n.toFixed(1) : n.toFixed(2);
+        }
+        applyLook();
+      });
+    });
+    window.addEventListener('resize', () => redraw());
+  }
 </script>
