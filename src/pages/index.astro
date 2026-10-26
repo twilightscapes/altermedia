@@ -22,6 +22,9 @@ function shotStyle(ratio, cap = INLINE_SHOT_CAP) {
 }
 
 const SOURCE_URL = 'https://github.com/twilightscapes/alter';
+// Apple's official badge, served by Apple (marketing toolbox) — not to be redrawn.
+const APP_STORE_BADGE =
+  'https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-mac-app-store/black/en-us';
 const IMG = '/images/alter/aperture';
 
 /** What an Aperture library brings with it (all verified against a real library). */
@@ -125,7 +128,9 @@ const selectObjects = [
         take it away from you.
       </p>
       <p class="as-cta">
-        <a class="as-btn" href={page.downloadUrl}>Download Alter — free</a>
+        <a class="as-store" href={page.appStoreUrl}>
+          <img src={APP_STORE_BADGE} alt="Download on the Mac App Store" width="156" height="40" />
+        </a>
         <a class="as-btn as-btn-quiet" href={SOURCE_URL}>Read the source</a>
       </p>
       <p class="as-fine">{page.finePrint}</p>
@@ -891,10 +896,15 @@ open Alter.xcodeproj</code></pre>
           you left off.
         </p>
         <p class="as-cta">
-          <a class="as-btn" href={page.downloadUrl}>Download Alter for Mac</a>
+          <a class="as-store" href={page.appStoreUrl}>
+            <img src={APP_STORE_BADGE} alt="Download on the Mac App Store" width="156" height="40" />
+          </a>
           <a class="as-btn as-btn-quiet" href={SOURCE_URL}>Read the source</a>
         </p>
         <p class="as-fine">{page.finePrint}</p>
+        <p class="as-fine as-direct">
+          Prefer a direct download? <a href={page.downloadUrl}>Download the Mac disk image</a>.
+        </p>
       </div>
 
       <div class="as-chapters">
@@ -1094,7 +1104,9 @@ open Alter.xcodeproj</code></pre>
         switched off on you.
       </p>
       <p class="as-cta">
-        <a class="as-btn" href={page.downloadUrl}>Download Alter for Mac</a>
+        <a class="as-store" href={page.appStoreUrl}>
+          <img src={APP_STORE_BADGE} alt="Download on the Mac App Store" width="156" height="40" />
+        </a>
         <a class="as-btn as-btn-quiet" href={SOURCE_URL}>Read the source</a>
       </p>
       <p class="as-fine">
@@ -1280,6 +1292,10 @@ open Alter.xcodeproj</code></pre>
     border-color: var(--as-line);
   }
   .as-btn-quiet:hover { border-color: var(--as-accent); box-shadow: none; }
+  .as-store { display: inline-flex; align-items: center; border-radius: 10px; }
+  .as-store img { display: block; height: 52px; width: auto; }
+  .as-store:focus-visible { outline: 2px solid var(--as-accent); outline-offset: 3px; }
+  .as-direct a { color: inherit; }
 
   /* ── Jump nav ──────────────────────────────────────────────────────── */
   .as-jump {
